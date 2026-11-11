@@ -5,6 +5,7 @@
 //   title / text   标题与讲解（中文，可含 <b> 等简单标签）
 //   select         选中并定位到该结构（代表层面）
 //   at             { key, pos: 'top' | 'bottom' | 'best', offset } 把横断位移到某结构的上缘 / 下缘 / 代表层面
+//   seq            切换 MRI 序列（如 'T2'），仅对多序列病例生效
 //   wl             窗位预设名（如 '肺窗'），当前病例没有该预设则忽略
 //   only           3D 中只显示这些结构 key（其余隐藏）；'all' 表示全部显示
 //   systems        3D 中只显示这些系统
@@ -182,6 +183,277 @@ export const TOURS = [
       },
     ],
   },
+
+  // ------------------------- 脑（MNI152 + CerebrA） -------------------------
+  {
+    id: 'brain-t1t2',
+    title: '读懂 T1 与 T2',
+    en: 'T1 vs T2 contrast',
+    desc: '同一层面切换 T1 / T2，掌握脑脊液、灰质、白质的信号规律。',
+    steps: [
+      {
+        title: 'T1 加权像',
+        seq: 'T1', wl: '标准', select: 'lateral_ventricle_left', clip: 'axial', view: 'top',
+        text: '<b>T1</b> 像上：<b>脑脊液为低信号（黑）</b>，<b>白质比灰质亮</b>。T1 解剖细节清楚，常用于观察结构和增强扫描。',
+      },
+      {
+        title: 'T2 加权像',
+        seq: 'T2', wl: '标准', select: 'lateral_ventricle_left',
+        text: '切换到 <b>T2</b>：<b>脑脊液变为高信号（白）</b>，<b>白质比灰质暗</b>。多数病变（水肿、炎症、肿瘤）含水增多，在 T2 上呈高信号，因此 T2 对发现病变更敏感。',
+      },
+      {
+        title: '眼球玻璃体',
+        seq: 'T2', select: 'eye_left', view: 'front',
+        text: '<b>玻璃体</b>主要由水构成：T2 上明亮，T1 上发暗——与脑脊液规律一致。可点上方"序列"按钮自己对比。',
+      },
+      {
+        title: '口诀',
+        seq: 'T1', select: 'cerebral_white_matter_left', clip: 'axial', view: 'top',
+        text: '简记：<b>"T1 看解剖，T2 看病变"</b>；<b>"水在 T1 黑、在 T2 白"</b>。脂肪在两者上都偏亮，可用脂肪抑制序列区分。',
+      },
+    ],
+  },
+  {
+    id: 'brain-lobes',
+    title: '脑叶与功能区',
+    en: 'Lobes & functional areas',
+    desc: '找到运动区、感觉区、Broca 区、Wernicke 区、听觉与视觉皮质。',
+    steps: [
+      {
+        title: '中央前回：初级运动皮质',
+        seq: 'T1', wl: '标准', select: 'precentral_left', clip: 'none', view: 'left', only: 'cortex',
+        text: '<b>中央沟</b>把额叶和顶叶分开。沟前方的<b>中央前回</b>是初级运动皮质，支配<b>对侧</b>躯体运动；内侧面上部代表下肢，外侧面下部代表面部和舌。',
+      },
+      {
+        title: '中央后回：初级躯体感觉皮质',
+        select: 'postcentral_left', view: 'left',
+        text: '<b>中央后回</b>紧贴中央沟后方，接受对侧躯体的感觉，排列方式与运动区类似。',
+      },
+      {
+        title: 'Broca 区（运动性语言中枢）',
+        select: 'pars_opercularis_left', view: 'left',
+        text: '优势半球（通常为左侧）<b>额下回的岛盖部和三角部</b>合称 Broca 区。损伤后患者能理解语言，但说话费力、不流利（运动性失语）。',
+      },
+      {
+        title: 'Wernicke 区（感觉性语言中枢）',
+        select: 'superior_temporal_left', view: 'left',
+        text: '优势半球<b>颞上回后部</b>为 Wernicke 区。损伤后说话流利但内容空洞，且不能理解他人语言（感觉性失语）。',
+      },
+      {
+        title: '颞横回：初级听觉皮质',
+        select: 'transverse_temporal_left', clip: 'axial', view: 'top', only: 'all',
+        text: '<b>颞横回（Heschl 回）</b>藏在外侧沟深部、颞上回上面，需要剖开才能看到。听觉为双侧投射，单侧损伤一般不致聋。',
+      },
+      {
+        title: '距状沟：初级视觉皮质',
+        select: 'pericalcarine_right', clip: 'sagittal', view: 'left',
+        text: '去掉左半脑后看右半球<b>内侧面</b>：枕叶的<b>距状沟</b>两侧是初级视觉皮质（V1），上方为楔叶，下方为舌回。右侧 V1 接收<b>左侧视野</b>的信息。',
+      },
+    ],
+  },
+  {
+    id: 'brain-basal',
+    title: '基底核与内囊',
+    en: 'Basal ganglia & internal capsule',
+    desc: '在横断面上辨认尾状核、豆状核、丘脑，理解内囊的位置。',
+    steps: [
+      {
+        title: '尾状核头',
+        seq: 'T1', wl: '标准', select: 'caudate_left', clip: 'axial', view: 'top', only: 'all',
+        text: '<b>尾状核</b>头部膨大，构成<b>侧脑室前角</b>的外侧壁。在横断位上它与外侧的豆状核之间夹着一条白质带——<b>内囊前肢</b>。',
+      },
+      {
+        title: '壳核',
+        select: 'putamen_left',
+        text: '<b>壳核</b>位于最外侧，与内侧的苍白球合称<b>豆状核</b>（横断面上呈"凸透镜"形）。壳核外侧依次是外囊、屏状核、最外囊和岛叶。壳核是<b>高血压脑出血</b>最常见的部位。',
+      },
+      {
+        title: '苍白球',
+        select: 'pallidum_left',
+        text: '<b>苍白球</b>位于壳核内侧，在 T1 上通常比壳核略亮。豆状核内侧尖端指向<b>内囊膝部</b>。',
+      },
+      {
+        title: '丘脑与内囊后肢',
+        select: 'thalamus_left',
+        text: '<b>丘脑</b>位于第三脑室两侧。丘脑与豆状核之间是<b>内囊后肢</b>，内有皮质脊髓束和丘脑皮质束通过。此处小的梗死或出血即可引起对侧偏瘫和偏身感觉障碍（"三偏"征）。',
+      },
+    ],
+  },
+  {
+    id: 'brain-ventricles',
+    title: '脑室系统与脑脊液循环',
+    en: 'Ventricles & CSF pathway',
+    desc: '沿脑脊液流向：侧脑室 → 第三脑室 → 第四脑室。',
+    steps: [
+      {
+        title: '侧脑室',
+        seq: 'T2', wl: '标准', select: 'lateral_ventricle_left', clip: 'none', view: 'front', only: 'ventricles',
+        text: '3D 中只保留脑室系统。<b>侧脑室</b>左右各一，分为前角、体部、后角和下角，脉络丛产生的脑脊液大部分来自这里。已切换到 <b>T2</b>，脑脊液呈高信号。',
+      },
+      {
+        title: '侧脑室下角',
+        select: 'inferior_lateral_ventricle_left', view: 'left',
+        text: '<b>下角（颞角）</b>伸入颞叶，底壁就是海马。正常时很窄；下角增宽常提示海马萎缩或交通性脑积水。',
+      },
+      {
+        title: '第三脑室',
+        select: 'third_ventricle', view: 'left',
+        text: '左右侧脑室经<b>室间孔</b>汇入<b>第三脑室</b>——位于两侧丘脑之间的狭窄矢状腔隙。',
+      },
+      {
+        title: '第四脑室',
+        select: 'fourth_ventricle', clip: 'sagittal', view: 'left', only: 'all',
+        text: '第三脑室经<b>中脑导水管</b>通入<b>第四脑室</b>（位于脑桥、延髓与小脑之间），再经正中孔和外侧孔流入蛛网膜下腔。导水管狭窄会导致梗阻性脑积水（侧脑室和第三脑室扩大，第四脑室正常）。',
+      },
+    ],
+  },
+  {
+    id: 'brain-limbic',
+    title: '边缘系统与记忆',
+    en: 'Limbic system & memory',
+    desc: '海马、杏仁体、内嗅皮质与扣带回。',
+    steps: [
+      {
+        title: '海马',
+        seq: 'T1', wl: '标准', select: 'hippocampus_left', clip: 'coronal', view: 'front', only: 'all',
+        text: '<b>海马</b>位于颞叶内侧、侧脑室下角底壁，<b>冠状位</b>最便于观察。海马萎缩是阿尔茨海默病的重要影像表现（MTA 评分）。',
+      },
+      {
+        title: '杏仁体',
+        select: 'amygdala_left',
+        text: '<b>杏仁体</b>位于海马头的前上方，处理恐惧等情绪，并为情绪性记忆"加权"。',
+      },
+      {
+        title: '内嗅皮质与海马旁回',
+        select: 'entorhinal_left',
+        text: '<b>内嗅皮质</b>位于海马旁回前部，是新皮质信息进入海马的门户；阿尔茨海默病的神经纤维缠结最早出现在这里。',
+      },
+      {
+        title: '扣带回',
+        select: 'posterior_cingulate_right', clip: 'sagittal', view: 'left',
+        text: '去掉左半脑看右半球内侧面：<b>扣带回</b>环绕胼胝体，与海马旁回共同构成"边缘叶"。后扣带回和楔前叶是默认模式网络的核心。',
+      },
+    ],
+  },
+
+  // ------------------------- 头颈部 CT -------------------------
+  {
+    id: 'head-ct-windows',
+    title: '颅脑 CT 的窗位',
+    en: 'Head CT windows',
+    desc: '同一组 CT，换个窗就是另一张片子：脑窗、骨窗、硬膜下窗。',
+    steps: [
+      {
+        title: '脑窗（W80 / L40）',
+        wl: '脑窗', select: 'brain', clip: 'axial', view: 'top', only: 'all',
+        requires: ['brain', 'skull'],
+        text: '<b>脑窗</b>窗宽很窄，用来放大脑实质内细微的密度差：灰质约 35–40 HU，白质约 25–30 HU，脑脊液约 0–10 HU。急性出血约 60–80 HU，在脑窗下呈高密度。',
+      },
+      {
+        title: '骨窗（W2800 / L600）',
+        wl: '骨窗', select: 'skull',
+        text: '<b>骨窗</b>下脑组织一片灰，但颅骨的内外板、板障和骨缝清晰可见，用于观察<b>颅骨骨折</b>和颅底孔道。读颅脑外伤 CT 时，脑窗和骨窗都必须看。',
+      },
+      {
+        title: '硬膜下窗（W200 / L75）',
+        wl: '硬膜下', select: 'brain',
+        text: '<b>硬膜下窗</b>介于脑窗和骨窗之间，可以把紧贴颅骨内板的薄层硬膜下血肿与颅骨区分开——在普通脑窗下它们常常"融"在一起。',
+      },
+    ],
+  },
+  {
+    id: 'head-orbit',
+    title: '眼眶',
+    en: 'The orbit',
+    desc: '眼球、晶状体、视神经与六条眼外肌。',
+    steps: [
+      {
+        title: '眼球与晶状体',
+        wl: '软组织', select: 'eye_lens_left', clip: 'axial', view: 'top', only: 'all',
+        requires: ['eye_left', 'eye_lens_left'],
+        text: '横断位经过眼球中部。<b>晶状体</b>呈双凸透镜状，密度高于玻璃体；<b>玻璃体</b>接近水样密度。',
+      },
+      {
+        title: '视神经',
+        select: 'optic_nerve_left',
+        text: '<b>视神经</b>从眼球后极向后内走行，经视神经管入颅。在横断位上呈略弯曲的条带状，周围是眶内脂肪（低密度）。',
+      },
+      {
+        title: '内、外直肌',
+        select: 'medial_rectus_muscle_left', requires: ['medial_rectus_muscle_left'],
+        text: '与视神经同一层面可见<b>内直肌</b>和<b>外直肌</b>，二者与上、下直肌围成"肌锥"。甲状腺相关眼病时眼外肌肌腹增粗（通常不累及肌腱），下直肌和内直肌最常受累。',
+      },
+      {
+        title: '上、下直肌与上睑提肌',
+        select: 'inferior_rectus_muscle_left', clip: 'coronal', view: 'front', requires: ['inferior_rectus_muscle_left'],
+        text: '<b>冠状位</b>最适合同时观察四条直肌的横断面。<b>下直肌</b>紧贴眶底，眶底爆裂骨折时可能疝入上颌窦并嵌顿，导致上视受限和复视。',
+      },
+    ],
+  },
+  {
+    id: 'head-sinus-pharynx',
+    title: '鼻窦与咽喉',
+    en: 'Sinuses, pharynx & larynx',
+    desc: '从额窦一路向下到喉：气道的解剖分段。',
+    steps: [
+      {
+        title: '额窦',
+        wl: '骨窗', select: 'sinus_frontal', clip: 'sagittal', view: 'left', only: 'all',
+        requires: ['sinus_frontal'],
+        text: '<b>额窦</b>位于眉弓深面，左右常不对称。正常鼻窦内为气体（约 -1000 HU），窦腔内出现软组织或液平提示炎症或外伤。',
+      },
+      {
+        title: '上颌窦与鼻腔',
+        select: 'sinus_maxillary', clip: 'coronal', view: 'front', requires: ['sinus_maxillary'],
+        text: '<b>上颌窦</b>是最大的鼻旁窦。冠状位上可见窦口位于内侧壁上部、开口于<b>中鼻道</b>，这一引流通道称为窦口鼻道复合体，是功能性鼻内镜手术的关键区域。',
+      },
+      {
+        title: '鼻咽',
+        wl: '软组织', select: 'nasopharynx', clip: 'sagittal', view: 'left', requires: ['nasopharynx'],
+        text: '<b>鼻咽</b>位于鼻腔后方、颅底下方。侧壁的<b>咽隐窝</b>是鼻咽癌的好发部位，在横断位上要注意两侧是否对称。',
+      },
+      {
+        title: '口咽与喉咽',
+        select: 'oropharynx', requires: ['oropharynx', 'hypopharynx'],
+        text: '<b>口咽</b>从软腭到会厌上缘，<b>喉咽</b>从会厌上缘到环状软骨下缘，向下续为食管。',
+      },
+      {
+        title: '舌骨与喉软骨',
+        select: 'thyroid_cartilage', view: 'front', clip: 'none', requires: ['thyroid_cartilage', 'hyoid'],
+        text: '<b>舌骨</b>约平 C3，<b>甲状软骨</b>约平 C4–C5，<b>环状软骨</b>约平 C6，后者是喉与气管、咽与食管的分界。这些骨性标志可以帮助确定颈部横断层面的高度。',
+      },
+    ],
+  },
+  {
+    id: 'head-neck-vessels',
+    title: '颈部血管与唾液腺',
+    en: 'Neck vessels & salivary glands',
+    desc: '颈动脉鞘、腮腺与下颌下腺。',
+    steps: [
+      {
+        title: '颈内动脉与颈内静脉',
+        wl: '软组织', select: 'internal_carotid_artery_left', clip: 'none', view: 'front',
+        only: ['internal_carotid_artery_left', 'internal_carotid_artery_right', 'internal_jugular_vein_left', 'internal_jugular_vein_right', 'skull', 'mandible', 'vertebrae_C1', 'vertebrae_C2', 'vertebrae_C3', 'vertebrae_C4', 'vertebrae_C5', 'hyoid', 'thyroid_cartilage'],
+        requires: ['internal_carotid_artery_left', 'internal_jugular_vein_left'],
+        text: '<b>颈动脉鞘</b>内：<b>颈内动脉</b>居内侧、<b>颈内静脉</b>居外侧，迷走神经位于两者后方。颈内动脉在颈部没有分支，经颅底颈动脉管入颅。',
+      },
+      {
+        title: '颈内静脉',
+        select: 'internal_jugular_vein_right',
+        text: '<b>颈内静脉</b>通常右侧较粗，是中心静脉置管的常用入路——穿刺点位于胸锁乳突肌两头与锁骨构成的三角内。',
+      },
+      {
+        title: '腮腺',
+        select: 'parotid_gland_left', only: 'all', clip: 'axial', view: 'top', requires: ['parotid_gland_left'],
+        text: '<b>腮腺</b>位于下颌支后方、外耳道前下方，含较多脂肪，CT 上密度低于肌肉。<b>面神经</b>在腺体内穿行，因此腮腺肿瘤手术需要保护面神经。',
+      },
+      {
+        title: '下颌下腺',
+        select: 'submandibular_gland_left', requires: ['submandibular_gland_left'],
+        text: '<b>下颌下腺</b>位于下颌下三角，其导管（Wharton 管）是唾液腺结石最好发的部位。',
+      },
+    ],
+  },
 ];
 
 const VIEW_DIRS = {
@@ -237,23 +509,30 @@ export class TourPlayer {
   start(tour) {
     this.tour = tour;
     this.i = 0;
-    this.show();
+    return this.show();
   }
 
   go(d) {
     const n = this.i + d;
     if (n < 0 || n >= this.tour.steps.length) return;
     this.i = n;
-    this.show();
+    return this.show();
   }
 
-  show() {
+  async show() {
     const { api } = this;
     const t = this.tour, s = t.steps[this.i];
+    const token = (this._token = (this._token || 0) + 1); // 快速连点时只让最后一次生效
     // 3D 可见性：only / systems / 全部
-    if (s.only) api.setVisible(new Set(s.only.filter((k) => api.vol.byKey.has(k))));
+    const CORTEX = ['frontal', 'parietal', 'temporal', 'occipital', 'insula', 'limbic'];
+    if (s.only === 'all') api.setVisible(null);
+    else if (s.only === 'cortex') api.setVisible(new Set(api.vol.meta.structures.filter((x) => CORTEX.includes(x.system) && !['hippocampus', 'amygdala'].some((k) => x.key.startsWith(k))).map((x) => x.key)));
+    else if (s.only === 'ventricles') api.setVisible(new Set(api.vol.meta.structures.filter((x) => x.system === 'ventricles').map((x) => x.key)));
+    else if (s.only) api.setVisible(new Set(s.only.filter((k) => api.vol.byKey.has(k))));
     else if (s.systems) api.setVisible(new Set(api.vol.meta.structures.filter((x) => s.systems.includes(x.system)).map((x) => x.key)));
     else if (this.i === 0) api.setVisible(null);
+    if (s.seq) await api.setSequence?.(s.seq);
+    if (token !== this._token) return;
     if (s.wl) api.setPreset(s.wl);
     if (s.select) api.select(s.select);
     if (s.at) {

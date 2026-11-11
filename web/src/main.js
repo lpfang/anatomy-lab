@@ -30,7 +30,7 @@ async function main() {
   const vol = await loadCase(`./cases/${CASE}`, (p) => { bar.style.width = `${(p * 100).toFixed(0)}%`; });
   const { meta } = vol;
   const unit = meta.unit || 'HU';
-  const WL_PRESETS = meta.presets || CT_PRESETS;
+  let WL_PRESETS = meta.presets || CT_PRESETS;
   document.body.classList.toggle('mr', meta.modality === 'MR');
   if (meta.source) $('.credit').textContent = `数据：${meta.source}。仅供教学，不用于诊断。`;
 
@@ -141,13 +141,40 @@ async function main() {
 
   // ---------------- 顶栏 ----------------
   const pre = $('#wl-presets');
-  WL_PRESETS.forEach((p, i) => {
-    const b = document.createElement('button');
-    b.textContent = p.zh; b.title = `W ${p.w} / L ${p.l}`;
-    b.onclick = () => state.setWL(p.w, p.l, i);
-    pre.appendChild(b);
-  });
-  state.setWL(WL_PRESETS[0].w, WL_PRESETS[0].l, 0);
+  function renderPresets() {
+    pre.innerHTML = '';
+    WL_PRESETS.forEach((p, i) => {
+      const b = document.createElement('button');
+      b.textContent = p.zh; b.title = `W ${p.w} / L ${p.l}`;
+      b.onclick = () => state.setWL(p.w, p.l, i);
+      pre.appendChild(b);
+    });
+    state.setWL(WL_PRESETS[0].w, WL_PRESETS[0].l, 0);
+  }
+  renderPresets();
+
+  // MRI 多序列（如 T1 / T2）切换：同一网格，只替换图像数据与窗位预设
+  const seqBox = $('#seq');
+  async function setSequence(id) {
+    const sq = meta.sequences?.find((x) => x.id === id);
+    if (!sq || state.seq === id) return;
+    seqBox.querySelectorAll('button').forEach((b) => { b.classList.toggle('on', b.dataset.id === id); b.disabled = true; });
+    try {
+      await vol.loadSequence(sq.file);
+      state.seq = id;
+      WL_PRESETS = sq.presets;
+      renderPresets();
+    } finally {
+      seqBox.querySelectorAll('button').forEach((b) => { b.disabled = false; b.classList.toggle('on', b.dataset.id === state.seq); });
+    }
+  }
+  if (meta.sequences?.length > 1) {
+    state.seq = meta.sequences[0].id;
+    seqBox.hidden = false;
+    seqBox.innerHTML = '<span class="lbl">序列</span><div class="seg">' +
+      meta.sequences.map((x) => `<button data-id="${x.id}" class="${x.id === state.seq ? 'on' : ''}">${x.id}</button>`).join('') + '</div>';
+    seqBox.querySelectorAll('button').forEach((b) => b.onclick = () => setSequence(b.dataset.id));
+  }
   const c = meta.caseInfo || {};
   const sp = meta.spacing.map((x) => +x.toFixed(2));
   const spTxt = sp.every((x) => x === sp[0]) ? `${sp[0]} mm 各向同性` : `${sp.join('×')} mm`;
@@ -169,7 +196,7 @@ async function main() {
 
   // ---------------- 左侧结构树 ----------------
   const sortKey = (k) => k.replace(/vertebrae_([CTLS])/, (_, ch) => `vertebrae_${'CTLS'.indexOf(ch)}${ch}`);
-  const groups = SYSTEM_ORDER.map((sys) => ({
+  const groups = [...SYSTEM_ORDER, ...Object.keys(meta.systems).filter((k) => !SYSTEM_ORDER.includes(k))].map((sys) => ({
     sys, info: meta.systems[sys],
     items: meta.structures.filter((s) => s.system === sys)
       .sort((a, b) => sortKey(a.key).localeCompare(sortKey(b.key), 'en', { numeric: true })),
@@ -332,6 +359,7 @@ async function main() {
     panel: $('#tour'),
     select: (key) => state.select(vol.byKey.get(key).id, { from: 'tour' }),
     axialTo: (k) => state.setCursor([state.cursor[0], state.cursor[1], k]),
+    setSequence,
     setPreset: (name) => {
       const i = WL_PRESETS.findIndex((p) => p.zh === name);
       if (i >= 0) state.setWL(WL_PRESETS[i].w, WL_PRESETS[i].l, i);

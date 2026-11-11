@@ -93,6 +93,20 @@ PATHO_ZH = {"tumor": "肿瘤", "inflammation": "炎症", "trauma": "外伤", "va
             "bleeding": "出血", "fracture": "骨折", "other": "其他病变"}
 
 
+def mr_normalize(a: np.ndarray) -> np.ndarray:
+    """MRI 信号无绝对单位：按 99.5 百分位归一化到 0–2000，与 CT 共用同一套 int16 存储与查找表。"""
+    p995 = np.percentile(a[a > np.percentile(a, 50)], 99.5)
+    return np.clip(a / p995 * 2000, 0, 3071)
+
+
+def mr_presets(img: np.ndarray) -> list:
+    inside = img[img > 150]
+    p = {q: float(np.percentile(inside, q)) for q in (1, 20, 95, 99.5)}
+    return [{"zh": "标准", "w": round(p[99.5] - p[1]), "l": round((p[99.5] + p[1]) / 2)},
+            {"zh": "高对比", "w": round(p[95] - p[20]), "l": round((p[95] + p[20]) / 2)},
+            {"zh": "全范围", "w": 2600, "l": 1300}]
+
+
 def case_info(src: Path, modality: str) -> dict:
     """从数据集 meta.csv 读取病例信息（若存在）。CT 与 MRI 数据集的列不同。"""
     csv = src.parent / "meta.csv"
@@ -135,9 +149,14 @@ def main(src: str, case_id: str):
     affine = ct_img.affine
     print(modality, ct.shape, ct_img.header.get_zooms())
     if modality == "MR":
-        # MRI 信号无绝对单位：按 99.5 百分位归一化到 0–2000，与 CT 共用同一套 int16 存储与查找表
-        p995 = np.percentile(ct[ct > np.percentile(ct, 50)], 99.5)
-        ct = np.clip(ct / p995 * 2000, 0, 3071)
+        ct = mr_normalize(ct)
+    # 可选：附加序列 extra_<名称>.nii.gz（如 T2），与主序列同网格
+    extras = {}
+    for f in sorted(src.glob("extra_*.nii.gz")):
+        img = nib.as_closest_canonical(nib.load(f))
+        assert np.allclose(img.affine, affine) and img.shape == ct.shape, f
+        extras[f.name[6:-7]] = mr_normalize(np.asarray(img.dataobj, dtype=np.float32))
+    info_override = json.loads((src / "info.json").read_text()) if (src / "info.json").exists() else {}
 
     labels = np.zeros(ct.shape, np.uint8)
     keys = []
@@ -173,6 +192,12 @@ def main(src: str, case_id: str):
     hu = np.clip(np.round(ct), -1024, 3071).astype("<i2")
     with gzip.open(out / "image.i16.gz", "wb", compresslevel=6) as fh:
         fh.write(hu.transpose(2, 1, 0).tobytes())  # x 最快
+    sequences = []
+    for name, arr in extras.items():
+        e = np.clip(np.round(arr[sl]), -1024, 3071).astype("<i2")
+        with gzip.open(out / f"image_{name}.i16.gz", "wb", compresslevel=6) as fh:
+            fh.write(e.transpose(2, 1, 0).tobytes())
+        sequences.append({"id": name, "file": f"image_{name}.i16.gz", "presets": mr_presets(e)})
     with gzip.open(out / "labels.u8.gz", "wb", compresslevel=9) as fh:
         fh.write(labels.transpose(2, 1, 0).tobytes())
 
@@ -206,6 +231,7 @@ def main(src: str, case_id: str):
             "bestSlice": best,
             "bboxVoxel": [[int(s.start), int(s.stop - 1)] for s in sl_i],
             "hasMesh": mesh is not None,
+            **({"opacity": 0.3} if key.startswith("cerebral_white_matter") else {}),
         })
         print(f"  {i:3d} {key:32s} {info['zh']:12s} faces={0 if mesh is None else len(mesh.faces)}")
 
@@ -219,23 +245,29 @@ def main(src: str, case_id: str):
                    {"zh": "肺窗", "w": 1500, "l": -600}, {"zh": "骨窗", "w": 1800, "l": 400}]
         source = "TotalSegmentator dataset v2.0.1 (Wasserthal et al., Radiology: AI 2023), CC BY 4.0"
     else:
-        inside = hu[hu > 150]
-        p = {q: float(np.percentile(inside, q)) for q in (1, 20, 95, 99.5)}
-        presets = [{"zh": "标准", "w": round(p[99.5] - p[1]), "l": round((p[99.5] + p[1]) / 2)},
-                   {"zh": "高对比", "w": round(p[95] - p[20]), "l": round((p[95] + p[20]) / 2)},
-                   {"zh": "全范围", "w": 2600, "l": 1300}]
+        presets = mr_presets(hu)
         source = "TotalSegmentator MRI dataset v3.0.0 (Wasserthal, Akinci D'Antonoli et al.), CC BY 4.0"
+    if sequences:
+        primary = info_override.get("primarySeq", "主序列")
+        sequences.insert(0, {"id": primary, "file": "image.i16.gz", "presets": presets})
+    source = info_override.get("source", source)
+    presets = info_override.get("presets", presets)
+    case = case_info(src, modality)
+    for k in ("desc", "note"):
+        if k in info_override:
+            case[k] = info_override[k]
     meta = {
         "caseId": case_id,
         "modality": modality,
         "unit": "HU" if modality == "CT" else "信号",
         "presets": presets,
         "source": source,
+        **({"sequences": sequences} if sequences else {}),
         "dims": list(map(int, dims)),
         "spacing": spacing,
         "affine": np.round(affine, 5).tolist(),
         "orientation": "RAS",
-        "caseInfo": case_info(src, modality),
+        "caseInfo": case,
         "systems": AN.SYSTEMS,
         "structures": structures,
     }

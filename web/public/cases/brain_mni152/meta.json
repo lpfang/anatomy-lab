@@ -1,0 +1,3674 @@
+{
+ "caseId": "brain_mni152",
+ "modality": "MR",
+ "unit": "信号",
+ "presets": [
+  {
+   "zh": "标准",
+   "w": 1841,
+   "l": 1076
+  },
+  {
+   "zh": "高对比",
+   "w": 1457,
+   "l": 1172
+  },
+  {
+   "zh": "全范围",
+   "w": 2600,
+   "l": 1300
+  }
+ ],
+ "source": "MNI ICBM152 2009c 对称模板 © 1993–2004 Louis Collins, MNI, McGill University；CerebrA 图谱（Manera et al., Sci Data 2020），CC0",
+ "sequences": [
+  {
+   "id": "T1",
+   "file": "image.i16.gz",
+   "presets": [
+    {
+     "zh": "标准",
+     "w": 1841,
+     "l": 1076
+    },
+    {
+     "zh": "高对比",
+     "w": 1457,
+     "l": 1172
+    },
+    {
+     "zh": "全范围",
+     "w": 2600,
+     "l": 1300
+    }
+   ]
+  },
+  {
+   "id": "T2",
+   "file": "image_T2.i16.gz",
+   "presets": [
+    {
+     "zh": "标准",
+     "w": 1838,
+     "l": 1080
+    },
+    {
+     "zh": "高对比",
+     "w": 1085,
+     "l": 948
+    },
+    {
+     "zh": "全范围",
+     "w": 2600,
+     "l": 1300
+    }
+   ]
+  }
+ ],
+ "dims": [
+  193,
+  229,
+  192
+ ],
+ "spacing": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "affine": [
+  [
+   1.0,
+   0.0,
+   0.0,
+   -96.0
+  ],
+  [
+   0.0,
+   1.0,
+   0.0,
+   -132.0
+  ],
+  [
+   0.0,
+   0.0,
+   1.0,
+   -78.0
+  ],
+  [
+   0.0,
+   0.0,
+   0.0,
+   1.0
+  ]
+ ],
+ "orientation": "RAS",
+ "caseInfo": {
+  "desc": "标准脑 MRI 模板（MNI152）",
+  "note": "群体平均模板，非单一个体"
+ },
+ "systems": {
+  "skeletal": {
+   "zh": "骨骼系统",
+   "en": "Skeletal",
+   "color": "#e8dcc4"
+  },
+  "muscular": {
+   "zh": "肌肉系统",
+   "en": "Muscular",
+   "color": "#c0504d"
+  },
+  "cardio": {
+   "zh": "心血管系统",
+   "en": "Cardiovascular",
+   "color": "#d9363e"
+  },
+  "respiratory": {
+   "zh": "呼吸系统",
+   "en": "Respiratory",
+   "color": "#7fb3d5"
+  },
+  "digestive": {
+   "zh": "消化系统",
+   "en": "Digestive",
+   "color": "#d4a24c"
+  },
+  "urogenital": {
+   "zh": "泌尿生殖系统",
+   "en": "Urogenital",
+   "color": "#e6b800"
+  },
+  "endocrine": {
+   "zh": "内分泌系统",
+   "en": "Endocrine",
+   "color": "#9b59b6"
+  },
+  "nervous": {
+   "zh": "神经系统",
+   "en": "Nervous",
+   "color": "#f5d76e"
+  },
+  "frontal": {
+   "zh": "额叶",
+   "en": "Frontal lobe",
+   "color": "#e57373"
+  },
+  "parietal": {
+   "zh": "顶叶",
+   "en": "Parietal lobe",
+   "color": "#64b5f6"
+  },
+  "temporal": {
+   "zh": "颞叶",
+   "en": "Temporal lobe",
+   "color": "#81c784"
+  },
+  "occipital": {
+   "zh": "枕叶",
+   "en": "Occipital lobe",
+   "color": "#ffb74d"
+  },
+  "insula": {
+   "zh": "岛叶",
+   "en": "Insula",
+   "color": "#f06292"
+  },
+  "limbic": {
+   "zh": "边缘系统",
+   "en": "Limbic system",
+   "color": "#ba68c8"
+  },
+  "basal": {
+   "zh": "基底核与间脑",
+   "en": "Basal ganglia & diencephalon",
+   "color": "#4db6ac"
+  },
+  "ventricles": {
+   "zh": "脑室系统",
+   "en": "Ventricular system",
+   "color": "#4fc3f7"
+  },
+  "hindbrain": {
+   "zh": "脑干与小脑",
+   "en": "Brainstem & cerebellum",
+   "color": "#a1887f"
+  },
+  "whitematter": {
+   "zh": "白质与视路",
+   "en": "White matter & visual pathway",
+   "color": "#eceff1"
+  },
+  "orbit": {
+   "zh": "眼眶",
+   "en": "Orbit",
+   "color": "#fff176"
+  }
+ },
+ "structures": [
+  {
+   "id": 1,
+   "key": "accumbens_left",
+   "zh": "左伏隔核",
+   "en": "Left nucleus accumbens",
+   "system": "basal",
+   "desc": "尾状核头与壳核前下方相连处，奖赏回路的核心。",
+   "color": "#63bfbe",
+   "volumeMl": 0.6,
+   "centroidVoxel": [
+    87.0,
+    143.8,
+    70.7
+   ],
+   "bestSlice": [
+    88,
+    142,
+    70
+   ],
+   "bboxVoxel": [
+    [
+     82,
+     92
+    ],
+    [
+     138,
+     151
+    ],
+    [
+     65,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 2,
+   "key": "accumbens_right",
+   "zh": "右伏隔核",
+   "en": "Right nucleus accumbens",
+   "system": "basal",
+   "desc": "尾状核头与壳核前下方相连处，奖赏回路的核心。",
+   "color": "#42a190",
+   "volumeMl": 0.6,
+   "centroidVoxel": [
+    105.0,
+    143.8,
+    70.7
+   ],
+   "bestSlice": [
+    104,
+    142,
+    70
+   ],
+   "bboxVoxel": [
+    [
+     100,
+     110
+    ],
+    [
+     138,
+     151
+    ],
+    [
+     65,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 3,
+   "key": "amygdala_left",
+   "zh": "左杏仁体",
+   "en": "Left amygdala",
+   "system": "limbic",
+   "desc": "位于海马头前上方，参与恐惧与情绪记忆。",
+   "color": "#b866c7",
+   "volumeMl": 1.7,
+   "centroidVoxel": [
+    72.6,
+    127.6,
+    57.3
+   ],
+   "bestSlice": [
+    71,
+    129,
+    58
+   ],
+   "bboxVoxel": [
+    [
+     63,
+     84
+    ],
+    [
+     99,
+     132
+    ],
+    [
+     47,
+     71
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 4,
+   "key": "amygdala_right",
+   "zh": "右杏仁体",
+   "en": "Right amygdala",
+   "system": "limbic",
+   "desc": "位于海马头前上方，参与恐惧与情绪记忆。",
+   "color": "#c87bce",
+   "volumeMl": 1.7,
+   "centroidVoxel": [
+    119.4,
+    127.6,
+    57.3
+   ],
+   "bestSlice": [
+    121,
+    129,
+    58
+   ],
+   "bboxVoxel": [
+    [
+     108,
+     129
+    ],
+    [
+     99,
+     132
+    ],
+    [
+     47,
+     71
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 5,
+   "key": "basal_forebrain_left",
+   "zh": "左基底前脑",
+   "en": "Left basal forebrain",
+   "system": "basal",
+   "desc": "含 Meynert 基底核，是皮质胆碱能纤维的主要来源。",
+   "color": "#4fb7ae",
+   "volumeMl": 0.2,
+   "centroidVoxel": [
+    88.9,
+    136.0,
+    66.1
+   ],
+   "bestSlice": [
+    86,
+    137,
+    65
+   ],
+   "bboxVoxel": [
+    [
+     82,
+     95
+    ],
+    [
+     133,
+     138
+    ],
+    [
+     63,
+     69
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 6,
+   "key": "basal_forebrain_right",
+   "zh": "右基底前脑",
+   "en": "Right basal forebrain",
+   "system": "basal",
+   "desc": "含 Meynert 基底核，是皮质胆碱能纤维的主要来源。",
+   "color": "#6ac0c2",
+   "volumeMl": 0.2,
+   "centroidVoxel": [
+    103.1,
+    136.0,
+    66.1
+   ],
+   "bestSlice": [
+    106,
+    137,
+    65
+   ],
+   "bboxVoxel": [
+    [
+     97,
+     110
+    ],
+    [
+     133,
+     138
+    ],
+    [
+     63,
+     69
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 7,
+   "key": "brainstem",
+   "zh": "脑干",
+   "en": "Brainstem",
+   "system": "hindbrain",
+   "desc": "由中脑、脑桥和延髓组成，含脑神经核与上下行传导束。",
+   "color": "#9a7e76",
+   "volumeMl": 32.6,
+   "centroidVoxel": [
+    96.0,
+    100.6,
+    41.7
+   ],
+   "bestSlice": [
+    92,
+    99,
+    39
+   ],
+   "bboxVoxel": [
+    [
+     76,
+     116
+    ],
+    [
+     81,
+     126
+    ],
+    [
+     0,
+     80
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 8,
+   "key": "caudal_anterior_cingulate_left",
+   "zh": "左前扣带回（尾侧）",
+   "en": "Left caudal anterior cingulate",
+   "system": "limbic",
+   "desc": "参与冲突监测与认知控制。",
+   "color": "#c373cc",
+   "volumeMl": 3.7,
+   "centroidVoxel": [
+    90.9,
+    152.7,
+    105.4
+   ],
+   "bestSlice": [
+    92,
+    159,
+    108
+   ],
+   "bboxVoxel": [
+    [
+     82,
+     95
+    ],
+    [
+     132,
+     174
+    ],
+    [
+     85,
+     121
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 9,
+   "key": "caudal_anterior_cingulate_right",
+   "zh": "右前扣带回（尾侧）",
+   "en": "Right caudal anterior cingulate",
+   "system": "limbic",
+   "desc": "参与冲突监测与认知控制。",
+   "color": "#c272cb",
+   "volumeMl": 3.7,
+   "centroidVoxel": [
+    101.1,
+    152.7,
+    105.4
+   ],
+   "bestSlice": [
+    100,
+    159,
+    108
+   ],
+   "bboxVoxel": [
+    [
+     97,
+     110
+    ],
+    [
+     132,
+     174
+    ],
+    [
+     85,
+     121
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 10,
+   "key": "caudal_middle_frontal_left",
+   "zh": "左额中回后部",
+   "en": "Left caudal middle frontal gyrus",
+   "system": "frontal",
+   "desc": "紧邻中央前回前方，含额叶眼区（控制眼球随意运动）。",
+   "color": "#e05c65",
+   "volumeMl": 13.2,
+   "centroidVoxel": [
+    59.1,
+    144.3,
+    125.7
+   ],
+   "bestSlice": [
+    60,
+    137,
+    126
+   ],
+   "bboxVoxel": [
+    [
+     42,
+     75
+    ],
+    [
+     125,
+     177
+    ],
+    [
+     103,
+     144
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 11,
+   "key": "caudal_middle_frontal_right",
+   "zh": "右额中回后部",
+   "en": "Right caudal middle frontal gyrus",
+   "system": "frontal",
+   "desc": "紧邻中央前回前方，含额叶眼区（控制眼球随意运动）。",
+   "color": "#e05c65",
+   "volumeMl": 13.2,
+   "centroidVoxel": [
+    132.9,
+    144.3,
+    125.7
+   ],
+   "bestSlice": [
+    132,
+    137,
+    126
+   ],
+   "bboxVoxel": [
+    [
+     117,
+     150
+    ],
+    [
+     125,
+     177
+    ],
+    [
+     103,
+     144
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 12,
+   "key": "caudate_left",
+   "zh": "左尾状核",
+   "en": "Left caudate nucleus",
+   "system": "basal",
+   "desc": "呈 C 形紧贴侧脑室外侧壁；头部构成侧脑室前角的外侧壁。亨廷顿病时尾状核头萎缩。",
+   "color": "#47ad9f",
+   "volumeMl": 5.6,
+   "centroidVoxel": [
+    82.1,
+    141.6,
+    88.4
+   ],
+   "bestSlice": [
+    80,
+    149,
+    99
+   ],
+   "bboxVoxel": [
+    [
+     74,
+     91
+    ],
+    [
+     103,
+     159
+    ],
+    [
+     68,
+     105
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 13,
+   "key": "caudate_right",
+   "zh": "右尾状核",
+   "en": "Right caudate nucleus",
+   "system": "basal",
+   "desc": "呈 C 形紧贴侧脑室外侧壁；头部构成侧脑室前角的外侧壁。亨廷顿病时尾状核头萎缩。",
+   "color": "#419e8d",
+   "volumeMl": 5.6,
+   "centroidVoxel": [
+    109.9,
+    141.6,
+    88.4
+   ],
+   "bestSlice": [
+    112,
+    149,
+    99
+   ],
+   "bboxVoxel": [
+    [
+     101,
+     118
+    ],
+    [
+     103,
+     159
+    ],
+    [
+     68,
+     105
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 14,
+   "key": "cerebellum_cortex_left",
+   "zh": "左小脑皮质",
+   "en": "Left cerebellar cortex",
+   "system": "hindbrain",
+   "desc": "小脑半球表面的灰质，协调同侧肢体运动。",
+   "color": "#9f857c",
+   "volumeMl": 71.2,
+   "centroidVoxel": [
+    69.2,
+    68.7,
+    39.2
+   ],
+   "bestSlice": [
+    67,
+    70,
+    29
+   ],
+   "bboxVoxel": [
+    [
+     38,
+     95
+    ],
+    [
+     39,
+     109
+    ],
+    [
+     10,
+     73
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 15,
+   "key": "cerebellum_cortex_right",
+   "zh": "右小脑皮质",
+   "en": "Right cerebellar cortex",
+   "system": "hindbrain",
+   "desc": "小脑半球表面的灰质，协调同侧肢体运动。",
+   "color": "#967870",
+   "volumeMl": 71.2,
+   "centroidVoxel": [
+    122.8,
+    68.7,
+    39.2
+   ],
+   "bestSlice": [
+    125,
+    70,
+    29
+   ],
+   "bboxVoxel": [
+    [
+     97,
+     154
+    ],
+    [
+     39,
+     109
+    ],
+    [
+     10,
+     73
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 16,
+   "key": "cerebellum_white_matter_left",
+   "zh": "左小脑白质",
+   "en": "Left cerebellar white matter",
+   "system": "hindbrain",
+   "desc": "内含齿状核等小脑核。",
+   "color": "#a0877e",
+   "volumeMl": 13.0,
+   "centroidVoxel": [
+    77.3,
+    80.0,
+    41.8
+   ],
+   "bestSlice": [
+    78,
+    81,
+    40
+   ],
+   "bboxVoxel": [
+    [
+     59,
+     91
+    ],
+    [
+     57,
+     110
+    ],
+    [
+     30,
+     60
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 17,
+   "key": "cerebellum_white_matter_right",
+   "zh": "右小脑白质",
+   "en": "Right cerebellar white matter",
+   "system": "hindbrain",
+   "desc": "内含齿状核等小脑核。",
+   "color": "#8c6c66",
+   "volumeMl": 13.0,
+   "centroidVoxel": [
+    114.6,
+    80.0,
+    41.8
+   ],
+   "bestSlice": [
+    114,
+    81,
+    40
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     133
+    ],
+    [
+     57,
+     110
+    ],
+    [
+     30,
+     60
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 18,
+   "key": "cerebral_white_matter_left",
+   "zh": "左大脑白质",
+   "en": "Left cerebral white matter",
+   "system": "whitematter",
+   "desc": "由有髓神经纤维构成，包括内囊、胼胝体、半卵圆中心等。T1 上白质比灰质亮，T2 上则比灰质暗。",
+   "color": "#d2dade",
+   "volumeMl": 248.6,
+   "centroidVoxel": [
+    67.4,
+    115.8,
+    97.0
+   ],
+   "bestSlice": [
+    76,
+    112,
+    107
+   ],
+   "bboxVoxel": [
+    [
+     29,
+     96
+    ],
+    [
+     28,
+     201
+    ],
+    [
+     31,
+     157
+    ]
+   ],
+   "hasMesh": true,
+   "opacity": 0.3
+  },
+  {
+   "id": 19,
+   "key": "cerebral_white_matter_right",
+   "zh": "右大脑白质",
+   "en": "Right cerebral white matter",
+   "system": "whitematter",
+   "desc": "由有髓神经纤维构成，包括内囊、胼胝体、半卵圆中心等。T1 上白质比灰质亮，T2 上则比灰质暗。",
+   "color": "#d2d9de",
+   "volumeMl": 247.9,
+   "centroidVoxel": [
+    124.7,
+    115.7,
+    97.0
+   ],
+   "bestSlice": [
+    116,
+    112,
+    107
+   ],
+   "bboxVoxel": [
+    [
+     97,
+     163
+    ],
+    [
+     28,
+     201
+    ],
+    [
+     31,
+     157
+    ]
+   ],
+   "hasMesh": true,
+   "opacity": 0.3
+  },
+  {
+   "id": 20,
+   "key": "cuneus_left",
+   "zh": "左楔叶",
+   "en": "Left cuneus",
+   "system": "occipital",
+   "desc": "枕叶内侧面、距状沟上方，接受下方视野信息。",
+   "color": "#ffb348",
+   "volumeMl": 8.1,
+   "centroidVoxel": [
+    87.4,
+    50.7,
+    102.6
+   ],
+   "bestSlice": [
+    93,
+    46,
+    96
+   ],
+   "bboxVoxel": [
+    [
+     75,
+     95
+    ],
+    [
+     32,
+     79
+    ],
+    [
+     77,
+     122
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 21,
+   "key": "cuneus_right",
+   "zh": "右楔叶",
+   "en": "Right cuneus",
+   "system": "occipital",
+   "desc": "枕叶内侧面、距状沟上方，接受下方视野信息。",
+   "color": "#feb449",
+   "volumeMl": 8.1,
+   "centroidVoxel": [
+    104.6,
+    50.7,
+    102.6
+   ],
+   "bestSlice": [
+    99,
+    46,
+    96
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     117
+    ],
+    [
+     32,
+     79
+    ],
+    [
+     77,
+     122
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 22,
+   "key": "entorhinal_left",
+   "zh": "左内嗅皮质",
+   "en": "Left entorhinal cortex",
+   "system": "limbic",
+   "desc": "海马的主要输入门户；阿尔茨海默病最早受累的区域之一。",
+   "color": "#c272cb",
+   "volumeMl": 3.2,
+   "centroidVoxel": [
+    73.8,
+    127.5,
+    46.1
+   ],
+   "bestSlice": [
+    75,
+    133,
+    44
+   ],
+   "bboxVoxel": [
+    [
+     62,
+     85
+    ],
+    [
+     110,
+     142
+    ],
+    [
+     34,
+     59
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 23,
+   "key": "entorhinal_right",
+   "zh": "右内嗅皮质",
+   "en": "Right entorhinal cortex",
+   "system": "limbic",
+   "desc": "海马的主要输入门户；阿尔茨海默病最早受累的区域之一。",
+   "color": "#c97bcf",
+   "volumeMl": 3.2,
+   "centroidVoxel": [
+    118.2,
+    127.5,
+    46.1
+   ],
+   "bestSlice": [
+    117,
+    133,
+    44
+   ],
+   "bboxVoxel": [
+    [
+     107,
+     130
+    ],
+    [
+     110,
+     142
+    ],
+    [
+     34,
+     59
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 24,
+   "key": "eye_left",
+   "zh": "左眼球",
+   "en": "Left eyeball",
+   "system": "orbit",
+   "desc": "位于眼眶前部；玻璃体在 T1 上呈低信号，T2 上呈高信号。",
+   "color": "#fffd98",
+   "volumeMl": 6.0,
+   "centroidVoxel": [
+    63.0,
+    188.0,
+    36.8
+   ],
+   "bestSlice": [
+    63,
+    189,
+    36
+   ],
+   "bboxVoxel": [
+    [
+     52,
+     74
+    ],
+    [
+     177,
+     198
+    ],
+    [
+     25,
+     47
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 25,
+   "key": "eye_right",
+   "zh": "右眼球",
+   "en": "Right eyeball",
+   "system": "orbit",
+   "desc": "位于眼眶前部；玻璃体在 T1 上呈低信号，T2 上呈高信号。",
+   "color": "#fff47d",
+   "volumeMl": 6.0,
+   "centroidVoxel": [
+    129.0,
+    188.0,
+    36.8
+   ],
+   "bestSlice": [
+    128,
+    189,
+    36
+   ],
+   "bboxVoxel": [
+    [
+     118,
+     140
+    ],
+    [
+     177,
+     198
+    ],
+    [
+     25,
+     47
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 26,
+   "key": "fourth_ventricle",
+   "zh": "第四脑室",
+   "en": "Fourth ventricle",
+   "system": "ventricles",
+   "desc": "位于脑桥、延髓背侧与小脑之间。",
+   "color": "#48c3f6",
+   "volumeMl": 1.4,
+   "centroidVoxel": [
+    96.0,
+    87.9,
+    46.9
+   ],
+   "bestSlice": [
+    96,
+    87,
+    45
+   ],
+   "bboxVoxel": [
+    [
+     84,
+     108
+    ],
+    [
+     77,
+     118
+    ],
+    [
+     36,
+     68
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 27,
+   "key": "fusiform_left",
+   "zh": "左梭状回",
+   "en": "Left fusiform gyrus",
+   "system": "temporal",
+   "desc": "颞叶底面，含面孔识别区。",
+   "color": "#7dc57f",
+   "volumeMl": 13.5,
+   "centroidVoxel": [
+    60.3,
+    89.9,
+    56.6
+   ],
+   "bestSlice": [
+    56,
+    89,
+    62
+   ],
+   "bboxVoxel": [
+    [
+     45,
+     78
+    ],
+    [
+     52,
+     137
+    ],
+    [
+     29,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 28,
+   "key": "fusiform_right",
+   "zh": "右梭状回",
+   "en": "Right fusiform gyrus",
+   "system": "temporal",
+   "desc": "颞叶底面，含面孔识别区。",
+   "color": "#6fbe6d",
+   "volumeMl": 13.5,
+   "centroidVoxel": [
+    131.7,
+    89.9,
+    56.6
+   ],
+   "bestSlice": [
+    136,
+    89,
+    62
+   ],
+   "bboxVoxel": [
+    [
+     114,
+     147
+    ],
+    [
+     52,
+     137
+    ],
+    [
+     29,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 29,
+   "key": "hippocampus_left",
+   "zh": "左海马",
+   "en": "Left hippocampus",
+   "system": "limbic",
+   "desc": "位于侧脑室下角底壁，负责情景记忆形成。冠状位上观察最好，萎缩是阿尔茨海默病的影像标志。",
+   "color": "#c87bcf",
+   "volumeMl": 4.7,
+   "centroidVoxel": [
+    70.1,
+    109.5,
+    63.5
+   ],
+   "bestSlice": [
+    68,
+    120,
+    59
+   ],
+   "bboxVoxel": [
+    [
+     60,
+     84
+    ],
+    [
+     90,
+     127
+    ],
+    [
+     47,
+     86
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 30,
+   "key": "hippocampus_right",
+   "zh": "右海马",
+   "en": "Right hippocampus",
+   "system": "limbic",
+   "desc": "位于侧脑室下角底壁，负责情景记忆形成。冠状位上观察最好，萎缩是阿尔茨海默病的影像标志。",
+   "color": "#c779ce",
+   "volumeMl": 4.7,
+   "centroidVoxel": [
+    121.9,
+    109.5,
+    63.5
+   ],
+   "bestSlice": [
+    124,
+    120,
+    59
+   ],
+   "bboxVoxel": [
+    [
+     108,
+     132
+    ],
+    [
+     90,
+     127
+    ],
+    [
+     47,
+     86
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 31,
+   "key": "inferior_lateral_ventricle_left",
+   "zh": "左侧脑室下角",
+   "en": "Left inferior (temporal) horn",
+   "system": "ventricles",
+   "desc": "伸入颞叶，内侧壁为海马；下角扩大常提示海马萎缩或脑积水。",
+   "color": "#3cc6f6",
+   "volumeMl": 1.1,
+   "centroidVoxel": [
+    64.4,
+    115.2,
+    61.8
+   ],
+   "bestSlice": [
+    59,
+    121,
+    64
+   ],
+   "bboxVoxel": [
+    [
+     57,
+     78
+    ],
+    [
+     93,
+     128
+    ],
+    [
+     47,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 32,
+   "key": "inferior_lateral_ventricle_right",
+   "zh": "右侧脑室下角",
+   "en": "Right inferior (temporal) horn",
+   "system": "ventricles",
+   "desc": "伸入颞叶，内侧壁为海马；下角扩大常提示海马萎缩或脑积水。",
+   "color": "#40c5f6",
+   "volumeMl": 1.1,
+   "centroidVoxel": [
+    127.6,
+    115.2,
+    61.8
+   ],
+   "bestSlice": [
+    133,
+    121,
+    64
+   ],
+   "bboxVoxel": [
+    [
+     114,
+     135
+    ],
+    [
+     93,
+     128
+    ],
+    [
+     47,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 33,
+   "key": "inferior_parietal_left",
+   "zh": "左顶下小叶（角回区）",
+   "en": "Left inferior parietal lobule",
+   "system": "parietal",
+   "desc": "含角回，与阅读、书写及计算有关。",
+   "color": "#7ab7f7",
+   "volumeMl": 26.2,
+   "centroidVoxel": [
+    50.2,
+    67.6,
+    109.7
+   ],
+   "bestSlice": [
+    55,
+    78,
+    100
+   ],
+   "bboxVoxel": [
+    [
+     28,
+     69
+    ],
+    [
+     39,
+     97
+    ],
+    [
+     86,
+     137
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 34,
+   "key": "inferior_parietal_right",
+   "zh": "右顶下小叶（角回区）",
+   "en": "Right inferior parietal lobule",
+   "system": "parietal",
+   "desc": "含角回，与阅读、书写及计算有关。",
+   "color": "#3db5f3",
+   "volumeMl": 26.2,
+   "centroidVoxel": [
+    141.8,
+    67.6,
+    109.7
+   ],
+   "bestSlice": [
+    137,
+    78,
+    100
+   ],
+   "bboxVoxel": [
+    [
+     123,
+     164
+    ],
+    [
+     39,
+     97
+    ],
+    [
+     86,
+     137
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 35,
+   "key": "inferior_temporal_left",
+   "zh": "左颞下回",
+   "en": "Left inferior temporal gyrus",
+   "system": "temporal",
+   "desc": "腹侧视觉通路的一部分，参与物体识别。",
+   "color": "#74c174",
+   "volumeMl": 16.2,
+   "centroidVoxel": [
+    46.8,
+    107.2,
+    48.0
+   ],
+   "bestSlice": [
+    41,
+    123,
+    57
+   ],
+   "bboxVoxel": [
+    [
+     28,
+     77
+    ],
+    [
+     67,
+     146
+    ],
+    [
+     26,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 36,
+   "key": "inferior_temporal_right",
+   "zh": "右颞下回",
+   "en": "Right inferior temporal gyrus",
+   "system": "temporal",
+   "desc": "腹侧视觉通路的一部分，参与物体识别。",
+   "color": "#71bf6f",
+   "volumeMl": 16.2,
+   "centroidVoxel": [
+    145.2,
+    107.2,
+    48.0
+   ],
+   "bestSlice": [
+    151,
+    123,
+    57
+   ],
+   "bboxVoxel": [
+    [
+     115,
+     164
+    ],
+    [
+     67,
+     146
+    ],
+    [
+     26,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 37,
+   "key": "insula_left",
+   "zh": "左岛叶",
+   "en": "Left insula",
+   "system": "insula",
+   "desc": "藏于外侧沟深部，被额、顶、颞叶的岛盖覆盖；参与内感受、味觉与情绪。卒中早期 CT 上“岛带征”消失是重要征象。",
+   "color": "#ee508d",
+   "volumeMl": 9.5,
+   "centroidVoxel": [
+    58.9,
+    133.8,
+    78.4
+   ],
+   "bestSlice": [
+    58,
+    148,
+    80
+   ],
+   "bboxVoxel": [
+    [
+     50,
+     69
+    ],
+    [
+     103,
+     163
+    ],
+    [
+     59,
+     99
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 38,
+   "key": "insula_right",
+   "zh": "右岛叶",
+   "en": "Right insula",
+   "system": "insula",
+   "desc": "藏于外侧沟深部，被额、顶、颞叶的岛盖覆盖；参与内感受、味觉与情绪。卒中早期 CT 上“岛带征”消失是重要征象。",
+   "color": "#f16f96",
+   "volumeMl": 9.5,
+   "centroidVoxel": [
+    133.1,
+    133.8,
+    78.4
+   ],
+   "bestSlice": [
+    134,
+    148,
+    80
+   ],
+   "bboxVoxel": [
+    [
+     123,
+     142
+    ],
+    [
+     103,
+     163
+    ],
+    [
+     59,
+     99
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 39,
+   "key": "isthmus_cingulate_left",
+   "zh": "左扣带回峡",
+   "en": "Left isthmus of cingulate",
+   "system": "limbic",
+   "desc": "扣带回绕胼胝体压部向下延续为海马旁回的狭窄部分。",
+   "color": "#b562c5",
+   "volumeMl": 4.4,
+   "centroidVoxel": [
+    88.0,
+    86.2,
+    96.9
+   ],
+   "bestSlice": [
+    90,
+    86,
+    111
+   ],
+   "bboxVoxel": [
+    [
+     72,
+     95
+    ],
+    [
+     74,
+     101
+    ],
+    [
+     72,
+     115
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 40,
+   "key": "isthmus_cingulate_right",
+   "zh": "右扣带回峡",
+   "en": "Right isthmus of cingulate",
+   "system": "limbic",
+   "desc": "扣带回绕胼胝体压部向下延续为海马旁回的狭窄部分。",
+   "color": "#c272cb",
+   "volumeMl": 4.4,
+   "centroidVoxel": [
+    104.0,
+    86.2,
+    96.9
+   ],
+   "bestSlice": [
+    102,
+    86,
+    111
+   ],
+   "bboxVoxel": [
+    [
+     97,
+     120
+    ],
+    [
+     74,
+     101
+    ],
+    [
+     72,
+     115
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 41,
+   "key": "lateral_occipital_left",
+   "zh": "左枕外侧皮质",
+   "en": "Left lateral occipital cortex",
+   "system": "occipital",
+   "desc": "高级视觉皮质，参与形状与运动知觉。",
+   "color": "#ff9b30",
+   "volumeMl": 22.8,
+   "centroidVoxel": [
+    64.1,
+    44.8,
+    79.5
+   ],
+   "bestSlice": [
+    54,
+    41,
+    85
+   ],
+   "bboxVoxel": [
+    [
+     33,
+     91
+    ],
+    [
+     25,
+     82
+    ],
+    [
+     57,
+     112
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 42,
+   "key": "lateral_occipital_right",
+   "zh": "右枕外侧皮质",
+   "en": "Right lateral occipital cortex",
+   "system": "occipital",
+   "desc": "高级视觉皮质，参与形状与运动知觉。",
+   "color": "#fec35b",
+   "volumeMl": 22.8,
+   "centroidVoxel": [
+    127.9,
+    44.8,
+    79.5
+   ],
+   "bestSlice": [
+    138,
+    41,
+    85
+   ],
+   "bboxVoxel": [
+    [
+     101,
+     159
+    ],
+    [
+     25,
+     82
+    ],
+    [
+     57,
+     112
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 43,
+   "key": "lateral_orbitofrontal_left",
+   "zh": "左眶额外侧皮质",
+   "en": "Left lateral orbitofrontal cortex",
+   "system": "frontal",
+   "desc": "位于眶顶上方，参与情绪调节与决策。",
+   "color": "#e9948d",
+   "volumeMl": 15.0,
+   "centroidVoxel": [
+    73.4,
+    168.0,
+    58.9
+   ],
+   "bestSlice": [
+    74,
+    154,
+    59
+   ],
+   "bboxVoxel": [
+    [
+     53,
+     92
+    ],
+    [
+     136,
+     201
+    ],
+    [
+     47,
+     81
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 44,
+   "key": "lateral_orbitofrontal_right",
+   "zh": "右眶额外侧皮质",
+   "en": "Right lateral orbitofrontal cortex",
+   "system": "frontal",
+   "desc": "位于眶顶上方，参与情绪调节与决策。",
+   "color": "#df5461",
+   "volumeMl": 15.0,
+   "centroidVoxel": [
+    118.6,
+    168.0,
+    58.9
+   ],
+   "bestSlice": [
+    118,
+    154,
+    59
+   ],
+   "bboxVoxel": [
+    [
+     100,
+     139
+    ],
+    [
+     136,
+     201
+    ],
+    [
+     47,
+     81
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 45,
+   "key": "lateral_ventricle_left",
+   "zh": "左侧脑室",
+   "en": "Left lateral ventricle",
+   "system": "ventricles",
+   "desc": "分为前角、体部、后角和下角，经室间孔与第三脑室相通。T1 呈低信号，T2 呈高信号。",
+   "color": "#32c8f5",
+   "volumeMl": 9.6,
+   "centroidVoxel": [
+    81.3,
+    114.2,
+    92.2
+   ],
+   "bestSlice": [
+    91,
+    90,
+    98
+   ],
+   "bboxVoxel": [
+    [
+     60,
+     95
+    ],
+    [
+     52,
+     162
+    ],
+    [
+     73,
+     106
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 46,
+   "key": "lateral_ventricle_right",
+   "zh": "右侧脑室",
+   "en": "Right lateral ventricle",
+   "system": "ventricles",
+   "desc": "分为前角、体部、后角和下角，经室间孔与第三脑室相通。T1 呈低信号，T2 呈高信号。",
+   "color": "#41c5f6",
+   "volumeMl": 9.6,
+   "centroidVoxel": [
+    110.7,
+    114.2,
+    92.2
+   ],
+   "bestSlice": [
+    101,
+    90,
+    98
+   ],
+   "bboxVoxel": [
+    [
+     97,
+     132
+    ],
+    [
+     52,
+     162
+    ],
+    [
+     73,
+     106
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 47,
+   "key": "lingual_left",
+   "zh": "左舌回",
+   "en": "Left lingual gyrus",
+   "system": "occipital",
+   "desc": "枕叶内侧面、距状沟下方，接受上方视野信息。",
+   "color": "#ffd777",
+   "volumeMl": 12.4,
+   "centroidVoxel": [
+    82.5,
+    62.7,
+    72.9
+   ],
+   "bestSlice": [
+    86,
+    57,
+    73
+   ],
+   "bboxVoxel": [
+    [
+     63,
+     95
+    ],
+    [
+     33,
+     95
+    ],
+    [
+     59,
+     101
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 48,
+   "key": "lingual_right",
+   "zh": "右舌回",
+   "en": "Right lingual gyrus",
+   "system": "occipital",
+   "desc": "枕叶内侧面、距状沟下方，接受上方视野信息。",
+   "color": "#ffca65",
+   "volumeMl": 12.4,
+   "centroidVoxel": [
+    109.5,
+    62.6,
+    72.9
+   ],
+   "bestSlice": [
+    106,
+    57,
+    73
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     129
+    ],
+    [
+     33,
+     95
+    ],
+    [
+     59,
+     101
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 49,
+   "key": "medial_orbitofrontal_left",
+   "zh": "左眶额内侧皮质",
+   "en": "Left medial orbitofrontal cortex",
+   "system": "frontal",
+   "desc": "额叶底面内侧（直回附近），参与奖赏评估。",
+   "color": "#e36d6f",
+   "volumeMl": 8.8,
+   "centroidVoxel": [
+    90.6,
+    169.8,
+    60.0
+   ],
+   "bestSlice": [
+    92,
+    173,
+    62
+   ],
+   "bboxVoxel": [
+    [
+     82,
+     95
+    ],
+    [
+     137,
+     204
+    ],
+    [
+     46,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 50,
+   "key": "medial_orbitofrontal_right",
+   "zh": "右眶额内侧皮质",
+   "en": "Right medial orbitofrontal cortex",
+   "system": "frontal",
+   "desc": "额叶底面内侧（直回附近），参与奖赏评估。",
+   "color": "#ea9890",
+   "volumeMl": 8.9,
+   "centroidVoxel": [
+    101.3,
+    169.7,
+    59.9
+   ],
+   "bestSlice": [
+    100,
+    173,
+    62
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     110
+    ],
+    [
+     137,
+     204
+    ],
+    [
+     46,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 51,
+   "key": "middle_temporal_left",
+   "zh": "左颞中回",
+   "en": "Left middle temporal gyrus",
+   "system": "temporal",
+   "desc": "参与语义加工及视觉运动感知。",
+   "color": "#81c784",
+   "volumeMl": 28.3,
+   "centroidVoxel": [
+    38.7,
+    100.4,
+    66.7
+   ],
+   "bestSlice": [
+    38,
+    72,
+    67
+   ],
+   "bboxVoxel": [
+    [
+     24,
+     65
+    ],
+    [
+     60,
+     153
+    ],
+    [
+     31,
+     95
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 52,
+   "key": "middle_temporal_right",
+   "zh": "右颞中回",
+   "en": "Right middle temporal gyrus",
+   "system": "temporal",
+   "desc": "参与语义加工及视觉运动感知。",
+   "color": "#75c175",
+   "volumeMl": 28.3,
+   "centroidVoxel": [
+    153.3,
+    100.4,
+    66.7
+   ],
+   "bestSlice": [
+    154,
+    72,
+    67
+   ],
+   "bboxVoxel": [
+    [
+     127,
+     168
+    ],
+    [
+     60,
+     153
+    ],
+    [
+     31,
+     95
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 53,
+   "key": "optic_chiasm",
+   "zh": "视交叉与视束",
+   "en": "Optic chiasm & tracts",
+   "system": "whitematter",
+   "desc": "视神经在鞍上池内交叉，鼻侧纤维交叉到对侧；垂体瘤压迫视交叉引起双颞侧偏盲。",
+   "color": "#d2dade",
+   "volumeMl": 1.5,
+   "centroidVoxel": [
+    96.0,
+    135.3,
+    58.4
+   ],
+   "bestSlice": [
+    92,
+    131,
+    63
+   ],
+   "bboxVoxel": [
+    [
+     79,
+     113
+    ],
+    [
+     121,
+     154
+    ],
+    [
+     46,
+     67
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 54,
+   "key": "pallidum_left",
+   "zh": "左苍白球",
+   "en": "Left globus pallidus",
+   "system": "basal",
+   "desc": "位于壳核内侧，基底核的主要输出核团之一。",
+   "color": "#42a190",
+   "volumeMl": 1.7,
+   "centroidVoxel": [
+    77.3,
+    129.7,
+    76.1
+   ],
+   "bestSlice": [
+    76,
+    129,
+    74
+   ],
+   "bboxVoxel": [
+    [
+     69,
+     87
+    ],
+    [
+     118,
+     140
+    ],
+    [
+     69,
+     84
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 55,
+   "key": "pallidum_right",
+   "zh": "右苍白球",
+   "en": "Right globus pallidus",
+   "system": "basal",
+   "desc": "位于壳核内侧，基底核的主要输出核团之一。",
+   "color": "#47aea1",
+   "volumeMl": 1.7,
+   "centroidVoxel": [
+    114.7,
+    129.7,
+    76.1
+   ],
+   "bestSlice": [
+    116,
+    129,
+    74
+   ],
+   "bboxVoxel": [
+    [
+     105,
+     123
+    ],
+    [
+     118,
+     140
+    ],
+    [
+     69,
+     84
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 56,
+   "key": "paracentral_left",
+   "zh": "左中央旁小叶",
+   "en": "Left paracentral lobule",
+   "system": "frontal",
+   "desc": "中央前、后回在大脑内侧面的延续，支配对侧下肢运动与感觉，并与排尿控制有关。",
+   "color": "#e57977",
+   "volumeMl": 8.2,
+   "centroidVoxel": [
+    88.3,
+    105.5,
+    137.7
+   ],
+   "bestSlice": [
+    92,
+    108,
+    136
+   ],
+   "bboxVoxel": [
+    [
+     77,
+     95
+    ],
+    [
+     85,
+     127
+    ],
+    [
+     116,
+     157
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 57,
+   "key": "paracentral_right",
+   "zh": "右中央旁小叶",
+   "en": "Right paracentral lobule",
+   "system": "frontal",
+   "desc": "中央前、后回在大脑内侧面的延续，支配对侧下肢运动与感觉，并与排尿控制有关。",
+   "color": "#e47171",
+   "volumeMl": 8.2,
+   "centroidVoxel": [
+    103.7,
+    105.5,
+    137.7
+   ],
+   "bestSlice": [
+    100,
+    108,
+    136
+   ],
+   "bboxVoxel": [
+    [
+     97,
+     115
+    ],
+    [
+     85,
+     127
+    ],
+    [
+     116,
+     157
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 58,
+   "key": "parahippocampal_left",
+   "zh": "左海马旁回",
+   "en": "Left parahippocampal gyrus",
+   "system": "limbic",
+   "desc": "位于海马内下方，参与场景记忆。",
+   "color": "#a04abd",
+   "volumeMl": 2.7,
+   "centroidVoxel": [
+    72.3,
+    100.9,
+    60.6
+   ],
+   "bestSlice": [
+    78,
+    95,
+    63
+   ],
+   "bboxVoxel": [
+    [
+     59,
+     85
+    ],
+    [
+     88,
+     115
+    ],
+    [
+     46,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 59,
+   "key": "parahippocampal_right",
+   "zh": "右海马旁回",
+   "en": "Right parahippocampal gyrus",
+   "system": "limbic",
+   "desc": "位于海马内下方，参与场景记忆。",
+   "color": "#c678ce",
+   "volumeMl": 2.7,
+   "centroidVoxel": [
+    119.7,
+    100.9,
+    60.6
+   ],
+   "bestSlice": [
+    114,
+    95,
+    63
+   ],
+   "bboxVoxel": [
+    [
+     107,
+     133
+    ],
+    [
+     88,
+     115
+    ],
+    [
+     46,
+     76
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 60,
+   "key": "pars_opercularis_left",
+   "zh": "左额下回岛盖部",
+   "en": "Left pars opercularis",
+   "system": "frontal",
+   "desc": "与三角部共同构成 Broca 区（优势半球，通常为左侧），损伤导致运动性失语。",
+   "color": "#e88e88",
+   "volumeMl": 7.7,
+   "centroidVoxel": [
+    48.2,
+    146.9,
+    91.1
+   ],
+   "bestSlice": [
+    46,
+    151,
+    99
+   ],
+   "bboxVoxel": [
+    [
+     35,
+     66
+    ],
+    [
+     134,
+     161
+    ],
+    [
+     73,
+     108
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 61,
+   "key": "pars_opercularis_right",
+   "zh": "右额下回岛盖部",
+   "en": "Right pars opercularis",
+   "system": "frontal",
+   "desc": "与三角部共同构成 Broca 区（优势半球，通常为左侧），损伤导致运动性失语。",
+   "color": "#ea978f",
+   "volumeMl": 7.7,
+   "centroidVoxel": [
+    143.8,
+    146.9,
+    91.1
+   ],
+   "bestSlice": [
+    146,
+    151,
+    99
+   ],
+   "bboxVoxel": [
+    [
+     126,
+     157
+    ],
+    [
+     134,
+     161
+    ],
+    [
+     73,
+     108
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 62,
+   "key": "pars_orbitalis_left",
+   "zh": "左额下回眶部",
+   "en": "Left pars orbitalis",
+   "system": "frontal",
+   "desc": "额下回最前下方的部分，邻接眶额皮质。",
+   "color": "#ea9890",
+   "volumeMl": 3.6,
+   "centroidVoxel": [
+    52.9,
+    166.0,
+    65.2
+   ],
+   "bestSlice": [
+    50,
+    161,
+    64
+   ],
+   "bboxVoxel": [
+    [
+     42,
+     67
+    ],
+    [
+     151,
+     182
+    ],
+    [
+     56,
+     80
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 63,
+   "key": "pars_orbitalis_right",
+   "zh": "右额下回眶部",
+   "en": "Right pars orbitalis",
+   "system": "frontal",
+   "desc": "额下回最前下方的部分，邻接眶额皮质。",
+   "color": "#e67b79",
+   "volumeMl": 3.6,
+   "centroidVoxel": [
+    139.1,
+    166.0,
+    65.2
+   ],
+   "bestSlice": [
+    142,
+    161,
+    64
+   ],
+   "bboxVoxel": [
+    [
+     125,
+     150
+    ],
+    [
+     151,
+     182
+    ],
+    [
+     56,
+     80
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 64,
+   "key": "pars_triangularis_left",
+   "zh": "左额下回三角部",
+   "en": "Left pars triangularis",
+   "system": "frontal",
+   "desc": "Broca 区的组成部分，位于岛盖部前方。",
+   "color": "#e57675",
+   "volumeMl": 8.2,
+   "centroidVoxel": [
+    47.4,
+    163.8,
+    82.7
+   ],
+   "bestSlice": [
+    43,
+    157,
+    78
+   ],
+   "bboxVoxel": [
+    [
+     36,
+     67
+    ],
+    [
+     151,
+     180
+    ],
+    [
+     67,
+     100
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 65,
+   "key": "pars_triangularis_right",
+   "zh": "右额下回三角部",
+   "en": "Right pars triangularis",
+   "system": "frontal",
+   "desc": "Broca 区的组成部分，位于岛盖部前方。",
+   "color": "#e36c6e",
+   "volumeMl": 8.2,
+   "centroidVoxel": [
+    144.6,
+    163.8,
+    82.7
+   ],
+   "bestSlice": [
+    149,
+    157,
+    78
+   ],
+   "bboxVoxel": [
+    [
+     125,
+     156
+    ],
+    [
+     151,
+     180
+    ],
+    [
+     67,
+     100
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 66,
+   "key": "pericalcarine_left",
+   "zh": "左距状沟周围皮质",
+   "en": "Left pericalcarine cortex",
+   "system": "occipital",
+   "desc": "初级视觉皮质（V1，Brodmann 17 区），沿距状沟分布。",
+   "color": "#ffd778",
+   "volumeMl": 5.0,
+   "centroidVoxel": [
+    84.6,
+    49.7,
+    84.2
+   ],
+   "bestSlice": [
+    87,
+    56,
+    86
+   ],
+   "bboxVoxel": [
+    [
+     69,
+     92
+    ],
+    [
+     31,
+     71
+    ],
+    [
+     68,
+     97
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 67,
+   "key": "pericalcarine_right",
+   "zh": "右距状沟周围皮质",
+   "en": "Right pericalcarine cortex",
+   "system": "occipital",
+   "desc": "初级视觉皮质（V1，Brodmann 17 区），沿距状沟分布。",
+   "color": "#fecc67",
+   "volumeMl": 5.0,
+   "centroidVoxel": [
+    107.4,
+    49.7,
+    84.2
+   ],
+   "bestSlice": [
+    105,
+    56,
+    86
+   ],
+   "bboxVoxel": [
+    [
+     100,
+     123
+    ],
+    [
+     31,
+     71
+    ],
+    [
+     68,
+     97
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 68,
+   "key": "postcentral_left",
+   "zh": "左中央后回",
+   "en": "Left postcentral gyrus",
+   "system": "parietal",
+   "desc": "初级躯体感觉皮质（Brodmann 3、1、2 区），位于中央沟后方。",
+   "color": "#4db4f4",
+   "volumeMl": 18.2,
+   "centroidVoxel": [
+    53.0,
+    107.0,
+    124.7
+   ],
+   "bestSlice": [
+    44,
+    102,
+    99
+   ],
+   "bboxVoxel": [
+    [
+     26,
+     91
+    ],
+    [
+     73,
+     130
+    ],
+    [
+     85,
+     160
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 69,
+   "key": "postcentral_right",
+   "zh": "右中央后回",
+   "en": "Right postcentral gyrus",
+   "system": "parietal",
+   "desc": "初级躯体感觉皮质（Brodmann 3、1、2 区），位于中央沟后方。",
+   "color": "#8bbbf8",
+   "volumeMl": 18.2,
+   "centroidVoxel": [
+    139.0,
+    107.0,
+    124.7
+   ],
+   "bestSlice": [
+    147,
+    102,
+    99
+   ],
+   "bboxVoxel": [
+    [
+     101,
+     166
+    ],
+    [
+     73,
+     130
+    ],
+    [
+     85,
+     160
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 70,
+   "key": "posterior_cingulate_left",
+   "zh": "左后扣带回",
+   "en": "Left posterior cingulate",
+   "system": "limbic",
+   "desc": "默认模式网络的核心节点。",
+   "color": "#bd6cc9",
+   "volumeMl": 5.3,
+   "centroidVoxel": [
+    90.5,
+    112.1,
+    116.6
+   ],
+   "bestSlice": [
+    93,
+    102,
+    118
+   ],
+   "bboxVoxel": [
+    [
+     79,
+     95
+    ],
+    [
+     91,
+     177
+    ],
+    [
+     76,
+     128
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 71,
+   "key": "posterior_cingulate_right",
+   "zh": "右后扣带回",
+   "en": "Right posterior cingulate",
+   "system": "limbic",
+   "desc": "默认模式网络的核心节点。",
+   "color": "#cb7fd0",
+   "volumeMl": 5.4,
+   "centroidVoxel": [
+    101.4,
+    112.2,
+    116.6
+   ],
+   "bestSlice": [
+    99,
+    102,
+    118
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     113
+    ],
+    [
+     91,
+     177
+    ],
+    [
+     76,
+     128
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 72,
+   "key": "precentral_left",
+   "zh": "左中央前回",
+   "en": "Left precentral gyrus",
+   "system": "frontal",
+   "desc": "初级运动皮质（Brodmann 4 区），按“倒立小人”排列支配对侧躯体运动。位于中央沟前方。",
+   "color": "#e47272",
+   "volumeMl": 21.4,
+   "centroidVoxel": [
+    53.2,
+    124.7,
+    119.7
+   ],
+   "bestSlice": [
+    41,
+    132,
+    129
+   ],
+   "bboxVoxel": [
+    [
+     30,
+     91
+    ],
+    [
+     96,
+     146
+    ],
+    [
+     77,
+     159
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 73,
+   "key": "precentral_right",
+   "zh": "右中央前回",
+   "en": "Right precentral gyrus",
+   "system": "frontal",
+   "desc": "初级运动皮质（Brodmann 4 区），按“倒立小人”排列支配对侧躯体运动。位于中央沟前方。",
+   "color": "#df5461",
+   "volumeMl": 21.4,
+   "centroidVoxel": [
+    138.8,
+    124.7,
+    119.7
+   ],
+   "bestSlice": [
+    151,
+    132,
+    129
+   ],
+   "bboxVoxel": [
+    [
+     101,
+     162
+    ],
+    [
+     96,
+     146
+    ],
+    [
+     77,
+     159
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 74,
+   "key": "precuneus_left",
+   "zh": "左楔前叶",
+   "en": "Left precuneus",
+   "system": "parietal",
+   "desc": "顶叶内侧面，默认模式网络的核心节点。",
+   "color": "#68b5f6",
+   "volumeMl": 18.8,
+   "centroidVoxel": [
+    86.9,
+    73.0,
+    117.7
+   ],
+   "bestSlice": [
+    90,
+    76,
+    119
+   ],
+   "bboxVoxel": [
+    [
+     69,
+     95
+    ],
+    [
+     48,
+     96
+    ],
+    [
+     83,
+     157
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 75,
+   "key": "precuneus_right",
+   "zh": "右楔前叶",
+   "en": "Right precuneus",
+   "system": "parietal",
+   "desc": "顶叶内侧面，默认模式网络的核心节点。",
+   "color": "#5cb4f5",
+   "volumeMl": 18.8,
+   "centroidVoxel": [
+    105.1,
+    73.0,
+    117.7
+   ],
+   "bestSlice": [
+    102,
+    76,
+    119
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     123
+    ],
+    [
+     48,
+     96
+    ],
+    [
+     83,
+     157
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 76,
+   "key": "putamen_left",
+   "zh": "左壳核",
+   "en": "Left putamen",
+   "system": "basal",
+   "desc": "与苍白球合称豆状核，位于内囊外侧；是高血压脑出血最常见的部位。",
+   "color": "#59bab6",
+   "volumeMl": 6.6,
+   "centroidVoxel": [
+    70.5,
+    134.6,
+    78.2
+   ],
+   "bestSlice": [
+    67,
+    139,
+    80
+   ],
+   "bboxVoxel": [
+    [
+     62,
+     83
+    ],
+    [
+     110,
+     153
+    ],
+    [
+     65,
+     92
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 77,
+   "key": "putamen_right",
+   "zh": "右壳核",
+   "en": "Right putamen",
+   "system": "basal",
+   "desc": "与苍白球合称豆状核，位于内囊外侧；是高血压脑出血最常见的部位。",
+   "color": "#4bb5aa",
+   "volumeMl": 6.6,
+   "centroidVoxel": [
+    121.5,
+    134.6,
+    78.2
+   ],
+   "bestSlice": [
+    125,
+    139,
+    80
+   ],
+   "bboxVoxel": [
+    [
+     109,
+     130
+    ],
+    [
+     110,
+     153
+    ],
+    [
+     65,
+     92
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 78,
+   "key": "rostral_anterior_cingulate_left",
+   "zh": "左前扣带回（嘴侧）",
+   "en": "Left rostral anterior cingulate",
+   "system": "limbic",
+   "desc": "参与情绪调节。",
+   "color": "#c97ccf",
+   "volumeMl": 3.8,
+   "centroidVoxel": [
+    90.5,
+    168.3,
+    80.3
+   ],
+   "bestSlice": [
+    93,
+    172,
+    68
+   ],
+   "bboxVoxel": [
+    [
+     82,
+     95
+    ],
+    [
+     140,
+     179
+    ],
+    [
+     63,
+     101
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 79,
+   "key": "rostral_anterior_cingulate_right",
+   "zh": "右前扣带回（嘴侧）",
+   "en": "Right rostral anterior cingulate",
+   "system": "limbic",
+   "desc": "参与情绪调节。",
+   "color": "#c97ccf",
+   "volumeMl": 3.8,
+   "centroidVoxel": [
+    101.4,
+    168.2,
+    80.2
+   ],
+   "bestSlice": [
+    99,
+    172,
+    68
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     110
+    ],
+    [
+     140,
+     179
+    ],
+    [
+     63,
+     101
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 80,
+   "key": "rostral_middle_frontal_left",
+   "zh": "左额中回前部",
+   "en": "Left rostral middle frontal gyrus",
+   "system": "frontal",
+   "desc": "背外侧前额叶皮质的主要部分，参与工作记忆与执行功能。",
+   "color": "#e15e66",
+   "volumeMl": 21.7,
+   "centroidVoxel": [
+    57.5,
+    174.7,
+    95.7
+   ],
+   "bestSlice": [
+    57,
+    183,
+    103
+   ],
+   "bboxVoxel": [
+    [
+     40,
+     75
+    ],
+    [
+     134,
+     199
+    ],
+    [
+     59,
+     134
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 81,
+   "key": "rostral_middle_frontal_right",
+   "zh": "右额中回前部",
+   "en": "Right rostral middle frontal gyrus",
+   "system": "frontal",
+   "desc": "背外侧前额叶皮质的主要部分，参与工作记忆与执行功能。",
+   "color": "#de4f5f",
+   "volumeMl": 21.7,
+   "centroidVoxel": [
+    134.5,
+    174.7,
+    95.7
+   ],
+   "bestSlice": [
+    134,
+    183,
+    103
+   ],
+   "bboxVoxel": [
+    [
+     117,
+     152
+    ],
+    [
+     134,
+     199
+    ],
+    [
+     59,
+     134
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 82,
+   "key": "superior_frontal_left",
+   "zh": "左额上回",
+   "en": "Left superior frontal gyrus",
+   "system": "frontal",
+   "desc": "位于额叶上部，内侧面包含辅助运动区。",
+   "color": "#e57675",
+   "volumeMl": 52.8,
+   "centroidVoxel": [
+    82.8,
+    165.8,
+    115.4
+   ],
+   "bestSlice": [
+    90,
+    181,
+    127
+   ],
+   "bboxVoxel": [
+    [
+     62,
+     95
+    ],
+    [
+     114,
+     206
+    ],
+    [
+     61,
+     156
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 83,
+   "key": "superior_frontal_right",
+   "zh": "右额上回",
+   "en": "Right superior frontal gyrus",
+   "system": "frontal",
+   "desc": "位于额叶上部，内侧面包含辅助运动区。",
+   "color": "#e99089",
+   "volumeMl": 52.8,
+   "centroidVoxel": [
+    109.2,
+    165.8,
+    115.4
+   ],
+   "bestSlice": [
+    102,
+    181,
+    127
+   ],
+   "bboxVoxel": [
+    [
+     97,
+     130
+    ],
+    [
+     114,
+     206
+    ],
+    [
+     61,
+     156
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 84,
+   "key": "superior_parietal_left",
+   "zh": "左顶上小叶",
+   "en": "Left superior parietal lobule",
+   "system": "parietal",
+   "desc": "参与空间定位与感觉整合。",
+   "color": "#73b6f6",
+   "volumeMl": 19.3,
+   "centroidVoxel": [
+    70.1,
+    70.1,
+    130.4
+   ],
+   "bestSlice": [
+    69,
+    69,
+    137
+   ],
+   "bboxVoxel": [
+    [
+     51,
+     90
+    ],
+    [
+     39,
+     97
+    ],
+    [
+     94,
+     154
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 85,
+   "key": "superior_parietal_right",
+   "zh": "右顶上小叶",
+   "en": "Right superior parietal lobule",
+   "system": "parietal",
+   "desc": "参与空间定位与感觉整合。",
+   "color": "#69b5f6",
+   "volumeMl": 19.3,
+   "centroidVoxel": [
+    121.9,
+    70.1,
+    130.4
+   ],
+   "bestSlice": [
+    123,
+    69,
+    137
+   ],
+   "bboxVoxel": [
+    [
+     102,
+     141
+    ],
+    [
+     39,
+     97
+    ],
+    [
+     94,
+     154
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 86,
+   "key": "superior_temporal_left",
+   "zh": "左颞上回",
+   "en": "Left superior temporal gyrus",
+   "system": "temporal",
+   "desc": "后部（优势半球）为 Wernicke 区，损伤导致感觉性失语。",
+   "color": "#77c277",
+   "volumeMl": 25.4,
+   "centroidVoxel": [
+    44.9,
+    123.9,
+    69.4
+   ],
+   "bestSlice": [
+    48,
+    145,
+    81
+   ],
+   "bboxVoxel": [
+    [
+     24,
+     77
+    ],
+    [
+     80,
+     158
+    ],
+    [
+     32,
+     99
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 87,
+   "key": "superior_temporal_right",
+   "zh": "右颞上回",
+   "en": "Right superior temporal gyrus",
+   "system": "temporal",
+   "desc": "后部（优势半球）为 Wernicke 区，损伤导致感觉性失语。",
+   "color": "#6ebd6a",
+   "volumeMl": 25.4,
+   "centroidVoxel": [
+    147.1,
+    123.9,
+    69.4
+   ],
+   "bestSlice": [
+    144,
+    145,
+    81
+   ],
+   "bboxVoxel": [
+    [
+     115,
+     168
+    ],
+    [
+     80,
+     158
+    ],
+    [
+     32,
+     99
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 88,
+   "key": "supramarginal_left",
+   "zh": "左缘上回",
+   "en": "Left supramarginal gyrus",
+   "system": "parietal",
+   "desc": "环绕外侧沟后端，优势半球参与语言加工。",
+   "color": "#6db5f6",
+   "volumeMl": 16.0,
+   "centroidVoxel": [
+    40.8,
+    96.9,
+    114.0
+   ],
+   "bestSlice": [
+    34,
+    96,
+    118
+   ],
+   "bboxVoxel": [
+    [
+     27,
+     65
+    ],
+    [
+     79,
+     116
+    ],
+    [
+     91,
+     137
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 89,
+   "key": "supramarginal_right",
+   "zh": "右缘上回",
+   "en": "Right supramarginal gyrus",
+   "system": "parietal",
+   "desc": "环绕外侧沟后端，优势半球参与语言加工。",
+   "color": "#6ab5f6",
+   "volumeMl": 16.0,
+   "centroidVoxel": [
+    151.2,
+    96.9,
+    114.0
+   ],
+   "bestSlice": [
+    158,
+    96,
+    118
+   ],
+   "bboxVoxel": [
+    [
+     127,
+     165
+    ],
+    [
+     79,
+     116
+    ],
+    [
+     91,
+     137
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 90,
+   "key": "thalamus_left",
+   "zh": "左丘脑",
+   "en": "Left thalamus",
+   "system": "basal",
+   "desc": "位于第三脑室两侧，是感觉传入大脑皮质的主要中继站。内囊后肢位于其外侧。",
+   "color": "#43a494",
+   "volumeMl": 10.0,
+   "centroidVoxel": [
+    84.3,
+    113.9,
+    84.8
+   ],
+   "bestSlice": [
+    84,
+    112,
+    83
+   ],
+   "bboxVoxel": [
+    [
+     70,
+     95
+    ],
+    [
+     96,
+     132
+    ],
+    [
+     72,
+     98
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 91,
+   "key": "thalamus_right",
+   "zh": "右丘脑",
+   "en": "Right thalamus",
+   "system": "basal",
+   "desc": "位于第三脑室两侧，是感觉传入大脑皮质的主要中继站。内囊后肢位于其外侧。",
+   "color": "#5dbcb9",
+   "volumeMl": 10.0,
+   "centroidVoxel": [
+    107.7,
+    113.9,
+    84.7
+   ],
+   "bestSlice": [
+    108,
+    112,
+    83
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     122
+    ],
+    [
+     96,
+     132
+    ],
+    [
+     72,
+     98
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 92,
+   "key": "third_ventricle",
+   "zh": "第三脑室",
+   "en": "Third ventricle",
+   "system": "ventricles",
+   "desc": "位于两侧丘脑之间的狭窄腔隙，经中脑导水管通第四脑室。",
+   "color": "#59c2f7",
+   "volumeMl": 1.7,
+   "centroidVoxel": [
+    96.0,
+    118.8,
+    77.6
+   ],
+   "bestSlice": [
+    96,
+    130,
+    77
+   ],
+   "bboxVoxel": [
+    [
+     87,
+     105
+    ],
+    [
+     94,
+     135
+    ],
+    [
+     58,
+     93
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 93,
+   "key": "transverse_temporal_left",
+   "zh": "左颞横回",
+   "en": "Left transverse temporal gyrus (Heschl)",
+   "system": "temporal",
+   "desc": "初级听觉皮质（Heschl 回），位于外侧沟深部、颞上回上面。",
+   "color": "#68b962",
+   "volumeMl": 1.9,
+   "centroidVoxel": [
+    50.3,
+    112.2,
+    86.3
+   ],
+   "bestSlice": [
+    48,
+    109,
+    86
+   ],
+   "bboxVoxel": [
+    [
+     38,
+     62
+    ],
+    [
+     98,
+     127
+    ],
+    [
+     77,
+     95
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 94,
+   "key": "transverse_temporal_right",
+   "zh": "右颞横回",
+   "en": "Right transverse temporal gyrus (Heschl)",
+   "system": "temporal",
+   "desc": "初级听觉皮质（Heschl 回），位于外侧沟深部、颞上回上面。",
+   "color": "#78c379",
+   "volumeMl": 1.9,
+   "centroidVoxel": [
+    141.7,
+    112.2,
+    86.3
+   ],
+   "bestSlice": [
+    144,
+    109,
+    86
+   ],
+   "bboxVoxel": [
+    [
+     130,
+     154
+    ],
+    [
+     98,
+     127
+    ],
+    [
+     77,
+     95
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 95,
+   "key": "ventral_dc_left",
+   "zh": "左腹侧间脑",
+   "en": "Left ventral diencephalon",
+   "system": "basal",
+   "desc": "包括下丘脑、底丘脑等结构。",
+   "color": "#5bbcb8",
+   "volumeMl": 6.1,
+   "centroidVoxel": [
+    85.7,
+    115.2,
+    67.7
+   ],
+   "bestSlice": [
+    91,
+    111,
+    69
+   ],
+   "bboxVoxel": [
+    [
+     69,
+     95
+    ],
+    [
+     103,
+     133
+    ],
+    [
+     57,
+     81
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 96,
+   "key": "ventral_dc_right",
+   "zh": "右腹侧间脑",
+   "en": "Right ventral diencephalon",
+   "system": "basal",
+   "desc": "包括下丘脑、底丘脑等结构。",
+   "color": "#4eb6ad",
+   "volumeMl": 6.1,
+   "centroidVoxel": [
+    106.3,
+    115.2,
+    67.7
+   ],
+   "bestSlice": [
+    101,
+    111,
+    69
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     123
+    ],
+    [
+     103,
+     133
+    ],
+    [
+     57,
+     81
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 97,
+   "key": "vermis_1_5",
+   "zh": "小脑蚓（I–V 小叶）",
+   "en": "Vermis lobules I–V",
+   "system": "hindbrain",
+   "desc": "小脑蚓前叶部分，与躯干平衡有关。",
+   "color": "#9e837a",
+   "volumeMl": 8.5,
+   "centroidVoxel": [
+    96.0,
+    78.6,
+    64.1
+   ],
+   "bestSlice": [
+    94,
+    79,
+    67
+   ],
+   "bboxVoxel": [
+    [
+     88,
+     104
+    ],
+    [
+     60,
+     92
+    ],
+    [
+     48,
+     80
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 98,
+   "key": "vermis_6_7",
+   "zh": "小脑蚓（VI–VII 小叶）",
+   "en": "Vermis lobules VI–VII",
+   "system": "hindbrain",
+   "desc": "小脑蚓中部，参与眼球运动控制。",
+   "color": "#a48d83",
+   "volumeMl": 4.2,
+   "centroidVoxel": [
+    96.0,
+    62.4,
+    55.8
+   ],
+   "bestSlice": [
+    95,
+    60,
+    58
+   ],
+   "bboxVoxel": [
+    [
+     88,
+     104
+    ],
+    [
+     51,
+     76
+    ],
+    [
+     42,
+     70
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 99,
+   "key": "vermis_8_10",
+   "zh": "小脑蚓（VIII–X 小叶）",
+   "en": "Vermis lobules VIII–X",
+   "system": "hindbrain",
+   "desc": "小脑蚓后下部，包括小结，参与前庭平衡。",
+   "color": "#b09d93",
+   "volumeMl": 4.7,
+   "centroidVoxel": [
+    96.0,
+    70.9,
+    40.4
+   ],
+   "bestSlice": [
+    95,
+    67,
+    39
+   ],
+   "bboxVoxel": [
+    [
+     87,
+     105
+    ],
+    [
+     56,
+     88
+    ],
+    [
+     29,
+     52
+    ]
+   ],
+   "hasMesh": true
+  }
+ ]
+}

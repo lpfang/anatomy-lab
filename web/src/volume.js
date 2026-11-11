@@ -51,6 +51,16 @@ export async function loadCase(base, onProgress) {
     meta, ct, labels, nx, ny, nz, byId, byKey, vox2ras, ras2vox,
     glbUrl: `${base}/anatomy.glb?v=${V}`,
     setGlbProgress(p) { prog.glb = p; report(); },
+    // 载入另一序列（同网格），替换 ct 数据；结果缓存
+    _seqCache: new Map(),
+    async loadSequence(file) {
+      if (!this._seqCache.has(file)) {
+        const b = await fetchBytes(`${base}/${file}`);
+        this._seqCache.set(file, new Int16Array(b.buffer, b.byteOffset, b.byteLength / 2));
+      }
+      if (!this._seqCache.has('__primary')) this._seqCache.set('__primary', this.ct);
+      this.ct = file === 'image.i16.gz' ? this._seqCache.get('__primary') : this._seqCache.get(file);
+    },
     idx(i, j, k) { return i + nx * (j + ny * k); },
     inside(i, j, k) { return i >= 0 && j >= 0 && k >= 0 && i < nx && j < ny && k < nz; },
     labelAt(i, j, k) {
@@ -59,7 +69,7 @@ export async function loadCase(base, onProgress) {
     },
     huAt(i, j, k) {
       i = Math.round(i); j = Math.round(j); k = Math.round(k);
-      return this.inside(i, j, k) ? ct[this.idx(i, j, k)] : null;
+      return this.inside(i, j, k) ? this.ct[this.idx(i, j, k)] : null;
     },
     toWorld(v) { return new THREE.Vector3(...v).applyMatrix4(vox2ras); },
     toVoxel(w) { return w.clone().applyMatrix4(ras2vox); },

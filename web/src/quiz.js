@@ -23,7 +23,10 @@ export class Quiz {
   constructor({ vol, state, anchorOf, refresh, focus3d, panel, onEnter, onExit }) {
     Object.assign(this, { vol, state, anchorOf, refresh, focus3d, panel, onEnter, onExit });
     this.active = false;
-    this.cfg = { types: new Set(Object.keys(TYPES)), systems: new Set(DEFAULT_SYSTEMS), count: 10 };
+    const present = new Set(vol.meta.structures.map((s) => s.system));
+    const def = DEFAULT_SYSTEMS.filter((k) => present.has(k));
+    // 脑图谱等病例没有默认系统时，默认全选
+    this.cfg = { types: new Set(Object.keys(TYPES)), systems: new Set(def.length ? def : present), count: 10 };
   }
 
   // ---------------- 进入 / 退出 ----------------

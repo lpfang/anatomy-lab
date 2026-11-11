@@ -19,6 +19,12 @@
   "default": true
  },
  {
+  "id": "brain_mni152",
+  "modality": "MR",
+  "desc": "标准脑 MRI 模板（MNI152）",
+  "structures": 99
+ },
+ {
   "id": "mr_s0646",
   "modality": "MR",
   "desc": "腹部 MRI",

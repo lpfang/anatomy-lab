@@ -61,7 +61,7 @@ export class View3D {
       if (!s) continue;
       m.geometry.deleteAttribute('color');
       if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals();
-      const base = s.system === 'respiratory' ? 0.28 : 1;
+      const base = s.opacity ?? (s.system === 'respiratory' ? 0.28 : 1);
       m.material = new THREE.MeshStandardMaterial({
         color: s.color, roughness: 0.55, metalness: 0.02, side: THREE.DoubleSide,
         transparent: base < 1, opacity: base, depthWrite: base >= 1,
