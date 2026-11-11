@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>断层解剖 · 3D 对照</title>
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">断层解剖 <span>·</span> 3D 对照 <small>Sectional Anatomy Lab</small></div>
+    <div class="wl">
+      <span class="lbl">窗宽窗位</span>
+      <div id="wl-presets" class="seg"></div>
+      <span id="wl-readout" class="readout"></span>
+    </div>
+    <button id="btn-tour" class="quiz-btn">导览</button>
+    <button id="btn-quiz" class="quiz-btn">测验模式</button>
+    <div class="case"><select id="case-select" title="切换病例"></select><span id="case-info"></span></div>
+  </header>
+
+  <aside class="sidebar">
+    <input id="search" type="search" placeholder="搜索结构：中文 / English" autocomplete="off" />
+    <div id="tree" class="tree"></div>
+  </aside>
+
+  <main class="views">
+    <section class="view slice" data-plane="axial">
+      <div class="vlabel">横断位 <em>Axial</em></div><canvas></canvas>
+      <div class="vpos"></div><div class="dirs"></div>
+    </section>
+    <section class="view three" id="view3d">
+      <div class="vlabel">3D 模型 <em>3D Model</em></div>
+      <div class="tools3d">
+        <span class="planes">切面 <label class="pa"><input type="checkbox" data-plane="axial" checked />横</label><label class="pc"><input type="checkbox" data-plane="coronal" />冠</label><label class="ps"><input type="checkbox" data-plane="sagittal" />矢</label></span>
+        <label>剖切
+          <select id="opt-clip">
+            <option value="none">无</option>
+            <option value="axial">横断（去上半）</option>
+            <option value="coronal">冠状（去前半）</option>
+            <option value="sagittal">矢状（去左半）</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="opt-ghost" checked /> 选中时其余半透明</label>
+        <button id="btn-reset" title="复位视角">复位</button>
+      </div>
+    </section>
+    <section class="view slice" data-plane="coronal">
+      <div class="vlabel">冠状位 <em>Coronal</em></div><canvas></canvas>
+      <div class="vpos"></div><div class="dirs"></div>
+    </section>
+    <section class="view slice" data-plane="sagittal">
+      <div class="vlabel">矢状位 <em>Sagittal</em></div><canvas></canvas>
+      <div class="vpos"></div><div class="dirs"></div>
+    </section>
+  </main>
+
+  <aside class="info">
+    <div id="quiz" class="quiz" hidden></div>
+    <div id="tour" class="quiz" hidden></div>
+    <div id="card" class="card empty">
+      <p>点击任一断层图像或 3D 模型上的结构，查看名称与说明。</p>
+      <ul class="tips">
+        <li><b>滚轮</b> 翻层</li>
+        <li><b>左键</b> 定位 / 选中结构</li>
+        <li><b>右键拖动</b> 调节窗宽窗位</li>
+        <li><b>Shift + 滚轮</b> 缩放切片</li>
+        <li>3D：左键旋转 · 右键平移 · 滚轮缩放</li>
+      </ul>
+    </div>
+    <div class="overlay-ctl">
+      <label>标签叠加 <input type="range" id="opt-overlay" min="0" max="100" value="35" /></label>
+      <label><input type="checkbox" id="opt-outline" checked /> 选中结构描边</label>
+    </div>
+    <div class="credit">数据：TotalSegmentator dataset v2.0.1（Wasserthal et al., Radiology: AI 2023），CC BY 4.0。仅供教学，不用于诊断。</div>
+  </aside>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <div id="loading" class="loading"><div class="bar"><i></i></div><p>加载中…</p></div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
