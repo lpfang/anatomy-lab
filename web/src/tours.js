@@ -14,12 +14,14 @@
 //   requires       该步需要的结构（默认取 select / at.key）
 //   overlay        标签叠加透明度 0–1（0 = 只看原始灰度图像）；导览结束后恢复
 //   probe          在面板中列出这些结构的实测中位数（CT 为 HU，MRI 为当前序列的相对信号）
+//   （路线级）cases  仅在这些病例中出现（讲解中引用了具体病例的实测值时使用）
 //   lesson         附带"读片手册"中对应章节的链接（章节 id）
 
 export const TOURS = [
   // ------------------------- 读片入门 -------------------------
   {
     id: 'ct-basics',
+    cases: ['s0344'],
     title: 'CT 读片入门',
     en: 'How to read a CT',
     desc: '方位约定 → CT 值 → 平扫还是增强 → 窗宽窗位 → 多平面重建 → 读片顺序。',
@@ -107,6 +109,7 @@ export const TOURS = [
   },
   {
     id: 'mri-abdomen',
+    cases: ['mr_s0646'],
     title: '腹部 MRI：从信号推断序列',
     en: 'Abdominal MRI detective',
     desc: '一幅没有标注序列的腹部 MRI：根据脑脊液、椎间盘、血管的信号推断它是什么序列。',
@@ -136,7 +139,103 @@ export const TOURS = [
     ],
   },
   {
+    id: 'uro-ctu',
+    title: '排泄期 CT：尿路全程',
+    en: 'Excretory-phase CT urography',
+    desc: '造影剂充盈的肾盏、肾盂、输尿管和膀胱：沿尿路走一遍，认识三个狭窄和膀胱液-液平面。',
+    steps: [
+      {
+        title: '排泄期：尿路"亮"起来了',
+        only: ['renal_pelvis_left', 'renal_pelvis_right', 'ureter_left', 'ureter_right', 'urinary_bladder', 'kidney_left', 'kidney_right', 'vertebrae_L1', 'vertebrae_L2', 'vertebrae_L3', 'vertebrae_L4', 'vertebrae_L5', 'sacrum', 'hip_left', 'hip_right'],
+        select: 'renal_pelvis_left', wl: '尿路窗', overlay: 0.35, clip: 'none', view: 'front', lesson: 'uro',
+        requires: ['renal_pelvis_left', 'ureter_left', 'urinary_bladder'],
+        text: '注射碘造影剂约 <b>5 ~ 15 分钟</b>后，造影剂经肾小球滤过排入集合系统，<b>肾盏、肾盂、输尿管和膀胱</b>都被充盈成高密度——这就是 CT 尿路造影（CTU）的<b>排泄期</b>。3D 中可以看到完整的尿路，相当于传统"静脉肾盂造影"的三维版本。<br><br>当前使用<b>尿路窗（W1500 / L350）</b>：造影剂密度可达数百至上千 HU，软组织窗下会一片"过曝"，加宽窗才能看清腔内细节。<br><br><small>说明：本例肾盂肾盏和输尿管由造影剂阈值自动提取，未经人工校对。</small>',
+      },
+      {
+        title: '怎么确认是排泄期？',
+        select: 'renal_pelvis_left', wl: '软组织', overlay: 0, lesson: 'uro',
+        probe: ['aorta', 'inferior_vena_cava', 'kidney_left', 'renal_pelvis_left', 'ureter_left', 'urinary_bladder'],
+        text: '对比下表：<b>主动脉只有约 80 HU</b>，血管里的造影剂已大部分被稀释和排出；而<b>肾盂、输尿管数百 HU</b>，远高于血管。这正是排泄期的特征。<br><br>对照胸腹 CT 病例 s0344（门静脉期）：那里主动脉约 100 HU，膀胱尿液只有 10 HU。<b>判断期相，就看造影剂"走到了哪里"</b>。',
+      },
+      {
+        title: '肾盏与肾盂',
+        select: 'renal_pelvis_right', wl: '尿路窗', overlay: 0.35, clip: 'coronal', view: 'front', only: 'all',
+        text: '<b>冠状位</b>最适合观察集合系统：每个<b>肾小盏</b>呈杯口状包绕肾乳头，数个小盏汇成<b>肾大盏</b>，再汇合成漏斗状的<b>肾盂</b>。<br><br>读片时注意：杯口是否锐利（变钝提示积水或感染）、腔内有无<b>充盈缺损</b>（结石、血块、尿路上皮肿瘤）。用滚轮前后翻层，逐个检查每个肾盏。',
+      },
+      {
+        title: '第一个狭窄：肾盂输尿管连接部',
+        select: 'ureter_right', at: { key: 'renal_pelvis_right', pos: 'bottom', offset: 0 }, clip: 'none', view: 'front',
+        text: '肾盂出肾门后逐渐变细，移行为输尿管，这里称为<b>肾盂输尿管连接部（UPJ）</b>，是第一个生理狭窄。先天性 UPJ 梗阻是儿童肾积水最常见的原因。',
+      },
+      {
+        title: '第二个狭窄：跨越髂血管',
+        select: 'ureter_right', at: { key: 'ureter_right', pos: 'bottom', offset: 58 }, clip: 'axial', view: 'top',
+        requires: ['ureter_right', 'iliac_artery_right'],
+        text: '横断位已移到<b>右输尿管与右髂动脉最接近的层面</b>（本例相距仅约 3 mm）。输尿管在骨盆入口处从<b>髂血管前方</b>跨过进入盆腔，这是第二个狭窄。<br><br>在 3D 中旋转，可以看到输尿管从腰大肌前方下行、在骨盆缘越过髂血管、再弯向内侧进入膀胱的完整路径。',
+      },
+      {
+        title: '第三个狭窄：膀胱壁内段',
+        select: 'ureter_left', at: { key: 'ureter_left', pos: 'bottom', offset: 2 }, clip: 'none', view: 'front',
+        text: '输尿管下端<b>斜行穿过膀胱壁</b>（壁内段约 1.5 cm），开口于膀胱三角的外上角。这一段最窄，是<b>结石最常嵌顿</b>的部位。斜穿的结构在膀胱充盈时可被压闭，起到防止尿液反流的作用。',
+      },
+      {
+        title: '膀胱：液-液平面',
+        select: 'urinary_bladder', wl: '软组织', overlay: 0, clip: 'sagittal', view: 'left',
+        probe: ['urinary_bladder'],
+        text: '关掉标签，看矢状位和横断位：造影剂比重大于尿液，仰卧时沉在膀胱<b>背侧</b>，与上方未混匀的尿液形成水平的<b>液-液平面</b>。这是排泄期早期的正常表现，不要误认为病变。<br><br>正因为造影剂分层，膀胱前壁附近的小病灶可能被漏掉；临床上有时会让患者翻身后再扫一次。',
+      },
+      {
+        title: '输尿管为什么"时断时续"？',
+        select: 'ureter_left', wl: '尿路窗', overlay: 0.35, clip: 'none', view: 'front',
+        text: '输尿管靠<b>蠕动</b>把尿液一段段送向膀胱，所以排泄期 CT 上它常常<b>节段性显影</b>，某一段不显影并不一定是梗阻。本例两侧显影较完整，比较少见。<br><br>判断梗阻要看：近端是否扩张、肾盂是否积水、造影剂是否延迟排出，必要时加扫更晚的延迟期或俯卧位。',
+      },
+    ],
+  },
+  {
+    id: 'prostate-mri',
+    cases: ['mr_s0273'],
+    title: '前列腺 MRI',
+    en: 'Prostate MRI',
+    desc: '三维 T2 加权像上认识前列腺的位置、毗邻和分区，以及多参数 MRI 与 PI-RADS。',
+    steps: [
+      {
+        title: '盆腔 T2 加权像',
+        select: 'urinary_bladder', wl: '标准', overlay: 0, clip: 'none', view: 'front', only: 'all', lesson: 'uro',
+        requires: ['prostate', 'urinary_bladder'],
+        probe: ['urinary_bladder', 'prostate', 'colon', 'hip_left'],
+        text: '这是一例<b>三维 T2 加权</b>盆腔 MRI（体素约 1 mm），可以在任意平面重建。先按"先看水"的口诀确认序列：<b>膀胱尿液很亮</b>，所以是 T2。<br><br>与 CT 相比，MRI 能看清前列腺内部的结构，而 CT 上前列腺只是一团均匀的软组织。',
+      },
+      {
+        title: '前列腺的位置与大小',
+        select: 'prostate', overlay: 0.35, clip: 'sagittal', view: 'left',
+        text: '矢状位上：前列腺位于<b>膀胱颈下方</b>、<b>耻骨联合后方</b>、<b>直肠前方</b>，形似倒置的栗子——上端宽大的<b>底部</b>贴膀胱颈，下端尖细的<b>尖部</b>朝向尿生殖膈。<br><br>正常成人前列腺约 20 ~ 25 mL；本例 77 岁，实测约 <b>39 mL</b>，提示轻度增大，与年龄相关的<b>良性前列腺增生</b>常见。',
+      },
+      {
+        title: '前列腺的分区',
+        select: 'prostate', overlay: 0, clip: 'axial', view: 'top',
+        text: '关掉标签，在横断位上辨认（本例只标注了整个前列腺，分区需要自己在图上找）：<br>• <b>外周带</b>：位于后外侧，占年轻人腺体约 70%，T2 上呈<b>较高信号</b>；约 70% 的前列腺癌发生于此，表现为高信号背景中的<b>低信号灶</b>。<br>• <b>移行带</b>：围绕尿道前部，是<b>良性增生</b>的发生部位；增生结节使其增大、信号混杂，老年人常把外周带挤成一薄层。<br>• <b>中央带</b>：位于底部、射精管周围。<br>• <b>前纤维肌基质</b>：前方，T2 低信号。',
+      },
+      {
+        title: '尿道与膀胱颈',
+        select: 'prostate', clip: 'coronal', view: 'front', overlay: 0,
+        text: '<b>冠状位</b>上，前列腺部尿道从膀胱颈向下穿过腺体中央。前列腺增生时移行带增大，压迫并拉长尿道，导致排尿困难；明显增大的腺体还可向上突入膀胱底部。',
+      },
+      {
+        title: '与直肠的毗邻',
+        select: 'colon', at: { key: 'prostate', pos: 'best' }, overlay: 0.35, clip: 'sagittal', view: 'left',
+        requires: ['colon', 'prostate'],
+        text: '前列腺后方隔着薄层的<b>直肠膀胱筋膜（Denonvilliers 筋膜）</b>紧贴<b>直肠</b>（本例直肠包含在"结肠"标注中）。这一毗邻关系是<b>直肠指检</b>能触及前列腺的解剖基础，也是经直肠超声和穿刺的入路。肿瘤是否突破包膜、侵犯精囊或直肠，决定了分期和治疗方式。',
+      },
+      {
+        title: '多参数 MRI 与 PI-RADS',
+        select: 'prostate', overlay: 0.35, clip: 'none', view: 'front', lesson: 'mri-more',
+        text: '临床前列腺 MRI 是<b>多参数</b>检查，本例只有其中的 T2：<br>• <b>T2WI</b>：显示解剖和分区，是<b>移行带</b>病灶评分的主序列。<br>• <b>DWI / ADC</b>：癌组织细胞密集，弥散受限（DWI 高、ADC 低），是<b>外周带</b>病灶评分的主序列。<br>• <b>动态增强（DCE）</b>：癌灶早期快速强化，作为补充。<br><br>综合评分为 <b>PI-RADS 1 ~ 5 分</b>：1 ~ 2 分临床显著癌可能性低，4 ~ 5 分可能性高，通常建议 MRI 引导下的靶向穿刺。',
+      },
+    ],
+  },
+  {
     id: 'uro-ct',
+    cases: ['s0344'],   // 文字中描述了本病例的期相与实测值
     title: '泌尿系统 CT',
     en: 'Urinary tract on CT',
     desc: '肾的位置与毗邻、肾门、增强期相、输尿管走行、膀胱与前列腺。',
@@ -651,7 +750,8 @@ export class TourPlayer {
 
   available() {
     const has = (k) => this.api.vol.byKey.has(k);
-    return TOURS.map((t) => {
+    const caseId = this.api.vol.meta.caseId;
+    return TOURS.filter((t) => !t.cases || t.cases.includes(caseId)).map((t) => {
       const steps = t.steps.filter((s) => (s.requires || [s.select, s.at?.key].filter(Boolean)).every(has));
       return { ...t, steps };
     }).filter((t) => t.steps.length >= 2);
@@ -784,7 +884,7 @@ export class TourPlayer {
     const max = Math.max(...rows.map((r) => r.v));
     const w = (v) => (ct ? (Math.max(-1000, Math.min(1000, v)) + 1000) / 20 : (v / max) * 100);
     return `<div class="t-probe">
-      <div class="t-probe-h">${ct ? '本病例实测 CT 值（结构内中位数）' : `本病例实测信号 · 当前序列 <b>${esc(state.seq || '主序列')}</b>（相对值）`}</div>
+      <div class="t-probe-h">${ct ? '本病例实测 CT 值（结构内中位数）' : (vol.meta.sequences ? `本病例实测信号 · 当前序列 <b>${esc(state.seq)}</b>（相对值）` : '本病例实测信号（相对值）')}</div>
       ${rows.map(({ st, v }) => `<div class="t-row"><span class="dot" style="background:${st.color}"></span>
         <span class="t-name">${esc(st.zh)}</span><span class="t-val">${ct ? `${v} HU` : v}</span>
         <span class="t-bar"><i style="width:${w(v).toFixed(1)}%"></i></span></div>`).join('')}

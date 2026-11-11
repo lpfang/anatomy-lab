@@ -35,6 +35,7 @@
 pipeline/            Python 预处理
   fetch_case.py      从 Zenodo 按需下载单个病例（不下载整个 3.2GB 压缩包）
   build_case.py      CT + 标注 → 体数据 / 标签 / glb 网格 / meta.json
+  prepare_*.py       特殊病例的预处理：脑模板、头颈 CT 补充分割、排泄期 CT 尿路提取
   anatomy_names.py   结构中英文名、系统分组、教学说明 ← 修改名称和说明请改这里
 web/                 前端（Vite + three.js，切片渲染为自写 Canvas）
   public/cases/<id>/ 预处理输出（随仓库发布，供 GitHub Pages 直接使用；可用 pipeline 重新生成）
@@ -54,6 +55,11 @@ uv venv .venv && uv pip install --python .venv/bin/python remotezip nibabel nump
 .venv/bin/python pipeline/prepare_headct.py segment s1194           # 需 pip install TotalSegmentator
 .venv/bin/python pipeline/prepare_headct.py merge s1194
 .venv/bin/python pipeline/build_case.py data/raw/headct/s1194 head_s1194
+.venv/bin/python pipeline/prepare_headct.py fetch s0329             # 排泄期 CT（肾盂、输尿管由造影剂阈值提取）
+.venv/bin/python pipeline/prepare_uroct.py s0329
+.venv/bin/python pipeline/build_case.py data/raw/uroct/s0329 uro_s0329
+.venv/bin/python pipeline/fetch_case.py --mri s0273                 # 前列腺 MRI（三维 T2），描述写在病例目录的 info.json 中
+.venv/bin/python pipeline/build_case.py data/raw/mri/Totalsegmentator_dataset_v300/s0273 mr_s0273
 cd web && npm install && npm run dev      # http://localhost:5178
 ```
 

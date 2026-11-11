@@ -25,10 +25,22 @@
   "default": true
  },
  {
+  "id": "uro_s0329",
+  "modality": "CT",
+  "desc": "男 46 岁 · 腹盆 CT 排泄期（尿路造影）",
+  "structures": 77
+ },
+ {
   "id": "brain_mni152",
   "modality": "MR",
   "desc": "标准脑 MRI 模板（MNI152）",
   "structures": 99
+ },
+ {
+  "id": "mr_s0273",
+  "modality": "MR",
+  "desc": "男 77 岁 · 盆腔 MRI · 三维 T2 加权（前列腺）",
+  "structures": 11
  },
  {
   "id": "mr_s0646",

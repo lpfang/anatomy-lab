@@ -1,0 +1,559 @@
+{
+ "caseId": "mr_s0273",
+ "modality": "MR",
+ "unit": "信号",
+ "presets": [
+  {
+   "zh": "标准",
+   "w": 1814,
+   "l": 1064
+  },
+  {
+   "zh": "高对比",
+   "w": 1060,
+   "l": 789
+  },
+  {
+   "zh": "全范围",
+   "w": 2600,
+   "l": 1300
+  }
+ ],
+ "source": "TotalSegmentator MRI dataset v3.0.0（CC BY 4.0）；T2 自旋回波 TR 1600 / TE 96 ms，3 T，体素约 1 × 0.8 × 0.8 mm",
+ "dims": [
+  150,
+  192,
+  150
+ ],
+ "spacing": [
+  1.0,
+  0.78125,
+  0.78125
+ ],
+ "affine": [
+  [
+   1.0,
+   0.0,
+   0.0,
+   -100.1958
+  ],
+  [
+   0.0,
+   0.78125,
+   0.0,
+   -95.31865
+  ],
+  [
+   0.0,
+   0.0,
+   0.78125,
+   -82.07613
+  ],
+  [
+   0.0,
+   0.0,
+   0.0,
+   1.0
+  ]
+ ],
+ "orientation": "RAS",
+ "caseInfo": {
+  "sex": "m",
+  "age": 77,
+  "desc": "男 77 岁 · 盆腔 MRI · 三维 T2 加权（前列腺）"
+ },
+ "systems": {
+  "skeletal": {
+   "zh": "骨骼系统",
+   "en": "Skeletal",
+   "color": "#e8dcc4"
+  },
+  "muscular": {
+   "zh": "肌肉系统",
+   "en": "Muscular",
+   "color": "#c0504d"
+  },
+  "cardio": {
+   "zh": "心血管系统",
+   "en": "Cardiovascular",
+   "color": "#d9363e"
+  },
+  "respiratory": {
+   "zh": "呼吸系统",
+   "en": "Respiratory",
+   "color": "#7fb3d5"
+  },
+  "digestive": {
+   "zh": "消化系统",
+   "en": "Digestive",
+   "color": "#d4a24c"
+  },
+  "urogenital": {
+   "zh": "泌尿生殖系统",
+   "en": "Urogenital",
+   "color": "#e6b800"
+  },
+  "endocrine": {
+   "zh": "内分泌系统",
+   "en": "Endocrine",
+   "color": "#9b59b6"
+  },
+  "nervous": {
+   "zh": "神经系统",
+   "en": "Nervous",
+   "color": "#f5d76e"
+  },
+  "frontal": {
+   "zh": "额叶",
+   "en": "Frontal lobe",
+   "color": "#e57373"
+  },
+  "parietal": {
+   "zh": "顶叶",
+   "en": "Parietal lobe",
+   "color": "#64b5f6"
+  },
+  "temporal": {
+   "zh": "颞叶",
+   "en": "Temporal lobe",
+   "color": "#81c784"
+  },
+  "occipital": {
+   "zh": "枕叶",
+   "en": "Occipital lobe",
+   "color": "#ffb74d"
+  },
+  "insula": {
+   "zh": "岛叶",
+   "en": "Insula",
+   "color": "#f06292"
+  },
+  "limbic": {
+   "zh": "边缘系统",
+   "en": "Limbic system",
+   "color": "#ba68c8"
+  },
+  "basal": {
+   "zh": "基底核与间脑",
+   "en": "Basal ganglia & diencephalon",
+   "color": "#4db6ac"
+  },
+  "ventricles": {
+   "zh": "脑室系统",
+   "en": "Ventricular system",
+   "color": "#4fc3f7"
+  },
+  "hindbrain": {
+   "zh": "脑干与小脑",
+   "en": "Brainstem & cerebellum",
+   "color": "#a1887f"
+  },
+  "whitematter": {
+   "zh": "白质与视路",
+   "en": "White matter & visual pathway",
+   "color": "#eceff1"
+  },
+  "orbit": {
+   "zh": "眼与耳",
+   "en": "Eye & ear",
+   "color": "#fff176"
+  },
+  "sinus": {
+   "zh": "鼻腔与鼻窦",
+   "en": "Nasal cavity & sinuses",
+   "color": "#80deea"
+  },
+  "oral": {
+   "zh": "口腔与咽喉",
+   "en": "Oral cavity, pharynx & larynx",
+   "color": "#ffab91"
+  }
+ },
+ "structures": [
+  {
+   "id": 1,
+   "key": "colon",
+   "zh": "结肠",
+   "en": "Colon",
+   "system": "digestive",
+   "desc": "包括升结肠、横结肠、降结肠和乙状结肠，肠腔内常含气体和粪便。",
+   "color": "#c49a6c",
+   "volumeMl": 81.2,
+   "centroidVoxel": [
+    74.8,
+    37.2,
+    106.8
+   ],
+   "bestSlice": [
+    76,
+    37,
+    104
+   ],
+   "bboxVoxel": [
+    [
+     50,
+     103
+    ],
+    [
+     1,
+     86
+    ],
+    [
+     48,
+     145
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 2,
+   "key": "femur_left",
+   "zh": "左股骨",
+   "en": "Left femur",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 7.6,
+   "centroidVoxel": [
+    4.3,
+    106.4,
+    101.5
+   ],
+   "bestSlice": [
+    2,
+    106,
+    98
+   ],
+   "bboxVoxel": [
+    [
+     0,
+     12
+    ],
+    [
+     86,
+     129
+    ],
+    [
+     81,
+     125
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 3,
+   "key": "femur_right",
+   "zh": "右股骨",
+   "en": "Right femur",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9dfc7",
+   "volumeMl": 4.0,
+   "centroidVoxel": [
+    146.6,
+    105.5,
+    94.0
+   ],
+   "bestSlice": [
+    148,
+    106,
+    91
+   ],
+   "bboxVoxel": [
+    [
+     142,
+     149
+    ],
+    [
+     86,
+     124
+    ],
+    [
+     74,
+     116
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 4,
+   "key": "hip_left",
+   "zh": "左髋骨",
+   "en": "Left hip bone",
+   "system": "skeletal",
+   "desc": "由髂骨、坐骨和耻骨融合而成。",
+   "color": "#e9dfc7",
+   "volumeMl": 79.2,
+   "centroidVoxel": [
+    27.2,
+    96.3,
+    81.7
+   ],
+   "bestSlice": [
+    17,
+    63,
+    91
+   ],
+   "bboxVoxel": [
+    [
+     0,
+     74
+    ],
+    [
+     31,
+     177
+    ],
+    [
+     12,
+     145
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 5,
+   "key": "hip_right",
+   "zh": "右髋骨",
+   "en": "Right hip bone",
+   "system": "skeletal",
+   "desc": "由髂骨、坐骨和耻骨融合而成。",
+   "color": "#e2d1b6",
+   "volumeMl": 73.3,
+   "centroidVoxel": [
+    127.7,
+    93.2,
+    80.4
+   ],
+   "bestSlice": [
+    137,
+    62,
+    90
+   ],
+   "bboxVoxel": [
+    [
+     80,
+     149
+    ],
+    [
+     32,
+     175
+    ],
+    [
+     12,
+     143
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 6,
+   "key": "iliac_artery_left",
+   "zh": "左髂动脉",
+   "en": "Left iliac artery",
+   "system": "cardio",
+   "desc": "腹主动脉的终末分支。",
+   "color": "#de5953",
+   "volumeMl": 0.7,
+   "centroidVoxel": [
+    12.2,
+    163.3,
+    128.8
+   ],
+   "bestSlice": [
+    12,
+    164,
+    133
+   ],
+   "bboxVoxel": [
+    [
+     7,
+     18
+    ],
+    [
+     156,
+     170
+    ],
+    [
+     106,
+     145
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 7,
+   "key": "iliac_artery_right",
+   "zh": "右髂动脉",
+   "en": "Right iliac artery",
+   "system": "cardio",
+   "desc": "腹主动脉的终末分支。",
+   "color": "#d7303b",
+   "volumeMl": 0.8,
+   "centroidVoxel": [
+    142.3,
+    166.2,
+    120.0
+   ],
+   "bestSlice": [
+    142,
+    168,
+    122
+   ],
+   "bboxVoxel": [
+    [
+     139,
+     146
+    ],
+    [
+     158,
+     173
+    ],
+    [
+     103,
+     136
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 8,
+   "key": "iliac_vena_left",
+   "zh": "左髂静脉",
+   "en": "Left iliac vein",
+   "system": "cardio",
+   "desc": "左右髂总静脉在第 5 腰椎右前方汇合成下腔静脉。",
+   "color": "#3559d9",
+   "volumeMl": 2.2,
+   "centroidVoxel": [
+    20.9,
+    154.9,
+    117.2
+   ],
+   "bestSlice": [
+    21,
+    156,
+    121
+   ],
+   "bboxVoxel": [
+    [
+     15,
+     132
+    ],
+    [
+     140,
+     165
+    ],
+    [
+     89,
+     145
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 9,
+   "key": "iliac_vena_right",
+   "zh": "右髂静脉",
+   "en": "Right iliac vein",
+   "system": "cardio",
+   "desc": "",
+   "color": "#4b61de",
+   "volumeMl": 1.1,
+   "centroidVoxel": [
+    132.1,
+    157.6,
+    112.7
+   ],
+   "bestSlice": [
+    132,
+    160,
+    110
+   ],
+   "bboxVoxel": [
+    [
+     24,
+     136
+    ],
+    [
+     148,
+     165
+    ],
+    [
+     93,
+     138
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 10,
+   "key": "prostate",
+   "zh": "前列腺",
+   "en": "Prostate",
+   "system": "urogenital",
+   "desc": "男性，位于膀胱颈下方、直肠前方，包绕尿道起始部。",
+   "color": "#c97b9e",
+   "volumeMl": 39.2,
+   "centroidVoxel": [
+    74.9,
+    103.0,
+    89.9
+   ],
+   "bestSlice": [
+    75,
+    99,
+    91
+   ],
+   "bboxVoxel": [
+    [
+     50,
+     97
+    ],
+    [
+     77,
+     134
+    ],
+    [
+     73,
+     113
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 11,
+   "key": "urinary_bladder",
+   "zh": "膀胱",
+   "en": "Urinary bladder",
+   "system": "urogenital",
+   "desc": "位于盆腔前部、耻骨联合后方；充盈时内为尿液，呈水样密度。",
+   "color": "#e8d36a",
+   "volumeMl": 111.7,
+   "centroidVoxel": [
+    80.5,
+    137.5,
+    120.0
+   ],
+   "bestSlice": [
+    88,
+    131,
+    124
+   ],
+   "bboxVoxel": [
+    [
+     41,
+     117
+    ],
+    [
+     97,
+     181
+    ],
+    [
+     93,
+     140
+    ]
+   ],
+   "hasMesh": true
+  }
+ ]
+}
