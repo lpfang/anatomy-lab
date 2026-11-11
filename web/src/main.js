@@ -4,6 +4,7 @@ import { SliceView } from './sliceView.js';
 import { View3D } from './view3d.js';
 import { Quiz } from './quiz.js';
 import { TourPlayer } from './tours.js';
+import { Handbook } from './lessons.js';
 
 const $ = (s) => document.querySelector(s);
 const V = typeof __BUILD_ID__ !== 'undefined' ? __BUILD_ID__ : 'dev';
@@ -162,6 +163,7 @@ async function main() {
     try {
       await vol.loadSequence(sq.file);
       state.seq = id;
+      tour?.refreshProbe();
       WL_PRESETS = sq.presets;
       renderPresets();
     } finally {
@@ -354,6 +356,7 @@ async function main() {
 
   // ---------------- 导览模式 ----------------
   const tourBtn = $('#btn-tour');
+  let overlay0 = state.overlay;
   const tour = new TourPlayer({
     vol, state,
     panel: $('#tour'),
@@ -369,8 +372,11 @@ async function main() {
       view3d.resetView();
     },
     setClip: (mode) => { $('#opt-clip').value = mode; view3d.setClip(mode); },
+    setOverlay: (v) => { state.overlay = v; $('#opt-overlay').value = Math.round(v * 100); invalidateAll(); },
+    openLesson: (id) => handbook.open(id),
     setView: (d) => view3d.resetView(new THREE.Vector3(...d)),
     onEnter: () => {
+      overlay0 = state.overlay;
       $('#tour').hidden = false; $('#card').hidden = true;
       tourBtn.classList.add('on'); tourBtn.textContent = '退出导览';
     },
@@ -379,6 +385,7 @@ async function main() {
       tourBtn.classList.remove('on'); tourBtn.textContent = '导览';
       for (const s of meta.structures) setHidden(s.id, false);
       $('#opt-clip').value = 'none'; view3d.setClip('none');
+      tour.api.setOverlay(overlay0);
       renderCard();
     },
   });
@@ -395,6 +402,27 @@ async function main() {
     const n = +e.key;
     if (n >= 1 && n <= 4) $('#quiz .q-choices')?.querySelectorAll('button')[n - 1]?.click();
   });
+
+  // ---------------- 读片手册 ----------------
+  const handbook = new Handbook({
+    currentCase: CASE,
+    hasCase: (id) => id === CASE || list.some((x) => x.id === id),
+    runTour: (caseId, tourId) => {
+      if (caseId !== CASE) {
+        const u = new URL(location.href);
+        u.searchParams.set('case', caseId); u.searchParams.set('tour', tourId);
+        location.href = u.toString();
+        return;
+      }
+      quiz.exit(); tour.enter(); tour.startById(tourId);
+    },
+  });
+  $('#btn-learn').addEventListener('click', () => handbook.open());
+  const tourParam = new URLSearchParams(location.search).get('tour');
+  if (tourParam) {
+    tour.enter(); tour.startById(tourParam);
+    const u = new URL(location.href); u.searchParams.delete('tour'); history.replaceState(null, '', u);
+  }
 
   window.__app = { vol, state, views, view3d, quiz, tour };
 }

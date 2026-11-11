@@ -63,6 +63,7 @@ def eyeball(t2: np.ndarray, affine: np.ndarray, side: int) -> np.ndarray:
 def main():
     t1 = nib.as_closest_canonical(nib.load(find("mni_icbm152_t1_tal_nlin_sym_09c.nii")))
     t2 = nib.as_closest_canonical(nib.load(find("mni_icbm152_t2_tal_nlin_sym_09c.nii")))
+    pd = nib.as_closest_canonical(nib.load(find("mni_icbm152_pd_tal_nlin_sym_09c.nii")))
     lab_img = nib.as_closest_canonical(nib.load(find("mni_icbm152_CerebrA_tal_nlin_sym_09c.nii")))
     wm = np.asarray(nib.as_closest_canonical(nib.load(find("mni_icbm152_wm_tal_nlin_sym_09c.nii"))).dataobj)
     affine = t1.affine
@@ -104,8 +105,10 @@ def main():
 
     nib.save(t1, OUT / "mri.nii.gz")
     nib.save(t2, OUT / "extra_T2.nii.gz")
+    nib.save(pd, OUT / "extra_PD.nii.gz")
     (OUT / "info.json").write_text(json.dumps({
         "primarySeq": "T1",
+        "seqOrder": ["T1", "T2", "PD"],
         "desc": "标准脑 MRI 模板（MNI152）",
         "source": "MNI ICBM152 2009c 对称模板 © 1993–2004 Louis Collins, MNI, McGill University；"
                   "CerebrA 图谱（Manera et al., Sci Data 2020），CC0",

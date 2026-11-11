@@ -12,8 +12,129 @@
 //   clip           剖切模式 none / axial / coronal / sagittal
 //   view           3D 视角 front / top / left / right / back
 //   requires       该步需要的结构（默认取 select / at.key）
+//   overlay        标签叠加透明度 0–1（0 = 只看原始灰度图像）；导览结束后恢复
+//   probe          在面板中列出这些结构的实测中位数（CT 为 HU，MRI 为当前序列的相对信号）
+//   lesson         附带"读片手册"中对应章节的链接（章节 id）
 
 export const TOURS = [
+  // ------------------------- 读片入门 -------------------------
+  {
+    id: 'ct-basics',
+    title: 'CT 读片入门',
+    en: 'How to read a CT',
+    desc: '方位约定 → CT 值 → 平扫还是增强 → 窗宽窗位 → 多平面重建 → 读片顺序。',
+    steps: [
+      {
+        title: '先关掉颜色，看原片',
+        overlay: 0, wl: '软组织', select: 'liver', clip: 'none', view: 'front', only: 'all', lesson: 'orient',
+        text: '真实的 CT 是<b>灰度图像</b>，本平台的彩色只是教学用的标签叠加，这一路线先把它关掉。<br><br><b>方位约定</b>：横断位相当于<b>从患者足侧向头侧看</b>，所以<b>屏幕左侧 = 患者右侧</b>。肝位于屏幕左侧、脾位于屏幕右侧，这是正常的。冠状位相当于面对面看患者，同样是屏幕左 = 患者右。图像四周的橙色字母（R/L/A/P/S/I）标明方向，读片前先看一眼。',
+      },
+      {
+        title: 'CT 值（HU）：密度的"刻度尺"',
+        select: 'liver', lesson: 'hu',
+        probe: ['lung_upper_lobe_left', 'gallbladder', 'urinary_bladder', 'iliopsoas_left', 'liver', 'spleen', 'kidney_left', 'aorta', 'vertebrae_L3'],
+        text: 'CT 测量的是组织对 X 线的衰减，以<b>水 = 0 HU、空气 = −1000 HU</b> 为基准。常用参考：脂肪 −100 ~ −50，水/尿/胆汁 0 ~ 20，肌肉 40 ~ 50，平扫肝 50 ~ 65，松质骨 200 ~ 400，皮质骨 > 1000。<br><br>下表是<b>本病例的实测中位数</b>。把鼠标移到皮下脂肪或体外空气上，提示框会显示该点的 HU。CT 上描述为<b>高密度 / 等密度 / 低密度</b>（MRI 上则说"信号"）。<br><br>注意本例肝、脾、主动脉都比上面的平扫参考值高——为什么？下一步揭晓。',
+      },
+      {
+        title: '平扫还是增强？',
+        select: 'aorta', lesson: 'hu',
+        probe: ['aorta', 'portal_vein_and_splenic_vein', 'inferior_vena_cava', 'liver', 'iliopsoas_left'],
+        text: '读片第一件事是确认<b>有没有打造影剂</b>。平扫时血液约 40 ~ 50 HU，与肌肉接近，血管和周围组织分不开。<br><br>看下表的主动脉：<b>明显高于肌肉</b>说明是增强扫描；主动脉远高于门静脉（常 > 200 HU）为<b>动脉期</b>；主动脉与门静脉接近、肝实质同步强化为<b>门静脉期</b>。你来判断本例是哪一种。',
+      },
+      {
+        title: '窗宽窗位：同一组数据，换个"看法"',
+        wl: '软组织', select: 'pancreas', lesson: 'window',
+        text: '人眼只能分辨几十级灰度，而 CT 值跨越几千 HU。<b>窗位（L）</b>是要显示的 HU 范围的中心，<b>窗宽（W）</b>是范围的大小：低于 L − W/2 显示为纯黑，高于 L + W/2 显示为纯白。<br><br>当前是<b>软组织窗 W400 / L40</b>，显示 −160 ~ +240 HU，适合看实质脏器和血管。在任意切片上<b>按住右键拖动</b>可以连续调节，顶栏会显示当前 W / L。',
+      },
+      {
+        title: '肺窗',
+        wl: '肺窗', select: 'lung_upper_lobe_right', lesson: 'window',
+        text: '<b>肺窗 W1500 / L−600</b>：窗位降到负值、窗宽很大，肺纹理、支气管、小结节才看得清。软组织窗下肺是一片黑，肺窗下纵隔和腹部则"糊"成一片白。<b>胸部 CT 必须分别在肺窗和纵隔（软组织）窗下各读一遍。</b>',
+      },
+      {
+        title: '骨窗',
+        wl: '骨窗', select: 'vertebrae_L1', clip: 'sagittal', view: 'left', lesson: 'window',
+        text: '<b>骨窗</b>窗位高、窗宽大，皮质骨与松质骨的细节清楚，用于观察骨折、骨质破坏和骨转移。矢状位上可以一眼看到整条脊柱的排列与椎体高度。',
+      },
+      {
+        title: '多平面重建（MPR）',
+        overlay: 0.35, wl: '软组织', select: 'kidney_left', clip: 'coronal', view: 'front', lesson: 'orient',
+        text: '现代 CT 一次扫描得到的是<b>一整块三维数据</b>，冠状位和矢状位都是从同一块数据里"切"出来的重建图像，所以三个平面的光标可以联动。<br><br>标签颜色已重新打开：对照 3D 模型可以看到，横断位上的一个"圆"在冠状位上可能是一条"管"，这就是建立空间概念的关键。',
+      },
+      {
+        title: '系统化读片顺序',
+        overlay: 0.35, clip: 'none', view: 'front', lesson: 'system',
+        text: '初学者最容易犯的错误是"盯着最显眼的病变，漏掉其他发现"。建议每次都按固定顺序读：<br>① 核对信息：姓名、日期、部位、平扫/增强、层厚<br>② 实质脏器：肝 → 胆 → 胰 → 脾 → 肾、肾上腺<br>③ 空腔脏器：胃、十二指肠、小肠、结肠<br>④ 血管与淋巴结：主动脉、门静脉、腹膜后淋巴结<br>⑤ 腹膜、腹壁、盆腔<br>⑥ 骨窗看骨骼，肺窗看肺底<br>⑦ 与旧片比较。',
+      },
+    ],
+  },
+  {
+    id: 'mri-sequences',
+    title: 'MRI 序列：T1 / T2 / PD',
+    en: 'MRI sequences',
+    desc: '同一个大脑、三种序列：学会看脑脊液、灰白质的信号来认序列。',
+    steps: [
+      {
+        title: 'T1 加权像（T1WI）',
+        seq: 'T1', wl: '标准', overlay: 0, select: 'lateral_ventricle_left', clip: 'none', view: 'top', only: 'all', lesson: 'mri-basic',
+        requires: ['lateral_ventricle_left', 'cerebral_white_matter_left'],
+        probe: ['lateral_ventricle_left', 'eye_left', 'precentral_left', 'caudate_left', 'cerebral_white_matter_left'],
+        text: 'MRI 的数值<b>没有绝对单位</b>，只能和同一幅图中的其他组织比较，描述为<b>高 / 等 / 低信号</b>。<br><br><b>T1WI</b>：<b>脑脊液黑</b>（侧脑室、眼球玻璃体都是暗的），<b>白质比灰质亮</b>，脂肪很亮。灰白质分界清楚、解剖细节好，常被称为"<b>解剖像</b>"，也是打钆造影剂后观察强化的序列。',
+      },
+      {
+        title: 'T2 加权像（T2WI）',
+        seq: 'T2', wl: '标准', select: 'lateral_ventricle_left', lesson: 'mri-basic',
+        probe: ['lateral_ventricle_left', 'eye_left', 'precentral_left', 'caudate_left', 'cerebral_white_matter_left'],
+        text: '<b>T2WI</b>：<b>水最亮</b>——脑脊液、玻璃体呈明显高信号；<b>灰质比白质亮</b>，与 T1 正好相反。<br><br>绝大多数病变（水肿、炎症、肿瘤、梗死）含水量增加，在 T2 上变亮，所以 T2 常被称为"<b>病变像</b>"。记住一句话：<b>T2 上水是白的</b>。',
+      },
+      {
+        title: '质子密度像（PD）',
+        seq: 'PD', wl: '标准', select: 'lateral_ventricle_left', lesson: 'mri-basic',
+        probe: ['lateral_ventricle_left', 'eye_left', 'precentral_left', 'caudate_left', 'cerebral_white_matter_left'],
+        text: '<b>PD</b> 尽量减少 T1 和 T2 的影响，信号主要反映组织中<b>氢质子的多少</b>。灰质仍略亮于白质，脑脊液含水多、质子密度高，因此也偏亮，但整体灰白质对比较平淡。PD 在脑部已较少单独使用，但在<b>关节（半月板、软骨、韧带）</b>检查中非常常用，常配合脂肪抑制。',
+      },
+      {
+        title: '来回切换，自己总结',
+        seq: 'T1', select: 'caudate_left', clip: 'coronal', view: 'front', lesson: 'mri-table',
+        text: '用顶栏的 <b>T1 / T2 / PD</b> 按钮来回切换，观察同一结构的变化。辨认序列的口诀：<br>① <b>先看水</b>（脑脊液、眼球、膀胱尿液、胆囊胆汁）：水黑 → T1 或 FLAIR；水白 → T2。<br>② <b>再看灰白质</b>：白质亮于灰质 → T1；灰质亮于白质 → T2 / PD / FLAIR。<br>③ <b>水黑但灰质亮于白质</b> → FLAIR（压了水的 T2）。<br>④ <b>脂肪变暗</b> → 用了脂肪抑制。',
+      },
+      {
+        title: '本平台尚未包含的序列',
+        overlay: 0.35, select: 'hippocampus_left', clip: 'coronal', lesson: 'mri-more',
+        text: '临床上还有很多重要序列：<b>FLAIR</b>（抑制脑脊液的 T2，脑室旁病变最清楚）、<b>DWI / ADC</b>（急性脑梗死数分钟即可在 DWI 上变亮）、<b>T1 增强</b>（血脑屏障破坏处强化）、<b>SWI</b>（出血、微出血、钙化）、<b>MRA</b>（不打药显示血管）。本病例是群体平均模板，没有这些序列的图像；它们的原理和信号特点见右上角 <b>读片入门</b> 手册。',
+      },
+    ],
+  },
+  {
+    id: 'mri-abdomen',
+    title: '腹部 MRI：从信号推断序列',
+    en: 'Abdominal MRI detective',
+    desc: '一幅没有标注序列的腹部 MRI：根据脑脊液、椎间盘、血管的信号推断它是什么序列。',
+    steps: [
+      {
+        title: '信号只有相对意义',
+        overlay: 0, wl: '标准', select: 'liver', clip: 'none', view: 'front', only: 'all', lesson: 'mri-table',
+        requires: ['liver', 'aorta', 'spinal_cord'],
+        probe: ['portal_vein_and_splenic_vein', 'liver', 'kidney_left', 'spleen', 'aorta', 'gallbladder', 'iliopsoas_left', 'intervertebral_discs', 'spinal_cord'],
+        text: '下表是本例 MRI 的实测信号，数值本身没有意义（不同机器、参数下完全不同），但<b>排序</b>有意义。描述时说"肝呈<b>稍高信号</b>"，而不是"肝 1400"。<br><br>这个病例数据集没有给出序列名称，我们来当一回侦探。',
+      },
+      {
+        title: '线索一：水在哪里？',
+        select: 'spinal_cord', clip: 'sagittal', view: 'left', requires: ['spinal_cord'],
+        text: '矢状位看椎管：如果是 T2，脊髓周围的<b>脑脊液应该是一圈亮白</b>。这里椎管整体偏暗，椎间盘也偏暗——<b>水不亮，说明不是 T2</b>。',
+      },
+      {
+        title: '线索二：血管为什么这么亮？',
+        select: 'portal_vein_and_splenic_vein', clip: 'axial', view: 'top', requires: ['portal_vein_and_splenic_vein', 'aorta'],
+        text: '在常规自旋回波序列上，快速流动的血液通常呈<b>流空黑影</b>。这里主动脉、门静脉、下腔静脉都<b>明显高信号</b>，并且门静脉也同样亮——这是<b>钆造影剂</b>进入静脉系统后的表现。<br><br><b>结论（推测）</b>：这很可能是<b>T1 加权增强扫描（门静脉期）</b>。临床上以 T1 梯度回波（如 VIBE / LAVA）动态增强最为常见。',
+      },
+      {
+        title: '和 CT 对照',
+        overlay: 0.35, select: 'kidney_left', clip: 'coronal', view: 'front', lesson: 'compare',
+        text: '可以切换到 CT 病例对照：CT 对<b>骨骼、肺、钙化、急性出血</b>更敏感、扫描快；MRI 无电离辐射、<b>软组织对比更好</b>，能区分脂肪、水、出血、纤维组织等成分，在肝脏局灶病变、胰胆管（MRCP）、盆腔、神经系统和关节中优势明显。',
+      },
+    ],
+  },
   {
     id: 'abdomen-axial',
     title: '腹部横断面巡礼',
@@ -541,6 +662,7 @@ export class TourPlayer {
       const k = s.at.pos === 'top' ? k1 : s.at.pos === 'bottom' ? k0 : st.bestSlice[2];
       api.axialTo(k + (s.at.offset || 0));
     }
+    if (s.overlay != null) api.setOverlay(s.overlay);
     if (s.clip) api.setClip(s.clip);
     if (s.view) api.setView(VIEW_DIRS[s.view]);
 
@@ -552,6 +674,8 @@ export class TourPlayer {
       <div class="q-bar"><i style="width:${((this.i + 1) / n) * 100}%"></i></div>
       <h3 class="t-step">${esc(s.title)}</h3>
       <p class="t-text">${s.text}</p>
+      ${s.probe ? this.probeHtml(s.probe) : ''}
+      ${s.lesson ? `<button class="t-lesson" data-lesson="${s.lesson}">📖 读片手册：相关章节</button>` : ''}
       <p class="q-hint">可随时滚轮翻层、点击结构、旋转 3D 自由探索；点"下一步"继续路线。</p>
       <div class="q-acts">
         <button data-act="prev" ${this.i === 0 ? 'disabled' : ''}>← 上一步</button>
@@ -560,8 +684,54 @@ export class TourPlayer {
       </div>`;
     p.querySelector('.q-x').onclick = () => this.exit();
     p.querySelector('[data-act=prev]').onclick = () => this.go(-1);
+    p.querySelector('.t-lesson')?.addEventListener('click', () => api.openLesson?.(s.lesson));
     p.querySelector('[data-act=next]')?.addEventListener('click', () => this.go(1));
     p.querySelector('[data-act=done]')?.addEventListener('click', () => { api.setVisible(null); api.setClip('none'); this.renderList(); });
+  }
+
+  refreshProbe() {
+    const s = this.active && this.tour?.steps[this.i];
+    const el = this.api.panel.querySelector('.t-probe');
+    if (s?.probe && el) el.outerHTML = this.probeHtml(s.probe);
+  }
+
+  startById(id) {
+    const t = this.available().find((x) => x.id === id);
+    if (t) this.start(t);
+  }
+
+  // 结构内体素值的中位数（等间隔抽样，最多约 2 万个点）
+  measure(key) {
+    const { vol } = this.api;
+    const st = vol.byKey.get(key);
+    if (!st) return null;
+    const [[i0, i1], [j0, j1], [k0, k1]] = st.bboxVoxel;
+    const n = (i1 - i0 + 1) * (j1 - j0 + 1) * (k1 - k0 + 1);
+    const step = Math.max(1, Math.round(Math.cbrt(n / 60000)));
+    const vals = [];
+    for (let k = k0; k <= k1; k += step) for (let j = j0; j <= j1; j += step) for (let i = i0; i <= i1; i += step) {
+      const x = vol.idx(i, j, k);
+      if (vol.labels[x] === st.id) vals.push(vol.ct[x]);
+    }
+    if (!vals.length) return null;
+    vals.sort((a, b) => a - b);
+    return { st, v: vals[vals.length >> 1] };
+  }
+
+  probeHtml(keys) {
+    const { vol, state } = this.api;
+    const ct = vol.meta.modality !== 'MR';
+    const rows = keys.map((k) => this.measure(k)).filter(Boolean);
+    if (!rows.length) return '';
+    const max = Math.max(...rows.map((r) => r.v));
+    const w = (v) => (ct ? (Math.max(-1000, Math.min(1000, v)) + 1000) / 20 : (v / max) * 100);
+    return `<div class="t-probe">
+      <div class="t-probe-h">${ct ? '本病例实测 CT 值（结构内中位数）' : `本病例实测信号 · 当前序列 <b>${esc(state.seq || '主序列')}</b>（相对值）`}</div>
+      ${rows.map(({ st, v }) => `<div class="t-row"><span class="dot" style="background:${st.color}"></span>
+        <span class="t-name">${esc(st.zh)}</span><span class="t-val">${ct ? `${v} HU` : v}</span>
+        <span class="t-bar"><i style="width:${w(v).toFixed(1)}%"></i></span></div>`).join('')}
+      ${ct ? '<div class="t-scale"><span>−1000</span><span>0</span><span>+1000 HU</span></div>' : ''}
+    </div>`;
   }
 
   onKey(e) {

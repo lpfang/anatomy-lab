@@ -62,6 +62,27 @@
      "l": 1300
     }
    ]
+  },
+  {
+   "id": "PD",
+   "file": "image_PD.i16.gz",
+   "presets": [
+    {
+     "zh": "标准",
+     "w": 1832,
+     "l": 1081
+    },
+    {
+     "zh": "高对比",
+     "w": 1243,
+     "l": 1242
+    },
+    {
+     "zh": "全范围",
+     "w": 2600,
+     "l": 1300
+    }
+   ]
   }
  ],
  "dims": [
@@ -197,9 +218,19 @@
    "color": "#eceff1"
   },
   "orbit": {
-   "zh": "眼眶",
-   "en": "Orbit",
+   "zh": "眼与耳",
+   "en": "Eye & ear",
    "color": "#fff176"
+  },
+  "sinus": {
+   "zh": "鼻腔与鼻窦",
+   "en": "Nasal cavity & sinuses",
+   "color": "#80deea"
+  },
+  "oral": {
+   "zh": "口腔与咽喉",
+   "en": "Oral cavity, pharynx & larynx",
+   "color": "#ffab91"
   }
  },
  "structures": [

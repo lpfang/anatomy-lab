@@ -250,6 +250,9 @@ def main(src: str, case_id: str):
     if sequences:
         primary = info_override.get("primarySeq", "主序列")
         sequences.insert(0, {"id": primary, "file": "image.i16.gz", "presets": presets})
+        order = info_override.get("seqOrder")
+        if order:
+            sequences.sort(key=lambda x: order.index(x["id"]) if x["id"] in order else len(order))
     source = info_override.get("source", source)
     presets = info_override.get("presets", presets)
     case = case_info(src, modality)
