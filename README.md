@@ -1,5 +1,7 @@
 # 断层解剖 · 3D 对照（Sectional Anatomy Lab）
 
+在线体验：https://lpfang.github.io/anatomy-lab/
+
 面向中文用户的教学工具：CT 断层图像与 3D 人体模型**逐体素对应**、双向联动，器官名称中英对照。
 
 3D 模型直接由同一例 CT 的分割结果重建（TotalSegmentator 标注），所以断层上的任意一点都能精确对应到 3D 结构，不需要配准。
