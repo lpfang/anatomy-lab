@@ -136,6 +136,64 @@ export const TOURS = [
     ],
   },
   {
+    id: 'uro-ct',
+    title: '泌尿系统 CT',
+    en: 'Urinary tract on CT',
+    desc: '肾的位置与毗邻、肾门、增强期相、输尿管走行、膀胱与前列腺。',
+    steps: [
+      {
+        title: '全景：肾的位置',
+        only: ['kidney_left', 'kidney_right', 'adrenal_gland_left', 'adrenal_gland_right', 'urinary_bladder', 'prostate', 'aorta', 'inferior_vena_cava', 'iliac_artery_left', 'iliac_artery_right', 'iliac_vena_left', 'iliac_vena_right', 'iliopsoas_left', 'iliopsoas_right', 'vertebrae_T11', 'vertebrae_T12', 'vertebrae_L1', 'vertebrae_L2', 'vertebrae_L3', 'vertebrae_L4', 'vertebrae_L5', 'sacrum', 'hip_left', 'hip_right'],
+        select: 'kidney_right', wl: '软组织', overlay: 0.35, clip: 'none', view: 'front', lesson: 'uro',
+        requires: ['kidney_left', 'kidney_right', 'urinary_bladder'],
+        text: '3D 中只保留泌尿系统、大血管、腰大肌和脊柱。肾位于腹膜后、脊柱两侧，约平 <b>T12 ~ L3</b>。教科书说<b>右肾因上方有肝，通常比左肾低约半个椎体</b>。<br><br>但看本例：<b>右肾上极平 T11 ~ T12，左肾上极平 L1</b>，右肾反而更高。这是正常的个体差异——<b>读片要以实际图像为准</b>，不能只凭"规律"判断左右。',
+      },
+      {
+        title: '右肾的毗邻',
+        select: 'kidney_right', only: 'all', clip: 'axial', view: 'top',
+        text: '横断位上：右肾<b>前方</b>是肝、十二指肠降部和结肠肝曲；<b>后方</b>是膈肌和腰方肌，内后方贴<b>腰大肌</b>；<b>内侧</b>紧邻下腔静脉。右肾上极内上方是右肾上腺。',
+      },
+      {
+        title: '左肾的毗邻',
+        select: 'kidney_left',
+        text: '左肾<b>前方</b>自上而下为胃、脾、胰尾和结肠脾曲；<b>内侧</b>靠近腹主动脉。左肾静脉较长，从<b>腹主动脉与肠系膜上动脉之间</b>穿过汇入下腔静脉——此处受压称为"胡桃夹"现象。',
+      },
+      {
+        title: '肾门与肾窦',
+        select: 'kidney_left', overlay: 0, wl: '软组织',
+        text: '关掉标签看原片：肾门朝向前内侧，向内凹入形成<b>肾窦</b>，内有肾盂、肾盏、血管和脂肪（低密度）。肾门结构由前向后为<b>肾静脉 → 肾动脉 → 肾盂</b>（VAP）。<br><br>在横断位上滚动翻层，找一找肾门处的血管和肾盂。',
+      },
+      {
+        title: '这是哪个增强期相？',
+        select: 'kidney_left', overlay: 0, wl: '软组织', lesson: 'uro',
+        probe: ['kidney_left', 'kidney_right', 'liver', 'aorta', 'portal_vein_and_splenic_vein', 'urinary_bladder'],
+        text: '肾的强化有明确时序：<b>皮髓质期</b>皮质亮、髓质暗；<b>肾实质期</b>皮髓质均匀强化；<b>排泄期</b>造影剂进入肾盂和膀胱，尿路变白。<br><br>本例：肾实质均匀强化、门静脉已充分显影，而<b>膀胱尿液仍是水样密度</b>（造影剂尚未排出）——这是<b>门静脉期 / 肾实质期</b>，而不是排泄期。把鼠标放在肾皮质和髓质上比较 CT 值。',
+      },
+      {
+        title: '输尿管的走行',
+        select: 'iliopsoas_right', overlay: 0.35, clip: 'none', view: 'front',
+        requires: ['iliopsoas_right', 'iliac_artery_right'],
+        text: '输尿管在本例中<b>没有标注</b>（未在排泄期显影，管径仅数毫米）。它从肾盂发出后，沿<b>腰大肌前方</b>下行，在骨盆入口处<b>跨过髂血管</b>进入盆腔，最后斜穿膀胱壁开口于膀胱。<br><br>三个生理狭窄——<b>肾盂输尿管连接部、跨越髂血管处、膀胱壁内段</b>——是结石最易嵌顿的部位。可以在横断位上沿腰大肌前内侧逐层寻找这个小圆点。',
+      },
+      {
+        title: '跨越髂血管',
+        select: 'iliac_artery_right', clip: 'axial', view: 'top', requires: ['iliac_artery_right'],
+        text: '<b>第二个狭窄</b>：输尿管在骨盆入口处跨过髂总动脉末端或髂外动脉起始部的前方。右侧输尿管多跨髂外动脉，左侧多跨髂总动脉。这里结石嵌顿时，CT 上可见结石上方的输尿管和肾盂扩张（肾积水）。',
+      },
+      {
+        title: '膀胱',
+        select: 'urinary_bladder', clip: 'sagittal', view: 'left', overlay: 0, requires: ['urinary_bladder'],
+        probe: ['urinary_bladder', 'iliopsoas_left', 'prostate'],
+        text: '<b>膀胱</b>位于耻骨联合后方。充盈的膀胱内尿液约 0 ~ 20 HU，膀胱壁薄而均匀（充盈时 &lt; 3 mm）。局部壁增厚或突入腔内的软组织结节要警惕膀胱癌。<br><br>排泄期时膀胱内先出现高密度造影剂，并因比重大而沉在<b>背侧</b>（仰卧位），形成液-液平面。',
+      },
+      {
+        title: '前列腺',
+        select: 'prostate', clip: 'sagittal', view: 'left', overlay: 0.35, lesson: 'uro', requires: ['prostate'],
+        text: '<b>前列腺</b>位于膀胱颈下方、耻骨联合后方，包绕尿道起始部。CT 上前列腺内部密度均匀，<b>只能评估大小和钙化</b>，无法区分内部分区。<br><br>判断前列腺癌需要<b>多参数 MRI</b>：T2 上外周带呈高信号，癌灶表现为其中的低信号区，并在 DWI 上弥散受限。',
+      },
+    ],
+  },
+  {
     id: 'abdomen-axial',
     title: '腹部横断面巡礼',
     en: 'Abdominal axial levels',

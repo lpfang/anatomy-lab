@@ -20,6 +20,35 @@ export const LESSONS = [
     demos: [{ case: 's0344', tour: 'ct-basics', label: 'CT 读片入门' }, { case: 'brain_mni152', tour: 'mri-sequences', label: 'MRI 序列对比' }],
   },
   {
+    id: 'choose', group: '总览', title: '各部位首选什么检查',
+    html: `
+<p>选择检查方法要考虑：要看什么组织、病情急不急、辐射和造影剂风险、费用和可及性。下表是常见情况的一般选择，具体以临床指南和医生判断为准。</p>
+<div class="tbl-wrap"><table>
+<tr><th>部位 / 问题</th><th>常用首选</th><th>说明</th></tr>
+<tr><td>急性卒中、颅脑外伤</td><td><b>CT 平扫</b></td><td>几分钟完成，先排除出血；需要取栓评估时加 CTA / CT 灌注。急性缺血最敏感的是 MRI 的 DWI</td></tr>
+<tr><td>脑肿瘤、癫痫、脱髓鞘病、颅后窝</td><td><b>MRI</b>（含增强）</td><td>软组织对比好，无颅骨伪影</td></tr>
+<tr><td>鼻窦、颞骨、颌面部骨折</td><td><b>CT</b></td><td>薄层骨窗，显示细小骨结构</td></tr>
+<tr><td>鼻咽、口腔、颈部肿瘤</td><td><b>MRI</b> 与 CT</td><td>鼻咽癌分期首选 MRI；甲状腺首选超声</td></tr>
+<tr><td>肺（结节、肺炎、肺癌筛查）</td><td><b>CT</b></td><td>肺含气，MRI 信号差；筛查用低剂量 CT</td></tr>
+<tr><td>肺栓塞、主动脉夹层</td><td><b>CTA</b></td><td>快速、准确，急诊首选</td></tr>
+<tr><td>心脏</td><td>冠脉 <b>CTA</b>；心肌 <b>MRI</b></td><td>冠状动脉狭窄看 CTA；心肌病、心肌活性、心肌炎看心脏 MRI</td></tr>
+<tr><td>肝</td><td>增强 <b>CT</b>；定性用 <b>MRI</b></td><td>局灶病变定性 MRI 更准（可用肝胆特异性造影剂）</td></tr>
+<tr><td>胆管、胰管</td><td><b>MRCP</b></td><td>无创"水成像"显示胆胰管；胰腺癌分期常用增强 CT</td></tr>
+<tr><td>急腹症（梗阻、穿孔、阑尾炎）</td><td><b>CT</b></td><td>成人首选；儿童、孕妇先做超声</td></tr>
+<tr><td>直肠癌分期</td><td><b>MRI</b></td><td>判断肿瘤侵犯深度和环周切缘</td></tr>
+<tr><td>泌尿系结石、血尿、肾肿瘤</td><td><b>CT</b></td><td>结石用低剂量平扫；血尿用 CT 尿路造影（CTU）</td></tr>
+<tr><td>前列腺</td><td><b>MRI</b></td><td>多参数 MRI（PI-RADS）是前列腺癌诊断的标准检查</td></tr>
+<tr><td>子宫、卵巢</td><td>超声 → <b>MRI</b></td><td>超声筛查，MRI 定性和分期</td></tr>
+<tr><td>脊柱</td><td>骨折 <b>CT</b>；椎间盘、脊髓 <b>MRI</b></td><td>神经根受压、脊髓病变只有 MRI 能看清</td></tr>
+<tr><td>关节（半月板、韧带、软骨）</td><td><b>MRI</b></td><td>X 线先行；复杂关节内骨折用 CT</td></tr>
+<tr><td>骨转移、骨髓病变</td><td><b>MRI</b></td><td>对骨髓浸润最敏感；全身筛查用骨扫描或 PET-CT</td></tr>
+<tr><td>多发伤、急诊</td><td><b>全身 CT</b></td><td>速度第一，可同时评估骨骼、脏器和出血</td></tr>
+<tr><td>儿童、孕妇</td><td>超声、<b>MRI</b></td><td>尽量避免电离辐射；孕早期慎用钆造影剂</td></tr>
+</table></div>
+<p class="tip">简单记忆：<b>骨、气、钙、急 → CT</b>（骨折、肺、钙化和结石、急诊）；<b>脑、髓、软、节 → MRI</b>（脑、脊髓、软组织、关节）。超声和 X 线常是更便宜的第一步。</p>`,
+    demos: [],
+  },
+  {
     id: 'orient', group: '总览', title: '方位约定与三个断面',
     html: `
 <p>放射科统一采用<b>"放射学约定"</b>显示图像，初学者最容易在这里搞反左右。</p>
@@ -202,6 +231,39 @@ export const LESSONS = [
 </table></div>
 <p class="tip">临床上怀疑急性颅内出血时首选 CT：快、对急性出血敏感。MRI 的 SWI / GRE 对慢性微出血和含铁血黄素更敏感。</p>`,
     demos: [{ case: 'head_s1194', tour: 'head-ct-windows', label: '颅脑 CT 窗位' }],
+  },
+  {
+    id: 'uro', group: '系统专题', title: '泌尿系统影像',
+    html: `
+<h4>不同临床问题选什么检查</h4>
+<div class="tbl-wrap"><table>
+<tr><th>临床问题</th><th>首选检查</th><th>要点</th></tr>
+<tr><td>肾绞痛、怀疑结石</td><td><b>低剂量 CT 平扫</b></td><td>几乎所有结石在 CT 上都是高密度（包括 X 线不显影的尿酸结石），能同时看积水程度</td></tr>
+<tr><td>血尿</td><td><b>CT 尿路造影（CTU）</b></td><td>一次检查同时评估肾实质、肾盂、输尿管和膀胱</td></tr>
+<tr><td>肾肿块</td><td><b>增强 CT</b>；不确定时 <b>MRI</b></td><td>复杂囊肿用 Bosniak 分级；碘过敏、肾功能不全者改 MRI</td></tr>
+<tr><td>前列腺癌</td><td><b>多参数 MRI</b></td><td>T2 + DWI + 动态增强，按 PI-RADS 评分，指导靶向穿刺</td></tr>
+<tr><td>膀胱癌</td><td>膀胱镜 + <b>MRI</b></td><td>MRI（VI-RADS）判断是否侵犯肌层；CTU 评估上尿路</td></tr>
+<tr><td>肾外伤</td><td><b>增强 CT + 延迟期</b></td><td>延迟期看有无尿液外渗（集合系统破裂）</td></tr>
+<tr><td>儿童、孕妇、筛查积水</td><td><b>超声</b>，必要时 <b>MRU</b></td><td>无辐射；MR 尿路成像不打药也能显示扩张的尿路</td></tr>
+</table></div>
+<h4>CT 尿路造影的期相</h4>
+<div class="tbl-wrap"><table>
+<tr><th>期相</th><th>注药后时间</th><th>表现</th><th>主要用途</th></tr>
+<tr><td>平扫</td><td>—</td><td>肾实质约 30 ~ 40 HU</td><td>结石、钙化，测量病灶基线 CT 值</td></tr>
+<tr><td>皮髓质期</td><td>约 25 ~ 40 秒</td><td><b>皮质先亮</b>，髓质暗，皮髓质分界清楚</td><td>富血供肿瘤、血管解剖</td></tr>
+<tr><td>肾实质期（肾图期）</td><td>约 80 ~ 120 秒</td><td>皮髓质<b>均匀强化</b></td><td>检出肾肿块最敏感</td></tr>
+<tr><td>排泄期</td><td>约 5 ~ 15 分钟</td><td>造影剂排入<b>肾盏、肾盂、输尿管、膀胱</b>，尿路变白</td><td>尿路上皮肿瘤（充盈缺损）、尿路形态、尿漏</td></tr>
+</table></div>
+<p>判断强化：病灶增强后比平扫升高 <b>≥ 20 HU</b> 一般认为有强化；10 ~ 20 HU 为可疑。</p>
+<h4>解剖要点</h4>
+<ul>
+<li><b>肾的位置</b>：约平 T12 ~ L3，肾门约平 L1 ~ L2。通常右肾因肝的存在低于左肾约半个椎体，但个体差异很大。</li>
+<li><b>肾门结构</b>由前向后：<b>肾静脉 → 肾动脉 → 肾盂</b>（英文记忆 VAP）。</li>
+<li><b>肾筋膜</b>（Gerota 筋膜）包绕肾、肾上腺和肾周脂肪，把腹膜后分为肾前、肾周、肾后三个间隙。</li>
+<li><b>输尿管的三个生理狭窄</b>：肾盂输尿管连接部、跨越髂血管处、膀胱壁内段（输尿管膀胱连接部），是结石最易嵌顿的部位。</li>
+<li><b>前列腺分区</b>：CT 上只能看大小和钙化；MRI T2 上<b>外周带呈高信号</b>，约 70% 的前列腺癌发生于此，表现为外周带内的低信号灶。良性增生主要发生于<b>移行带</b>。</li>
+</ul>`,
+    demos: [{ case: 's0344', tour: 'uro-ct', label: '泌尿系统 CT 导览' }],
   },
 ];
 
