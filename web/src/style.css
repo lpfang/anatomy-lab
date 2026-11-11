@@ -264,3 +264,4 @@ body.quiz-lock .sidebar::after { content: '作答中，结构列表已隐藏'; p
 .t-err { background: #ff8a6522; border: 1px solid #ff8a65; border-radius: 6px; padding: 8px 10px; font-size: 13px; }
 .t-err small { color: var(--muted); overflow-wrap: anywhere; }
 .t-err .q-acts { margin-top: 6px; }
+#opt-clip:disabled { opacity: .45; cursor: not-allowed; }

@@ -386,11 +386,15 @@ async function main() {
     setClip: (mode) => { $('#opt-clip').value = mode; if (ready3d) view3d.setClip(mode); else pendingView = null; },
     onEnter: () => {
       $('#quiz').hidden = false; $('#card').hidden = true; $('.overlay-ctl').hidden = true;
+      // 测验期间禁用剖切，避免题目要求观察的 3D 目标被裁掉；退出后恢复
+      const clipSel = $('#opt-clip');
+      clipSel.disabled = true; clipSel.title = '测验期间不可剖切';
       quizBtn.classList.add('on'); quizBtn.textContent = '退出测验';
       highlightTree(false);
     },
     onExit: (selectId) => {
       $('#quiz').hidden = true; $('#card').hidden = false; $('.overlay-ctl').hidden = false;
+      $('#opt-clip').disabled = false; $('#opt-clip').title = '';
       quizBtn.classList.remove('on'); quizBtn.textContent = '测验模式';
       for (const [id, el] of itemEls) el.classList.toggle('hidden3d', state.hiddenIds.has(id));
       state.select(selectId || 0, { from: 'quiz' });
