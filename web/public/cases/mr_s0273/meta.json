@@ -172,6 +172,41 @@
  "structures": [
   {
    "id": 1,
+   "key": "urinary_bladder",
+   "zh": "膀胱",
+   "en": "Urinary bladder",
+   "system": "urogenital",
+   "desc": "位于盆腔前部、耻骨联合后方；充盈时内为尿液，呈水样密度。",
+   "color": "#e8d36a",
+   "volumeMl": 111.2,
+   "centroidVoxel": [
+    80.5,
+    137.6,
+    120.1
+   ],
+   "bestSlice": [
+    91,
+    135,
+    124
+   ],
+   "bboxVoxel": [
+    [
+     41,
+     117
+    ],
+    [
+     97,
+     181
+    ],
+    [
+     93,
+     140
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 2,
    "key": "colon",
    "zh": "结肠",
    "en": "Colon",
@@ -206,77 +241,7 @@
    "hasMesh": true
   },
   {
-   "id": 2,
-   "key": "femur_left",
-   "zh": "左股骨",
-   "en": "Left femur",
-   "system": "skeletal",
-   "desc": "",
-   "color": "#e9e0c7",
-   "volumeMl": 7.6,
-   "centroidVoxel": [
-    4.3,
-    106.4,
-    101.5
-   ],
-   "bestSlice": [
-    2,
-    106,
-    98
-   ],
-   "bboxVoxel": [
-    [
-     0,
-     12
-    ],
-    [
-     86,
-     129
-    ],
-    [
-     81,
-     125
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
    "id": 3,
-   "key": "femur_right",
-   "zh": "右股骨",
-   "en": "Right femur",
-   "system": "skeletal",
-   "desc": "",
-   "color": "#e9dfc7",
-   "volumeMl": 4.0,
-   "centroidVoxel": [
-    146.6,
-    105.5,
-    94.0
-   ],
-   "bestSlice": [
-    148,
-    106,
-    91
-   ],
-   "bboxVoxel": [
-    [
-     142,
-     149
-    ],
-    [
-     86,
-     124
-    ],
-    [
-     74,
-     116
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 4,
    "key": "hip_left",
    "zh": "左髋骨",
    "en": "Left hip bone",
@@ -311,7 +276,7 @@
    "hasMesh": true
   },
   {
-   "id": 5,
+   "id": 4,
    "key": "hip_right",
    "zh": "右髋骨",
    "en": "Right hip bone",
@@ -346,71 +311,106 @@
    "hasMesh": true
   },
   {
-   "id": 6,
-   "key": "iliac_artery_left",
-   "zh": "左髂动脉",
-   "en": "Left iliac artery",
-   "system": "cardio",
-   "desc": "腹主动脉的终末分支。",
-   "color": "#de5953",
-   "volumeMl": 0.7,
+   "id": 5,
+   "key": "prostate",
+   "zh": "前列腺",
+   "en": "Prostate",
+   "system": "urogenital",
+   "desc": "男性，位于膀胱颈下方、直肠前方，包绕尿道起始部。",
+   "color": "#c97b9e",
+   "volumeMl": 39.7,
    "centroidVoxel": [
-    12.2,
-    163.3,
-    128.8
+    75.0,
+    103.2,
+    90.0
    ],
    "bestSlice": [
-    12,
-    164,
-    133
+    75,
+    100,
+    91
    ],
    "bboxVoxel": [
     [
-     7,
-     18
+     50,
+     97
     ],
     [
-     156,
-     170
+     77,
+     134
     ],
     [
-     106,
-     145
+     73,
+     113
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 6,
+   "key": "femur_left",
+   "zh": "左股骨",
+   "en": "Left femur",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 7.6,
+   "centroidVoxel": [
+    4.3,
+    106.4,
+    101.5
+   ],
+   "bestSlice": [
+    2,
+    106,
+    98
+   ],
+   "bboxVoxel": [
+    [
+     0,
+     12
+    ],
+    [
+     86,
+     129
+    ],
+    [
+     81,
+     125
     ]
    ],
    "hasMesh": true
   },
   {
    "id": 7,
-   "key": "iliac_artery_right",
-   "zh": "右髂动脉",
-   "en": "Right iliac artery",
-   "system": "cardio",
-   "desc": "腹主动脉的终末分支。",
-   "color": "#d7303b",
-   "volumeMl": 0.8,
+   "key": "femur_right",
+   "zh": "右股骨",
+   "en": "Right femur",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9dfc7",
+   "volumeMl": 4.0,
    "centroidVoxel": [
-    142.3,
-    166.2,
-    120.0
+    146.6,
+    105.5,
+    94.0
    ],
    "bestSlice": [
-    142,
-    168,
-    122
+    148,
+    106,
+    91
    ],
    "bboxVoxel": [
     [
-     139,
-     146
+     142,
+     149
     ],
     [
-     158,
-     173
+     86,
+     124
     ],
     [
-     103,
-     136
+     74,
+     116
     ]
    ],
    "hasMesh": true
@@ -487,70 +487,70 @@
   },
   {
    "id": 10,
-   "key": "prostate",
-   "zh": "前列腺",
-   "en": "Prostate",
-   "system": "urogenital",
-   "desc": "男性，位于膀胱颈下方、直肠前方，包绕尿道起始部。",
-   "color": "#c97b9e",
-   "volumeMl": 39.2,
+   "key": "iliac_artery_right",
+   "zh": "右髂动脉",
+   "en": "Right iliac artery",
+   "system": "cardio",
+   "desc": "腹主动脉的终末分支。",
+   "color": "#d7303b",
+   "volumeMl": 0.8,
    "centroidVoxel": [
-    74.9,
-    103.0,
-    89.9
+    142.3,
+    166.2,
+    120.0
    ],
    "bestSlice": [
-    75,
-    99,
-    91
+    142,
+    168,
+    122
    ],
    "bboxVoxel": [
     [
-     50,
-     97
+     139,
+     146
     ],
     [
-     77,
-     134
+     158,
+     173
     ],
     [
-     73,
-     113
+     103,
+     136
     ]
    ],
    "hasMesh": true
   },
   {
    "id": 11,
-   "key": "urinary_bladder",
-   "zh": "膀胱",
-   "en": "Urinary bladder",
-   "system": "urogenital",
-   "desc": "位于盆腔前部、耻骨联合后方；充盈时内为尿液，呈水样密度。",
-   "color": "#e8d36a",
-   "volumeMl": 111.7,
+   "key": "iliac_artery_left",
+   "zh": "左髂动脉",
+   "en": "Left iliac artery",
+   "system": "cardio",
+   "desc": "腹主动脉的终末分支。",
+   "color": "#de5953",
+   "volumeMl": 0.7,
    "centroidVoxel": [
-    80.5,
-    137.5,
-    120.0
+    12.2,
+    163.3,
+    128.8
    ],
    "bestSlice": [
-    88,
-    131,
-    124
+    12,
+    164,
+    133
    ],
    "bboxVoxel": [
     [
-     41,
-     117
+     7,
+     18
     ],
     [
-     97,
-     181
+     156,
+     170
     ],
     [
-     93,
-     140
+     106,
+     145
     ]
    ],
    "hasMesh": true

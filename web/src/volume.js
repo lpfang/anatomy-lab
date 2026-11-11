@@ -53,12 +53,16 @@ export async function loadCase(base, onProgress) {
     setGlbProgress(p) { prog.glb = p; report(); },
     // 载入另一序列（同网格），替换 ct 数据；结果缓存
     _seqCache: new Map(),
-    async loadSequence(file) {
-      if (!this._seqCache.has(file)) {
+    // 分两步：fetchSequence 只下载并缓存，useSequence 才替换当前图像。
+    // 调用方可在两步之间检查请求是否已过期（例如用户又切换了序列或退出了导览）。
+    async fetchSequence(file) {
+      if (!this._seqCache.has('__primary')) this._seqCache.set('__primary', this.ct);
+      if (file !== 'image.i16.gz' && !this._seqCache.has(file)) {
         const b = await fetchBytes(`${base}/${file}`);
         this._seqCache.set(file, new Int16Array(b.buffer, b.byteOffset, b.byteLength / 2));
       }
-      if (!this._seqCache.has('__primary')) this._seqCache.set('__primary', this.ct);
+    },
+    useSequence(file) {
       this.ct = file === 'image.i16.gz' ? this._seqCache.get('__primary') : this._seqCache.get(file);
     },
     idx(i, j, k) { return i + nx * (j + ny * k); },

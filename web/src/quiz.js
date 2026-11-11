@@ -13,6 +13,8 @@ const TYPES = {
   identify: { zh: '看断层认结构', en: 'Slice → Name' },
 };
 const PLANES = new Set(['axial', 'coronal', 'sagittal']);
+// 各切面的面内两轴（与 sliceView 的 PLANES 一致）
+const SLICE_AXES = { axial: { u: 0, v: 1 }, coronal: { u: 0, v: 2 }, sagittal: { u: 1, v: 2 } };
 const DEFAULT_SYSTEMS = ['digestive', 'respiratory', 'cardio', 'urogenital', 'endocrine', 'nervous'];
 const MIN_ML = 3; // 体积过小的结构不出题（太难点中）
 
@@ -201,18 +203,26 @@ export class Quiz {
     if (this.phase !== 'ask') return false; // 揭晓答案后允许自由浏览
     const q = this.questions[this.i];
     if (q.type !== 'identify' && PLANES.has(opts.from) && !this.answered) {
-      this._answer(this._hit(q.s.id, opts.voxel) ? q.s.id : id);
+      this._answer(this._hit(q.s.id, opts.voxel, opts.from) ? q.s.id : id);
     }
     return true;
   }
 
-  // 点击容差：点击处 2 个体素（约 3 mm）以内有目标结构即算对
-  _hit(id, v) {
+  // 点击容差：只在用户点击的那一层切片内搜索，点击处 3 mm 以内有目标结构即算对。
+  // 容差按体素间距换算成毫米，不同分辨率的病例判定一致；不跨层，避免相邻层的结构被判为点中。
+  _hit(id, v, plane) {
     if (!v) return false;
-    const [i0, j0, k0] = v.map(Math.round);
-    for (let dk = -2; dk <= 2; dk++) for (let dj = -2; dj <= 2; dj++) for (let di = -2; di <= 2; di++) {
-      if (di * di + dj * dj + dk * dk > 5) continue;
-      if (this.vol.labelAt(i0 + di, j0 + dj, k0 + dk) === id) return true;
+    const TOL = 3;
+    const p = SLICE_AXES[plane];
+    if (!p) return this.vol.labelAt(...v) === id;
+    const sp = this.vol.meta.spacing;
+    const ru = Math.floor(TOL / sp[p.u]), rv = Math.floor(TOL / sp[p.v]);
+    const c = v.map(Math.round);
+    const x = [...c];
+    for (let dv = -rv; dv <= rv; dv++) for (let du = -ru; du <= ru; du++) {
+      if ((du * sp[p.u]) ** 2 + (dv * sp[p.v]) ** 2 > TOL * TOL) continue;
+      x[p.u] = c[p.u] + du; x[p.v] = c[p.v] + dv;
+      if (this.vol.labelAt(...x) === id) return true;
     }
     return false;
   }

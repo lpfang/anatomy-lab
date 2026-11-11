@@ -854,6 +854,7 @@ export class TourPlayer {
   exit() {
     if (!this.active) return;
     this.active = false;
+    this._token = (this._token || 0) + 1;   // 让仍在等待（如序列下载）的旧步骤失效
     this.tour = null;
     this.api.onExit();
   }
@@ -897,8 +898,8 @@ export class TourPlayer {
     else if (s.only) api.setVisible(new Set(s.only.filter((k) => api.vol.byKey.has(k))));
     else if (s.systems) api.setVisible(new Set(api.vol.meta.structures.filter((x) => s.systems.includes(x.system)).map((x) => x.key)));
     else if (this.i === 0) api.setVisible(null);
-    if (s.seq) await api.setSequence?.(s.seq);
-    if (token !== this._token) return;
+    if (s.seq) await api.setSequence?.(s.seq, () => token === this._token && this.active);
+    if (token !== this._token || !this.active) return;
     if (s.wl) api.setPreset(s.wl);
     if (s.select) api.select(s.select);
     if (s.at) {

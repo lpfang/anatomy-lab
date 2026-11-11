@@ -27,7 +27,16 @@ async function main() {
   // 病例列表
   let cases = [];
   try { cases = await (await fetch(`./cases/index.json?v=${V}`)).json(); } catch { /* 单病例部署时可没有 index.json */ }
-  const CASE = new URLSearchParams(location.search).get('case') || cases.find((c) => c.default)?.id || cases.find((c) => c.modality === 'CT')?.id || cases[0]?.id || 's0344';
+  const DEFAULT_CASE = cases.find((c) => c.default)?.id || cases.find((c) => c.modality === 'CT')?.id || cases[0]?.id || 's0344';
+  let CASE = new URLSearchParams(location.search).get('case') || DEFAULT_CASE;
+  let caseNotice = '';
+  if (cases.length && !cases.some((c) => c.id === CASE)) {
+    // 链接里的病例不存在（拼错或已移除）：打开默认病例并提示，而不是停在加载失败页
+    caseNotice = `未找到病例"${CASE}"，已打开默认病例。`;
+    CASE = DEFAULT_CASE;
+    const u = new URL(location.href); u.searchParams.delete('case'); u.searchParams.delete('tour');
+    history.replaceState(null, '', u);
+  }
   const vol = await loadCase(`./cases/${CASE}`, (p) => { bar.style.width = `${(p * 100).toFixed(0)}%`; });
   const { meta } = vol;
   const unit = meta.unit || 'HU';
@@ -78,7 +87,7 @@ async function main() {
       }
       if (changed) {
         invalidateAll();
-        view3d?.applyAppearance();
+        with3d((v) => v.applyAppearance());
         renderCard();
         highlightTree(opts.from !== 'tree');
       }
@@ -123,6 +132,9 @@ async function main() {
     views[el.dataset.plane] = new SliceView(el, el.dataset.plane, vol, state);
   });
   let view3d = null;
+  let ready3d = false;
+  // 3D 模型就绪后才执行（模型加载中或失败时，二维功能照常工作）
+  const with3d = (fn) => { if (ready3d) fn(view3d); };
   let pending = false;
   function invalidateAll() { for (const sv of Object.values(views)) sv.dirty = true; schedule(); }
   function schedule() {
@@ -156,18 +168,26 @@ async function main() {
 
   // MRI 多序列（如 T1 / T2）切换：同一网格，只替换图像数据与窗位预设
   const seqBox = $('#seq');
-  async function setSequence(id) {
+  // guard：可选，返回 false 时放弃提交（用于导览：下载期间导览已退出或换了步骤）
+  let seqReq = 0;
+  async function setSequence(id, guard) {
     const sq = meta.sequences?.find((x) => x.id === id);
-    if (!sq || state.seq === id) return;
+    if (!sq) return false;
+    if (state.seq === id) return true;
+    const req = ++seqReq;
     seqBox.querySelectorAll('button').forEach((b) => { b.classList.toggle('on', b.dataset.id === id); b.disabled = true; });
     try {
-      await vol.loadSequence(sq.file);
+      await vol.fetchSequence(sq.file);
+      if (req !== seqReq || (guard && !guard())) return false;   // 已有更新的请求，或调用方已不需要
+      vol.useSequence(sq.file);
       state.seq = id;
-      tour?.refreshProbe();
       WL_PRESETS = sq.presets;
       renderPresets();
+      invalidateAll();
+      tour?.refreshProbe();
+      return true;
     } finally {
-      seqBox.querySelectorAll('button').forEach((b) => { b.disabled = false; b.classList.toggle('on', b.dataset.id === state.seq); });
+      if (req === seqReq) seqBox.querySelectorAll('button').forEach((b) => { b.disabled = false; b.classList.toggle('on', b.dataset.id === state.seq); });
     }
   }
   if (meta.sequences?.length > 1) {
@@ -238,7 +258,7 @@ async function main() {
   function setHidden(id, hide) {
     if (hide) state.hiddenIds.add(id); else state.hiddenIds.delete(id);
     itemEls.get(id)?.classList.toggle('hidden3d', hide);
-    view3d?.applyAppearance();
+    with3d((v) => v.applyAppearance());
     invalidateAll();
   }
 
@@ -309,31 +329,55 @@ async function main() {
   // ---------------- 选项 ----------------
   $('#opt-overlay').addEventListener('input', (e) => { state.overlay = e.target.value / 100; invalidateAll(); });
   $('#opt-outline').addEventListener('change', (e) => { state.outline = e.target.checked; invalidateAll(); });
-  $('#opt-ghost').addEventListener('change', (e) => { state.ghost = e.target.checked; view3d?.applyAppearance(); });
+  $('#opt-ghost').addEventListener('change', (e) => { state.ghost = e.target.checked; with3d((v) => v.applyAppearance()); });
   document.querySelectorAll('.planes input').forEach((cb) => cb.addEventListener('change', () => {
     state.showPlanes[cb.dataset.plane] = cb.checked; view3d?.syncSlices();
   }));
-  $('#opt-clip').addEventListener('change', (e) => view3d?.setClip(e.target.value));
-  $('#btn-reset').addEventListener('click', () => view3d?.resetView());
+  $('#opt-clip').addEventListener('change', (e) => with3d((v) => v.setClip(e.target.value)));
+  $('#btn-reset').addEventListener('click', () => with3d((v) => v.resetView()));
   window.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT') return;
     if (e.key === 'Escape') state.select(0, { from: 'key' });
   });
 
   // ---------------- 3D ----------------
-  view3d = new View3D($('#view3d'), vol, state, views);
-  invalidateAll();
-  await view3d.loadModel((p) => vol.setGlbProgress(p));
-  invalidateAll();
+  // 二维切片此时已可用：先撤掉全屏加载层，3D 在自己的面板里异步加载，失败时可重试
   $('#loading').remove();
+  if (caseNotice) showToast(caseNotice);
+  const v3el = $('#view3d');
+  const v3msg = document.createElement('div');
+  v3msg.className = 'v3-msg';
+  v3el.appendChild(v3msg);
+  async function init3d() {
+    v3msg.hidden = false;
+    v3msg.innerHTML = '3D 模型加载中… <span>0%</span>';
+    try {
+      if (!view3d) view3d = new View3D(v3el, vol, state, views);
+      invalidateAll();
+      await view3d.loadModel((p) => { v3msg.querySelector('span').textContent = `${Math.round(p * 100)}%`; });
+      ready3d = true;
+      v3msg.hidden = true;
+      view3d.applyAppearance();
+      view3d.setClip($('#opt-clip').value);
+      invalidateAll();
+    } catch (err) {
+      console.error(err);
+      const webgl = !view3d;
+      v3msg.innerHTML = `<b>3D 模型${webgl ? '无法显示' : '加载失败'}</b><p>${webgl ? '浏览器未能启用 WebGL（可能被禁用或显卡不支持）。' : '模型文件下载或解析失败，请检查网络后重试。'}</p>
+        <p class="v3-err">${esc(err.message || String(err))}</p>
+        <p>二维切片、导览和测验仍可正常使用。</p>${webgl ? '' : '<button>重试</button>'}`;
+      v3msg.querySelector('button')?.addEventListener('click', init3d);
+    }
+  }
+  init3d();
 
   // ---------------- 测验模式 ----------------
   const quizBtn = $('#btn-quiz');
   const quiz = new Quiz({
     vol, state, anchorOf,
     panel: $('#quiz'),
-    refresh: () => { invalidateAll(); view3d.applyAppearance(); },
-    focus3d: (id) => (id ? view3d.focusOn(id) : view3d.resetView()),
+    refresh: () => { invalidateAll(); with3d((v) => v.applyAppearance()); },
+    focus3d: (id) => with3d((v) => (id ? v.focusOn(id) : v.resetView())),
     onEnter: () => {
       $('#quiz').hidden = false; $('#card').hidden = true; $('.overlay-ctl').hidden = true;
       quizBtn.classList.add('on'); quizBtn.textContent = '退出测验';
@@ -345,7 +389,7 @@ async function main() {
       for (const [id, el] of itemEls) el.classList.toggle('hidden3d', state.hiddenIds.has(id));
       state.select(selectId || 0, { from: 'quiz' });
       renderCard(); highlightTree(true);
-      invalidateAll(); view3d.applyAppearance();
+      invalidateAll(); with3d((v) => v.applyAppearance());
     },
   });
   quizBtn.addEventListener('click', () => {
@@ -356,7 +400,7 @@ async function main() {
 
   // ---------------- 导览模式 ----------------
   const tourBtn = $('#btn-tour');
-  let overlay0 = state.overlay;
+  let saved = null;
   const tour = new TourPlayer({
     vol, state,
     panel: $('#tour'),
@@ -369,25 +413,29 @@ async function main() {
     },
     setVisible: (keys) => {
       for (const s of meta.structures) setHidden(s.id, !!keys && !keys.has(s.key));
-      view3d.resetView();
+      with3d((v) => v.resetView());
     },
-    setClip: (mode) => { $('#opt-clip').value = mode; view3d.setClip(mode); },
+    setClip: (mode) => { $('#opt-clip').value = mode; with3d((v) => v.setClip(mode)); },
     setOverlay: (v) => { state.overlay = v; $('#opt-overlay').value = Math.round(v * 100); invalidateAll(); },
     openLesson: (id) => handbook.open(id),
     runTour: (c, t) => runTour(c, t),
     hasCase: (id) => id === CASE || list.some((x) => x.id === id),
-    setView: (d) => view3d.resetView(new THREE.Vector3(...d)),
+    setView: (d) => with3d((v) => v.resetView(new THREE.Vector3(...d))),
     onEnter: () => {
-      overlay0 = state.overlay;
+      saved = { overlay: state.overlay, hidden: new Set(state.hiddenIds), clip: $('#opt-clip').value, planes: { ...state.showPlanes } };
       $('#tour').hidden = false; $('#card').hidden = true;
       tourBtn.classList.add('on'); tourBtn.textContent = '退出导览';
     },
     onExit: () => {
       $('#tour').hidden = true; $('#card').hidden = false;
       tourBtn.classList.remove('on'); tourBtn.textContent = '导览';
-      for (const s of meta.structures) setHidden(s.id, false);
-      $('#opt-clip').value = 'none'; view3d.setClip('none');
-      tour.api.setOverlay(overlay0);
+      for (const s of meta.structures) setHidden(s.id, saved.hidden.has(s.id));
+      $('#opt-clip').value = saved.clip;
+      with3d((v) => v.setClip(saved.clip));
+      Object.assign(state.showPlanes, saved.planes);
+      document.querySelectorAll('.planes input').forEach((cb) => { cb.checked = !!state.showPlanes[cb.dataset.plane]; });
+      with3d((v) => { v.applyAppearance(); v.syncSlices(); });
+      tour.api.setOverlay(saved.overlay);
       renderCard();
     },
   });
@@ -428,10 +476,21 @@ async function main() {
     const u = new URL(location.href); u.searchParams.delete('tour'); history.replaceState(null, '', u);
   }
 
-  window.__app = { vol, state, views, view3d, quiz, tour };
+  window.__app = { vol, state, views, get view3d() { return view3d; }, quiz, tour };
+}
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast'; t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 6000);
 }
 
 main().catch((err) => {
   console.error(err);
-  $('#loading p').textContent = `加载失败：${err.message}`;
+  const box = $('#loading');
+  if (!box) { showToast(`出错：${err.message}`); return; }
+  box.querySelector('.bar')?.remove();
+  box.querySelector('p').innerHTML = `加载失败：${esc(err.message || String(err))}<br><br>
+    <button onclick="location.reload()">重试</button> <a href="./">打开默认病例</a>`;
 });

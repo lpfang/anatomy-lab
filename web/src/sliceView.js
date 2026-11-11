@@ -72,8 +72,8 @@ export class SliceView {
         data[o + 3] = 255;
       }
     }
-    // 选中结构描边（四邻域边界）
-    if (sel && state.outline) {
+    // 选中结构描边（四邻域边界）；结构被隐藏时不描边，与彩色叠加一致
+    if (sel && state.outline && !hidden.has(sel)) {
       for (let r = 0; r < Nv; r++) {
         const vv = Nv - 1 - r;
         for (let c = 0; c < Nu; c++) {

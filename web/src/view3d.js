@@ -204,14 +204,23 @@ export class View3D {
   _updateClip() {
     const plane = this.clipPlanes[0];
     if (this.clipMode === 'none') { plane.set(new THREE.Vector3(0, 0, 0), 1); return; } // 恒正，不裁剪
-    const cur = this.vol.toWorld(this.state.cursor);
     const axis = { axial: 2, coronal: 1, sagittal: 0 }[this.clipMode];
+    const cv = [...this.state.cursor];
+    cv[axis] = Math.round(cv[axis]);           // 与切片纹理使用同一层
+    const cur = this.vol.toWorld(cv);
     // three.js 保留法向正侧。横断：去上方（保留 -S）；冠状：去前方（保留 -A）；
     // 矢状：去患者左侧（左 = R 负方向，保留 +R）
     const nRas = [new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, -1, 0), new THREE.Vector3(0, 0, -1)][axis];
+    // 平面法向取切片两条面内体素轴（仿射矩阵的列向量）的叉积，与 3D 中切片纹理所在平面一致；
+    // 仿射矩阵带旋转（扫描架倾斜等）时，切片并不严格垂直于 RAS 轴
+    const cols = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()];
+    this.vol.vox2ras.extractBasis(...cols);
+    const inPlane = [0, 1, 2].filter((a) => a !== axis);
+    const nSlice = new THREE.Vector3().crossVectors(cols[inPlane[0]], cols[inPlane[1]]).normalize();
+    if (nSlice.dot(nRas) < 0) nSlice.negate();
     const m = this.root.matrixWorld;
     const p = cur.clone().applyMatrix4(m);
-    const n = nRas.transformDirection(m);
+    const n = nSlice.transformDirection(m);
     plane.setFromNormalAndCoplanarPoint(n, p);
     // 多裁掉约半个体素，避免模型表面盖住切面图像
     plane.constant -= 0.75;

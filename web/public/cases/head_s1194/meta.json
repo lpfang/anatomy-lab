@@ -175,76 +175,6 @@
  "structures": [
   {
    "id": 1,
-   "key": "auditory_canal_left",
-   "zh": "左外耳道",
-   "en": "Left external auditory canal",
-   "system": "orbit",
-   "desc": "外侧 1/3 为软骨部、内侧 2/3 为骨部，内端为鼓膜；CT 骨窗显示最佳。",
-   "color": "#ffdb4f",
-   "volumeMl": 0.7,
-   "centroidVoxel": [
-    17.3,
-    68.1,
-    58.9
-   ],
-   "bestSlice": [
-    19,
-    68,
-    59
-   ],
-   "bboxVoxel": [
-    [
-     12,
-     22
-    ],
-    [
-     64,
-     71
-    ],
-    [
-     56,
-     61
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 2,
-   "key": "auditory_canal_right",
-   "zh": "右外耳道",
-   "en": "Right external auditory canal",
-   "system": "orbit",
-   "desc": "外侧 1/3 为软骨部、内侧 2/3 为骨部，内端为鼓膜；CT 骨窗显示最佳。",
-   "color": "#fefc93",
-   "volumeMl": 0.7,
-   "centroidVoxel": [
-    100.3,
-    70.5,
-    57.2
-   ],
-   "bestSlice": [
-    99,
-    70,
-    58
-   ],
-   "bboxVoxel": [
-    [
-     95,
-     105
-    ],
-    [
-     67,
-     73
-    ],
-    [
-     54,
-     60
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 3,
    "key": "brain",
    "zh": "脑",
    "en": "Brain",
@@ -279,1108 +209,23 @@
    "hasMesh": true
   },
   {
-   "id": 4,
-   "key": "eye_left",
-   "zh": "左眼球",
-   "en": "Left eyeball",
-   "system": "orbit",
-   "desc": "位于眼眶前部；玻璃体在 T1 上呈低信号，T2 上呈高信号。",
-   "color": "#fffd98",
-   "volumeMl": 6.1,
-   "centroidVoxel": [
-    36.5,
-    116.8,
-    73.7
-   ],
-   "bestSlice": [
-    35,
-    117,
-    75
-   ],
-   "bboxVoxel": [
-    [
-     29,
-     44
-    ],
-    [
-     111,
-     123
-    ],
-    [
-     66,
-     81
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 5,
-   "key": "eye_right",
-   "zh": "右眼球",
-   "en": "Right eyeball",
-   "system": "orbit",
-   "desc": "位于眼眶前部；玻璃体在 T1 上呈低信号，T2 上呈高信号。",
-   "color": "#fff47d",
-   "volumeMl": 6.5,
-   "centroidVoxel": [
-    78.5,
-    117.6,
-    72.6
-   ],
-   "bestSlice": [
-    79,
-    118,
-    75
-   ],
-   "bboxVoxel": [
-    [
-     71,
-     87
-    ],
-    [
-     111,
-     124
-    ],
-    [
-     64,
-     80
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 6,
-   "key": "hard_palate",
-   "zh": "硬腭",
-   "en": "Hard palate",
-   "system": "oral",
-   "desc": "口腔顶的前 2/3，由上颌骨腭突和腭骨水平板构成，分隔口腔与鼻腔。",
-   "color": "#ffa68d",
-   "volumeMl": 1.9,
-   "centroidVoxel": [
-    57.6,
-    107.4,
-    44.2
-   ],
-   "bestSlice": [
-    57,
-    108,
-    44
-   ],
-   "bboxVoxel": [
-    [
-     49,
-     66
-    ],
-    [
-     96,
-     116
-    ],
-    [
-     42,
-     46
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 7,
-   "key": "hyoid",
-   "zh": "舌骨",
-   "en": "Hyoid bone",
-   "system": "oral",
-   "desc": "不与其他骨直接相连的 U 形骨，约平第 3 颈椎。",
-   "color": "#ffccb2",
-   "volumeMl": 1.0,
-   "centroidVoxel": [
-    58.2,
-    80.0,
-    10.9
-   ],
-   "bestSlice": [
-    68,
-    83,
-    10
-   ],
-   "bboxVoxel": [
-    [
-     45,
-     71
-    ],
-    [
-     69,
-     85
-    ],
-    [
-     7,
-     18
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 8,
-   "key": "hypopharynx",
-   "zh": "喉咽（下咽）",
-   "en": "Hypopharynx",
-   "system": "oral",
-   "desc": "会厌上缘至环状软骨下缘，含梨状隐窝，向下续为食管。",
-   "color": "#ff9b82",
-   "volumeMl": 6.0,
-   "centroidVoxel": [
-    58.6,
-    71.4,
-    8.5
-   ],
-   "bestSlice": [
-    59,
-    71,
-    7
-   ],
-   "bboxVoxel": [
-    [
-     46,
-     70
-    ],
-    [
-     68,
-     76
-    ],
-    [
-     0,
-     20
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 9,
-   "key": "inferior_oblique_muscle_left",
-   "zh": "左下斜肌",
-   "en": "Left inferior oblique",
-   "system": "orbit",
-   "desc": "唯一起自眶底前部的眼外肌，使眼球上转、外旋。",
-   "color": "#fdffa2",
-   "volumeMl": 0.6,
-   "centroidVoxel": [
-    36.5,
-    116.9,
-    64.6
-   ],
-   "bestSlice": [
-    36,
-    119,
-    65
-   ],
-   "bboxVoxel": [
-    [
-     32,
-     42
-    ],
-    [
-     113,
-     120
-    ],
-    [
-     62,
-     67
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 10,
-   "key": "inferior_oblique_muscle_right",
-   "zh": "右下斜肌",
-   "en": "Right inferior oblique",
-   "system": "orbit",
-   "desc": "唯一起自眶底前部的眼外肌，使眼球上转、外旋。",
-   "color": "#ffea68",
-   "volumeMl": 0.5,
-   "centroidVoxel": [
-    78.7,
-    117.1,
-    63.6
-   ],
-   "bestSlice": [
-    78,
-    117,
-    64
-   ],
-   "bboxVoxel": [
-    [
-     74,
-     85
-    ],
-    [
-     113,
-     121
-    ],
-    [
-     62,
-     67
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 11,
-   "key": "inferior_rectus_muscle_left",
-   "zh": "左下直肌",
-   "en": "Left inferior rectus",
-   "system": "orbit",
-   "desc": "使眼球下转；眶底骨折时可嵌顿导致上视受限。",
-   "color": "#ffe159",
-   "volumeMl": 0.6,
-   "centroidVoxel": [
-    41.6,
-    104.8,
-    68.2
-   ],
-   "bestSlice": [
-    40,
-    101,
-    69
-   ],
-   "bboxVoxel": [
-    [
-     37,
-     46
-    ],
-    [
-     93,
-     115
-    ],
-    [
-     65,
-     71
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 12,
-   "key": "inferior_rectus_muscle_right",
-   "zh": "右下直肌",
-   "en": "Right inferior rectus",
-   "system": "orbit",
-   "desc": "使眼球下转；眶底骨折时可嵌顿导致上视受限。",
-   "color": "#fff47d",
-   "volumeMl": 0.6,
-   "centroidVoxel": [
-    74.0,
-    105.0,
-    67.3
-   ],
-   "bestSlice": [
-    74,
-    106,
-    68
-   ],
-   "bboxVoxel": [
-    [
-     71,
-     77
-    ],
-    [
-     94,
-     115
-    ],
-    [
-     64,
-     71
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 13,
-   "key": "internal_carotid_artery_left",
-   "zh": "左颈内动脉",
-   "en": "Left internal carotid artery",
-   "system": "cardio",
-   "desc": "在甲状软骨上缘平面由颈总动脉分出，经颈动脉管入颅，供应大脑前部和眼。",
-   "color": "#cd263a",
-   "volumeMl": 0.5,
-   "centroidVoxel": [
-    38.9,
-    67.1,
-    29.6
-   ],
-   "bestSlice": [
-    39,
-    67,
-    47
-   ],
-   "bboxVoxel": [
-    [
-     37,
-     41
-    ],
-    [
-     65,
-     69
-    ],
-    [
-     7,
-     52
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 14,
-   "key": "internal_carotid_artery_right",
-   "zh": "右颈内动脉",
-   "en": "Right internal carotid artery",
-   "system": "cardio",
-   "desc": "在甲状软骨上缘平面由颈总动脉分出，经颈动脉管入颅，供应大脑前部和眼。",
-   "color": "#cc263a",
-   "volumeMl": 0.6,
-   "centroidVoxel": [
-    76.1,
-    67.2,
-    24.4
-   ],
-   "bestSlice": [
-    76,
-    66,
-    20
-   ],
-   "bboxVoxel": [
-    [
-     74,
-     78
-    ],
-    [
-     64,
-     71
-    ],
-    [
-     7,
-     52
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 15,
-   "key": "internal_jugular_vein_left",
-   "zh": "左颈内静脉",
-   "en": "Left internal jugular vein",
-   "system": "cardio",
-   "desc": "自颈静脉孔出颅，与颈内动脉、迷走神经同行于颈动脉鞘内（静脉在外侧）。",
-   "color": "#2755d5",
-   "volumeMl": 1.4,
-   "centroidVoxel": [
-    35.0,
-    65.4,
-    17.6
-   ],
-   "bestSlice": [
-    35,
-    65,
-    11
-   ],
-   "bboxVoxel": [
-    [
-     33,
-     38
-    ],
-    [
-     64,
-     68
-    ],
-    [
-     0,
-     48
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 16,
-   "key": "internal_jugular_vein_right",
-   "zh": "右颈内静脉",
-   "en": "Right internal jugular vein",
-   "system": "cardio",
-   "desc": "自颈静脉孔出颅，与颈内动脉、迷走神经同行于颈动脉鞘内（静脉在外侧）。",
-   "color": "#5063de",
-   "volumeMl": 2.9,
-   "centroidVoxel": [
-    80.6,
-    64.5,
-    21.1
-   ],
-   "bestSlice": [
-    80,
-    65,
-    7
-   ],
-   "bboxVoxel": [
-    [
-     78,
-     83
-    ],
-    [
-     60,
-     68
-    ],
-    [
-     0,
-     50
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 17,
-   "key": "larynx_air",
-   "zh": "喉腔",
-   "en": "Laryngeal airway",
-   "system": "oral",
-   "desc": "喉内的气道部分，以声门为界分为声门上、声门和声门下区。",
-   "color": "#ffaf95",
-   "volumeMl": 3.7,
-   "centroidVoxel": [
-    58.0,
-    75.5,
-    5.4
-   ],
-   "bestSlice": [
-    59,
-    75,
-    0
-   ],
-   "bboxVoxel": [
-    [
-     51,
-     65
-    ],
-    [
-     71,
-     80
-    ],
-    [
-     0,
-     15
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 18,
-   "key": "lateral_rectus_muscle_left",
-   "zh": "左外直肌",
-   "en": "Left lateral rectus",
-   "system": "orbit",
-   "desc": "使眼球外展，受展神经（VI）支配。",
-   "color": "#fef98a",
-   "volumeMl": 0.5,
-   "centroidVoxel": [
-    34.9,
-    104.9,
-    72.3
-   ],
-   "bestSlice": [
-    31,
-    105,
-    72
-   ],
-   "bboxVoxel": [
-    [
-     30,
-     45
-    ],
-    [
-     94,
-     112
-    ],
-    [
-     70,
-     75
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 19,
-   "key": "lateral_rectus_muscle_right",
-   "zh": "右外直肌",
-   "en": "Right lateral rectus",
-   "system": "orbit",
-   "desc": "使眼球外展，受展神经（VI）支配。",
-   "color": "#ffe967",
-   "volumeMl": 0.5,
-   "centroidVoxel": [
-    80.7,
-    105.9,
-    71.0
-   ],
-   "bestSlice": [
-    82,
-    105,
-    71
-   ],
-   "bboxVoxel": [
-    [
-     71,
-     86
-    ],
-    [
-     93,
-     115
-    ],
-    [
-     69,
-     74
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 20,
-   "key": "levator_palpebrae_superioris_left",
-   "zh": "左上睑提肌",
-   "en": "Left levator palpebrae superioris",
-   "system": "orbit",
-   "desc": "位于上直肌上方，提上睑；受损导致上睑下垂。",
-   "color": "#fff075",
-   "volumeMl": 0.8,
-   "centroidVoxel": [
-    39.6,
-    111.4,
-    80.8
-   ],
-   "bestSlice": [
-    41,
-    115,
-    82
-   ],
-   "bboxVoxel": [
-    [
-     33,
-     45
-    ],
-    [
-     98,
-     122
-    ],
-    [
-     76,
-     83
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 21,
-   "key": "levator_palpebrae_superioris_right",
-   "zh": "右上睑提肌",
-   "en": "Right levator palpebrae superioris",
-   "system": "orbit",
-   "desc": "位于上直肌上方，提上睑；受损导致上睑下垂。",
-   "color": "#fdfea3",
-   "volumeMl": 1.0,
-   "centroidVoxel": [
-    77.0,
-    113.9,
-    80.3
-   ],
-   "bestSlice": [
-    75,
-    117,
-    81
-   ],
-   "bboxVoxel": [
-    [
-     72,
-     85
-    ],
-    [
-     102,
-     124
-    ],
-    [
-     77,
-     82
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 22,
-   "key": "mandible",
-   "zh": "下颌骨",
-   "en": "Mandible",
-   "system": "skeletal",
-   "desc": "面颅中唯一能活动的骨，经颞下颌关节与颞骨相连。",
-   "color": "#e9e0c7",
-   "volumeMl": 1.2,
-   "centroidVoxel": [
-    59.5,
-    98.1,
-    33.5
-   ],
-   "bestSlice": [
-    90,
-    99,
-    20
-   ],
-   "bboxVoxel": [
-    [
-     25,
-     92
-    ],
-    [
-     74,
-     127
-    ],
-    [
-     7,
-     60
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 23,
-   "key": "medial_rectus_muscle_left",
-   "zh": "左内直肌",
-   "en": "Left medial rectus",
-   "system": "orbit",
-   "desc": "使眼球内收，受动眼神经（III）支配；是最粗的眼外肌。",
-   "color": "#fffd96",
-   "volumeMl": 0.7,
-   "centroidVoxel": [
-    45.3,
-    108.0,
-    72.5
-   ],
-   "bestSlice": [
-    45,
-    109,
-    72
-   ],
-   "bboxVoxel": [
-    [
-     44,
-     47
-    ],
-    [
-     94,
-     120
-    ],
-    [
-     70,
-     75
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 24,
-   "key": "medial_rectus_muscle_right",
-   "zh": "右内直肌",
-   "en": "Right medial rectus",
-   "system": "orbit",
-   "desc": "使眼球内收，受动眼神经（III）支配；是最粗的眼外肌。",
-   "color": "#feff9e",
-   "volumeMl": 0.8,
-   "centroidVoxel": [
-    70.1,
-    108.7,
-    71.9
-   ],
-   "bestSlice": [
-    70,
-    108,
-    72
-   ],
-   "bboxVoxel": [
-    [
-     69,
-     71
-    ],
-    [
-     95,
-     121
-    ],
-    [
-     70,
-     74
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 25,
-   "key": "nasal_cavity_left",
-   "zh": "左鼻腔",
-   "en": "Left nasal cavity",
-   "system": "sinus",
-   "desc": "被鼻中隔分为左右两半，外侧壁有上、中、下鼻甲。",
-   "color": "#80ddea",
-   "volumeMl": 13.1,
-   "centroidVoxel": [
-    53.4,
-    109.1,
-    54.4
-   ],
-   "bestSlice": [
-    56,
-    115,
-    47
-   ],
-   "bboxVoxel": [
-    [
-     47,
-     58
-    ],
-    [
-     86,
-     137
-    ],
-    [
-     45,
-     72
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 26,
-   "key": "nasal_cavity_right",
-   "zh": "右鼻腔",
-   "en": "Right nasal cavity",
-   "system": "sinus",
-   "desc": "被鼻中隔分为左右两半，外侧壁有上、中、下鼻甲。",
-   "color": "#89ddeb",
-   "volumeMl": 11.4,
-   "centroidVoxel": [
-    61.4,
-    111.4,
-    54.3
-   ],
-   "bestSlice": [
-    60,
-    93,
-    47
-   ],
-   "bboxVoxel": [
-    [
-     56,
-     68
-    ],
-    [
-     87,
-     139
-    ],
-    [
-     45,
-     73
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 27,
-   "key": "nasopharynx",
-   "zh": "鼻咽",
-   "en": "Nasopharynx",
-   "system": "oral",
-   "desc": "位于鼻腔后方，侧壁有咽鼓管咽口和咽隐窝——咽隐窝是鼻咽癌的好发部位。",
-   "color": "#ff937b",
-   "volumeMl": 6.7,
-   "centroidVoxel": [
-    58.4,
-    83.7,
-    48.6
-   ],
-   "bestSlice": [
-    64,
-    86,
-    46
-   ],
-   "bboxVoxel": [
-    [
-     48,
-     69
-    ],
-    [
-     75,
-     91
-    ],
-    [
-     45,
-     55
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 28,
-   "key": "optic_nerve_left",
-   "zh": "左视神经",
-   "en": "Left optic nerve",
-   "system": "orbit",
-   "desc": "自眼球后极经视神经管入颅，在鞍上池形成视交叉。被四条直肌围成的肌锥包绕。",
-   "color": "#fee967",
-   "volumeMl": 0.3,
-   "centroidVoxel": [
-    41.4,
-    103.6,
-    73.6
-   ],
-   "bestSlice": [
-    39,
-    108,
-    73
-   ],
-   "bboxVoxel": [
-    [
-     38,
-     46
-    ],
-    [
-     94,
-     110
-    ],
-    [
-     73,
-     75
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 29,
-   "key": "optic_nerve_right",
-   "zh": "右视神经",
-   "en": "Right optic nerve",
-   "system": "orbit",
-   "desc": "自眼球后极经视神经管入颅，在鞍上池形成视交叉。被四条直肌围成的肌锥包绕。",
-   "color": "#fff888",
-   "volumeMl": 0.3,
-   "centroidVoxel": [
-    73.9,
-    104.4,
-    73.0
-   ],
-   "bestSlice": [
-    74,
-    108,
-    73
-   ],
-   "bboxVoxel": [
-    [
-     71,
-     77
-    ],
-    [
-     96,
-     111
-    ],
-    [
-     72,
-     74
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 30,
-   "key": "oropharynx",
-   "zh": "口咽",
-   "en": "Oropharynx",
-   "system": "oral",
-   "desc": "软腭至会厌上缘之间，含腭扁桃体与舌根。",
-   "color": "#ffab91",
-   "volumeMl": 15.6,
-   "centroidVoxel": [
-    58.9,
-    77.7,
-    30.7
-   ],
-   "bestSlice": [
-    61,
-    77,
-    44
-   ],
-   "bboxVoxel": [
-    [
-     48,
-     69
-    ],
-    [
-     71,
-     92
-    ],
-    [
-     10,
-     46
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 31,
-   "key": "parotid_gland_left",
-   "zh": "左腮腺",
-   "en": "Left parotid gland",
-   "system": "digestive",
-   "desc": "最大的唾液腺，位于下颌支后方、外耳道前下；面神经从腺体内穿过，将其分为浅、深两叶。",
-   "color": "#c57d2f",
-   "volumeMl": 6.6,
-   "centroidVoxel": [
-    19.2,
-    71.7,
-    43.9
-   ],
-   "bestSlice": [
-    19,
-    70,
-    45
-   ],
-   "bboxVoxel": [
-    [
-     14,
-     24
-    ],
-    [
-     64,
-     82
-    ],
-    [
-     32,
-     54
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 32,
-   "key": "parotid_gland_right",
-   "zh": "右腮腺",
-   "en": "Right parotid gland",
-   "system": "digestive",
-   "desc": "最大的唾液腺，位于下颌支后方、外耳道前下；面神经从腺体内穿过，将其分为浅、深两叶。",
-   "color": "#dcc270",
-   "volumeMl": 5.8,
-   "centroidVoxel": [
-    96.9,
-    73.7,
-    41.9
-   ],
-   "bestSlice": [
-    97,
-    72,
-    42
-   ],
-   "bboxVoxel": [
-    [
-     92,
-     102
-    ],
-    [
-     66,
-     82
-    ],
-    [
-     31,
-     52
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 33,
-   "key": "sinus_frontal",
-   "zh": "额窦",
-   "en": "Frontal sinus",
-   "system": "sinus",
-   "desc": "位于眉弓深面，左右常不对称；开口于中鼻道。",
-   "color": "#69e0e6",
-   "volumeMl": 6.8,
-   "centroidVoxel": [
-    55.1,
-    126.9,
-    85.5
-   ],
-   "bestSlice": [
-    52,
-    127,
-    85
-   ],
-   "bboxVoxel": [
-    [
-     38,
-     72
-    ],
-    [
-     122,
-     132
-    ],
-    [
-     78,
-     93
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 34,
-   "key": "sinus_maxillary",
-   "zh": "上颌窦",
-   "en": "Maxillary sinus",
-   "system": "sinus",
-   "desc": "最大的鼻旁窦，开口于中鼻道；窦口高于窦底，故引流不畅、炎症多见。",
-   "color": "#62e2e5",
-   "volumeMl": 35.2,
-   "centroidVoxel": [
-    56.4,
-    110.1,
-    55.1
-   ],
-   "bestSlice": [
-    42,
-    111,
-    57
-   ],
-   "bboxVoxel": [
-    [
-     31,
-     84
-    ],
-    [
-     96,
-     125
-    ],
-    [
-     43,
-     66
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 35,
+   "id": 2,
    "key": "skull",
    "zh": "颅骨",
    "en": "Skull",
    "system": "skeletal",
    "desc": "骨窗下观察骨折与颅底孔道；颅骨内外板之间为板障。",
    "color": "#e9e1c7",
-   "volumeMl": 767.6,
+   "volumeMl": 697.4,
    "centroidVoxel": [
-    59.4,
-    71.2,
-    80.8
+    59.7,
+    68.3,
+    86.0
    ],
    "bestSlice": [
-    89,
+    88,
     64,
-    59
+    61
    ],
    "bboxVoxel": [
     [
@@ -1399,42 +244,77 @@
    "hasMesh": true
   },
   {
-   "id": 36,
-   "key": "soft_palate",
-   "zh": "软腭",
-   "en": "Soft palate",
-   "system": "oral",
-   "desc": "口腔顶的后 1/3，吞咽时上提封闭鼻咽。",
-   "color": "#ff826d",
-   "volumeMl": 3.1,
+   "id": 3,
+   "key": "mandible",
+   "zh": "下颌骨",
+   "en": "Mandible",
+   "system": "skeletal",
+   "desc": "面颅中唯一能活动的骨，经颞下颌关节与颞骨相连。",
+   "color": "#e9e0c7",
+   "volumeMl": 66.8,
    "centroidVoxel": [
-    57.4,
-    88.6,
-    39.2
+    56.3,
+    100.4,
+    26.7
    ],
    "bestSlice": [
-    59,
-    86,
-    41
+    28,
+    94,
+    21
    ],
    "bboxVoxel": [
     [
-     51,
-     65
+     21,
+     96
     ],
     [
-     81,
-     98
+     70,
+     128
     ],
     [
-     31,
-     44
+     6,
+     60
     ]
    ],
    "hasMesh": true
   },
   {
-   "id": 37,
+   "id": 4,
+   "key": "sinus_maxillary",
+   "zh": "上颌窦",
+   "en": "Maxillary sinus",
+   "system": "sinus",
+   "desc": "最大的鼻旁窦，开口于中鼻道；窦口高于窦底，故引流不畅、炎症多见。",
+   "color": "#62e2e5",
+   "volumeMl": 36.3,
+   "centroidVoxel": [
+    56.5,
+    110.2,
+    54.8
+   ],
+   "bestSlice": [
+    42,
+    111,
+    57
+   ],
+   "bboxVoxel": [
+    [
+     30,
+     84
+    ],
+    [
+     96,
+     125
+    ],
+    [
+     41,
+     66
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 5,
    "key": "spinal_cord",
    "zh": "脊髓",
    "en": "Spinal cord",
@@ -1469,427 +349,42 @@
    "hasMesh": true
   },
   {
-   "id": 38,
-   "key": "styloid_process_left",
-   "zh": "左茎突",
-   "en": "Left styloid process",
-   "system": "skeletal",
-   "desc": "颞骨向前下方伸出的细长骨突；过长时可引起茎突综合征。",
-   "color": "#dfcbae",
-   "volumeMl": 0.1,
+   "id": 6,
+   "key": "oropharynx",
+   "zh": "口咽",
+   "en": "Oropharynx",
+   "system": "oral",
+   "desc": "软腭至会厌上缘之间，含腭扁桃体与舌根。",
+   "color": "#ffab91",
+   "volumeMl": 15.6,
    "centroidVoxel": [
-    33.1,
-    67.1,
-    47.2
+    58.9,
+    77.7,
+    30.7
    ],
    "bestSlice": [
-    32,
-    67,
-    49
+    61,
+    77,
+    44
    ],
    "bboxVoxel": [
     [
-     31,
-     37
+     48,
+     69
     ],
-    [
-     63,
-     73
-    ],
-    [
-     37,
-     50
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 39,
-   "key": "styloid_process_right",
-   "zh": "右茎突",
-   "en": "Right styloid process",
-   "system": "skeletal",
-   "desc": "颞骨向前下方伸出的细长骨突；过长时可引起茎突综合征。",
-   "color": "#ddc6a8",
-   "volumeMl": 0.1,
-   "centroidVoxel": [
-    85.3,
-    69.0,
-    48.2
-   ],
-   "bestSlice": [
-    86,
-    69,
-    48
-   ],
-   "bboxVoxel": [
-    [
-     84,
-     87
-    ],
-    [
-     66,
-     71
-    ],
-    [
-     46,
-     50
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 40,
-   "key": "submandibular_gland_left",
-   "zh": "左下颌下腺",
-   "en": "Left submandibular gland",
-   "system": "digestive",
-   "desc": "位于下颌下三角内，导管开口于舌下阜。",
-   "color": "#cf913b",
-   "volumeMl": 4.3,
-   "centroidVoxel": [
-    38.0,
-    81.8,
-    14.0
-   ],
-   "bestSlice": [
-    38,
-    82,
-    11
-   ],
-   "bboxVoxel": [
-    [
-     31,
-     45
-    ],
-    [
-     75,
-     90
-    ],
-    [
-     5,
-     24
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 41,
-   "key": "submandibular_gland_right",
-   "zh": "右下颌下腺",
-   "en": "Right submandibular gland",
-   "system": "digestive",
-   "desc": "位于下颌下三角内，导管开口于舌下阜。",
-   "color": "#d0933d",
-   "volumeMl": 4.9,
-   "centroidVoxel": [
-    78.8,
-    84.1,
-    15.8
-   ],
-   "bestSlice": [
-    79,
-    80,
-    14
-   ],
-   "bboxVoxel": [
-    [
-     72,
-     85
-    ],
-    [
-     77,
-     95
-    ],
-    [
-     8,
-     25
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 42,
-   "key": "superior_oblique_muscle_left",
-   "zh": "左上斜肌",
-   "en": "Left superior oblique",
-   "system": "orbit",
-   "desc": "经滑车反折，使眼球下转、内旋，受滑车神经（IV）支配。",
-   "color": "#fff98a",
-   "volumeMl": 0.4,
-   "centroidVoxel": [
-    45.7,
-    113.1,
-    77.4
-   ],
-   "bestSlice": [
-    47,
-    123,
-    77
-   ],
-   "bboxVoxel": [
-    [
-     41,
-     48
-    ],
-    [
-     99,
-     124
-    ],
-    [
-     74,
-     81
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 43,
-   "key": "superior_oblique_muscle_right",
-   "zh": "右上斜肌",
-   "en": "Right superior oblique",
-   "system": "orbit",
-   "desc": "经滑车反折，使眼球下转、内旋，受滑车神经（IV）支配。",
-   "color": "#fefe9c",
-   "volumeMl": 0.5,
-   "centroidVoxel": [
-    69.3,
-    114.5,
-    77.1
-   ],
-   "bestSlice": [
-    69,
-    123,
-    75
-   ],
-   "bboxVoxel": [
-    [
-     67,
-     74
-    ],
-    [
-     101,
-     125
-    ],
-    [
-     74,
-     81
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 44,
-   "key": "superior_rectus_muscle_left",
-   "zh": "左上直肌",
-   "en": "Left superior rectus",
-   "system": "orbit",
-   "desc": "使眼球上转，受动眼神经支配。",
-   "color": "#feec6c",
-   "volumeMl": 0.4,
-   "centroidVoxel": [
-    39.6,
-    108.5,
-    79.1
-   ],
-   "bestSlice": [
-    40,
-    111,
-    80
-   ],
-   "bboxVoxel": [
-    [
-     36,
-     44
-    ],
-    [
-     99,
-     116
-    ],
-    [
-     76,
-     81
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 45,
-   "key": "superior_rectus_muscle_right",
-   "zh": "右上直肌",
-   "en": "Right superior rectus",
-   "system": "orbit",
-   "desc": "使眼球上转，受动眼神经支配。",
-   "color": "#ffdd53",
-   "volumeMl": 0.4,
-   "centroidVoxel": [
-    75.7,
-    109.3,
-    78.2
-   ],
-   "bestSlice": [
-    76,
-    110,
-    80
-   ],
-   "bboxVoxel": [
     [
      71,
-     79
+     92
     ],
     [
-     92,
-     117
-    ],
-    [
-     72,
-     80
+     10,
+     46
     ]
    ],
    "hasMesh": true
   },
   {
-   "id": 46,
-   "key": "teeth_lower",
-   "zh": "下颌牙",
-   "en": "Lower teeth",
-   "system": "oral",
-   "desc": "",
-   "color": "#ffccb2",
-   "volumeMl": 12.6,
-   "centroidVoxel": [
-    59.1,
-    113.7,
-    26.2
-   ],
-   "bestSlice": [
-    43,
-    125,
-    28
-   ],
-   "bboxVoxel": [
-    [
-     38,
-     84
-    ],
-    [
-     94,
-     131
-    ],
-    [
-     15,
-     34
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 47,
-   "key": "teeth_upper",
-   "zh": "上颌牙",
-   "en": "Upper teeth",
-   "system": "oral",
-   "desc": "CT 上牙釉质密度最高，常产生放射状金属样伪影（尤其有补牙时）。",
-   "color": "#ff856f",
-   "volumeMl": 14.3,
-   "centroidVoxel": [
-    57.9,
-    116.4,
-    36.2
-   ],
-   "bestSlice": [
-    72,
-    104,
-    34
-   ],
-   "bboxVoxel": [
-    [
-     35,
-     79
-    ],
-    [
-     98,
-     134
-    ],
-    [
-     27,
-     48
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 48,
-   "key": "thyroid_cartilage",
-   "zh": "甲状软骨",
-   "en": "Thyroid cartilage",
-   "system": "oral",
-   "desc": "喉软骨中最大者，前缘上部突出为喉结；成人常有不同程度钙化。",
-   "color": "#ffccb2",
-   "volumeMl": 0.1,
-   "centroidVoxel": [
-    56.5,
-    78.1,
-    1.3
-   ],
-   "bestSlice": [
-    45,
-    79,
-    1
-   ],
-   "bboxVoxel": [
-    [
-     45,
-     70
-    ],
-    [
-     68,
-     83
-    ],
-    [
-     0,
-     7
-    ]
-   ],
-   "hasMesh": false
-  },
-  {
-   "id": 49,
-   "key": "vertebrae_C1",
-   "zh": "寰椎（C1）",
-   "en": "Atlas (C1)",
-   "system": "skeletal",
-   "desc": "没有椎体和棘突，由前后弓和侧块构成，与枕骨髁形成寰枕关节。",
-   "color": "#e9e0c7",
-   "volumeMl": 13.5,
-   "centroidVoxel": [
-    57.1,
-    58.2,
-    38.4
-   ],
-   "bestSlice": [
-    45,
-    57,
-    38
-   ],
-   "bboxVoxel": [
-    [
-     30,
-     85
-    ],
-    [
-     39,
-     72
-    ],
-    [
-     32,
-     45
-    ]
-   ],
-   "hasMesh": true
-  },
-  {
-   "id": 50,
+   "id": 7,
    "key": "vertebrae_C2",
    "zh": "枢椎（C2）",
    "en": "Axis (C2)",
@@ -1924,7 +419,182 @@
    "hasMesh": true
   },
   {
-   "id": 51,
+   "id": 8,
+   "key": "teeth_upper",
+   "zh": "上颌牙",
+   "en": "Upper teeth",
+   "system": "oral",
+   "desc": "CT 上牙釉质密度最高，常产生放射状金属样伪影（尤其有补牙时）。",
+   "color": "#ff856f",
+   "volumeMl": 14.3,
+   "centroidVoxel": [
+    57.9,
+    116.4,
+    36.2
+   ],
+   "bestSlice": [
+    72,
+    104,
+    34
+   ],
+   "bboxVoxel": [
+    [
+     35,
+     79
+    ],
+    [
+     98,
+     134
+    ],
+    [
+     27,
+     48
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 9,
+   "key": "vertebrae_C1",
+   "zh": "寰椎（C1）",
+   "en": "Atlas (C1)",
+   "system": "skeletal",
+   "desc": "没有椎体和棘突，由前后弓和侧块构成，与枕骨髁形成寰枕关节。",
+   "color": "#e9e0c7",
+   "volumeMl": 13.5,
+   "centroidVoxel": [
+    57.1,
+    58.2,
+    38.4
+   ],
+   "bestSlice": [
+    45,
+    57,
+    38
+   ],
+   "bboxVoxel": [
+    [
+     30,
+     85
+    ],
+    [
+     39,
+     72
+    ],
+    [
+     32,
+     45
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 10,
+   "key": "nasal_cavity_left",
+   "zh": "左鼻腔",
+   "en": "Left nasal cavity",
+   "system": "sinus",
+   "desc": "被鼻中隔分为左右两半，外侧壁有上、中、下鼻甲。",
+   "color": "#80ddea",
+   "volumeMl": 13.3,
+   "centroidVoxel": [
+    53.4,
+    109.3,
+    54.4
+   ],
+   "bestSlice": [
+    56,
+    115,
+    47
+   ],
+   "bboxVoxel": [
+    [
+     47,
+     58
+    ],
+    [
+     86,
+     137
+    ],
+    [
+     45,
+     72
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 11,
+   "key": "teeth_lower",
+   "zh": "下颌牙",
+   "en": "Lower teeth",
+   "system": "oral",
+   "desc": "",
+   "color": "#ffccb2",
+   "volumeMl": 12.6,
+   "centroidVoxel": [
+    59.1,
+    113.7,
+    26.2
+   ],
+   "bestSlice": [
+    43,
+    125,
+    28
+   ],
+   "bboxVoxel": [
+    [
+     38,
+     84
+    ],
+    [
+     94,
+     131
+    ],
+    [
+     15,
+     34
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 12,
+   "key": "nasal_cavity_right",
+   "zh": "右鼻腔",
+   "en": "Right nasal cavity",
+   "system": "sinus",
+   "desc": "被鼻中隔分为左右两半，外侧壁有上、中、下鼻甲。",
+   "color": "#89ddeb",
+   "volumeMl": 11.6,
+   "centroidVoxel": [
+    61.4,
+    111.6,
+    54.2
+   ],
+   "bestSlice": [
+    60,
+    93,
+    47
+   ],
+   "bboxVoxel": [
+    [
+     56,
+     68
+    ],
+    [
+     87,
+     139
+    ],
+    [
+     45,
+     73
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 13,
    "key": "vertebrae_C3",
    "zh": "第3颈椎（C3）",
    "en": "Vertebra C3",
@@ -1959,7 +629,7 @@
    "hasMesh": true
   },
   {
-   "id": 52,
+   "id": 14,
    "key": "vertebrae_C4",
    "zh": "第4颈椎（C4）",
    "en": "Vertebra C4",
@@ -1994,7 +664,987 @@
    "hasMesh": true
   },
   {
-   "id": 53,
+   "id": 15,
+   "key": "sinus_frontal",
+   "zh": "额窦",
+   "en": "Frontal sinus",
+   "system": "sinus",
+   "desc": "位于眉弓深面，左右常不对称；开口于中鼻道。",
+   "color": "#69e0e6",
+   "volumeMl": 8.1,
+   "centroidVoxel": [
+    55.4,
+    126.9,
+    85.9
+   ],
+   "bestSlice": [
+    52,
+    127,
+    85
+   ],
+   "bboxVoxel": [
+    [
+     37,
+     75
+    ],
+    [
+     122,
+     132
+    ],
+    [
+     78,
+     94
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 16,
+   "key": "eye_right",
+   "zh": "右眼球",
+   "en": "Right eyeball",
+   "system": "orbit",
+   "desc": "位于眼眶前部；玻璃体在 T1 上呈低信号，T2 上呈高信号。",
+   "color": "#fff47d",
+   "volumeMl": 6.5,
+   "centroidVoxel": [
+    78.5,
+    117.6,
+    72.6
+   ],
+   "bestSlice": [
+    79,
+    118,
+    75
+   ],
+   "bboxVoxel": [
+    [
+     71,
+     87
+    ],
+    [
+     111,
+     124
+    ],
+    [
+     64,
+     80
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 17,
+   "key": "nasopharynx",
+   "zh": "鼻咽",
+   "en": "Nasopharynx",
+   "system": "oral",
+   "desc": "位于鼻腔后方，侧壁有咽鼓管咽口和咽隐窝——咽隐窝是鼻咽癌的好发部位。",
+   "color": "#ff937b",
+   "volumeMl": 6.7,
+   "centroidVoxel": [
+    58.4,
+    83.7,
+    48.6
+   ],
+   "bestSlice": [
+    64,
+    86,
+    46
+   ],
+   "bboxVoxel": [
+    [
+     48,
+     69
+    ],
+    [
+     75,
+     91
+    ],
+    [
+     45,
+     55
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 18,
+   "key": "parotid_gland_left",
+   "zh": "左腮腺",
+   "en": "Left parotid gland",
+   "system": "digestive",
+   "desc": "最大的唾液腺，位于下颌支后方、外耳道前下；面神经从腺体内穿过，将其分为浅、深两叶。",
+   "color": "#c57d2f",
+   "volumeMl": 6.6,
+   "centroidVoxel": [
+    19.2,
+    71.7,
+    43.9
+   ],
+   "bestSlice": [
+    19,
+    70,
+    45
+   ],
+   "bboxVoxel": [
+    [
+     14,
+     24
+    ],
+    [
+     64,
+     82
+    ],
+    [
+     32,
+     54
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 19,
+   "key": "eye_left",
+   "zh": "左眼球",
+   "en": "Left eyeball",
+   "system": "orbit",
+   "desc": "位于眼眶前部；玻璃体在 T1 上呈低信号，T2 上呈高信号。",
+   "color": "#fffd98",
+   "volumeMl": 6.1,
+   "centroidVoxel": [
+    36.5,
+    116.8,
+    73.7
+   ],
+   "bestSlice": [
+    35,
+    117,
+    75
+   ],
+   "bboxVoxel": [
+    [
+     29,
+     44
+    ],
+    [
+     111,
+     123
+    ],
+    [
+     66,
+     81
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 20,
+   "key": "hypopharynx",
+   "zh": "喉咽（下咽）",
+   "en": "Hypopharynx",
+   "system": "oral",
+   "desc": "会厌上缘至环状软骨下缘，含梨状隐窝，向下续为食管。",
+   "color": "#ff9b82",
+   "volumeMl": 6.0,
+   "centroidVoxel": [
+    58.6,
+    71.4,
+    8.5
+   ],
+   "bestSlice": [
+    59,
+    71,
+    7
+   ],
+   "bboxVoxel": [
+    [
+     46,
+     70
+    ],
+    [
+     68,
+     76
+    ],
+    [
+     0,
+     20
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 21,
+   "key": "parotid_gland_right",
+   "zh": "右腮腺",
+   "en": "Right parotid gland",
+   "system": "digestive",
+   "desc": "最大的唾液腺，位于下颌支后方、外耳道前下；面神经从腺体内穿过，将其分为浅、深两叶。",
+   "color": "#dcc270",
+   "volumeMl": 5.8,
+   "centroidVoxel": [
+    96.9,
+    73.7,
+    41.9
+   ],
+   "bestSlice": [
+    97,
+    72,
+    42
+   ],
+   "bboxVoxel": [
+    [
+     92,
+     102
+    ],
+    [
+     66,
+     82
+    ],
+    [
+     31,
+     52
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 22,
+   "key": "submandibular_gland_right",
+   "zh": "右下颌下腺",
+   "en": "Right submandibular gland",
+   "system": "digestive",
+   "desc": "位于下颌下三角内，导管开口于舌下阜。",
+   "color": "#d0933d",
+   "volumeMl": 4.9,
+   "centroidVoxel": [
+    78.8,
+    84.1,
+    15.8
+   ],
+   "bestSlice": [
+    79,
+    80,
+    14
+   ],
+   "bboxVoxel": [
+    [
+     72,
+     85
+    ],
+    [
+     77,
+     95
+    ],
+    [
+     8,
+     25
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 23,
+   "key": "submandibular_gland_left",
+   "zh": "左下颌下腺",
+   "en": "Left submandibular gland",
+   "system": "digestive",
+   "desc": "位于下颌下三角内，导管开口于舌下阜。",
+   "color": "#cf913b",
+   "volumeMl": 4.3,
+   "centroidVoxel": [
+    38.0,
+    81.8,
+    14.0
+   ],
+   "bestSlice": [
+    38,
+    82,
+    11
+   ],
+   "bboxVoxel": [
+    [
+     31,
+     45
+    ],
+    [
+     75,
+     90
+    ],
+    [
+     5,
+     24
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 24,
+   "key": "larynx_air",
+   "zh": "喉腔",
+   "en": "Laryngeal airway",
+   "system": "oral",
+   "desc": "喉内的气道部分，以声门为界分为声门上、声门和声门下区。",
+   "color": "#ffaf95",
+   "volumeMl": 3.7,
+   "centroidVoxel": [
+    58.0,
+    75.5,
+    5.4
+   ],
+   "bestSlice": [
+    59,
+    75,
+    0
+   ],
+   "bboxVoxel": [
+    [
+     51,
+     65
+    ],
+    [
+     71,
+     80
+    ],
+    [
+     0,
+     15
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 25,
+   "key": "internal_jugular_vein_right",
+   "zh": "右颈内静脉",
+   "en": "Right internal jugular vein",
+   "system": "cardio",
+   "desc": "自颈静脉孔出颅，与颈内动脉、迷走神经同行于颈动脉鞘内（静脉在外侧）。",
+   "color": "#5063de",
+   "volumeMl": 3.2,
+   "centroidVoxel": [
+    80.5,
+    64.5,
+    23.6
+   ],
+   "bestSlice": [
+    80,
+    65,
+    7
+   ],
+   "bboxVoxel": [
+    [
+     77,
+     83
+    ],
+    [
+     60,
+     68
+    ],
+    [
+     0,
+     55
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 26,
+   "key": "soft_palate",
+   "zh": "软腭",
+   "en": "Soft palate",
+   "system": "oral",
+   "desc": "口腔顶的后 1/3，吞咽时上提封闭鼻咽。",
+   "color": "#ff826d",
+   "volumeMl": 3.1,
+   "centroidVoxel": [
+    57.4,
+    88.6,
+    39.2
+   ],
+   "bestSlice": [
+    59,
+    86,
+    41
+   ],
+   "bboxVoxel": [
+    [
+     51,
+     65
+    ],
+    [
+     81,
+     98
+    ],
+    [
+     31,
+     44
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 27,
+   "key": "hard_palate",
+   "zh": "硬腭",
+   "en": "Hard palate",
+   "system": "oral",
+   "desc": "口腔顶的前 2/3，由上颌骨腭突和腭骨水平板构成，分隔口腔与鼻腔。",
+   "color": "#ffa68d",
+   "volumeMl": 2.2,
+   "centroidVoxel": [
+    57.7,
+    108.9,
+    44.0
+   ],
+   "bestSlice": [
+    58,
+    108,
+    44
+   ],
+   "bboxVoxel": [
+    [
+     49,
+     66
+    ],
+    [
+     96,
+     119
+    ],
+    [
+     42,
+     46
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 28,
+   "key": "internal_jugular_vein_left",
+   "zh": "左颈内静脉",
+   "en": "Left internal jugular vein",
+   "system": "cardio",
+   "desc": "自颈静脉孔出颅，与颈内动脉、迷走神经同行于颈动脉鞘内（静脉在外侧）。",
+   "color": "#2755d5",
+   "volumeMl": 1.4,
+   "centroidVoxel": [
+    35.1,
+    65.4,
+    18.8
+   ],
+   "bestSlice": [
+    35,
+    65,
+    11
+   ],
+   "bboxVoxel": [
+    [
+     33,
+     40
+    ],
+    [
+     63,
+     68
+    ],
+    [
+     0,
+     52
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 29,
+   "key": "levator_palpebrae_superioris_right",
+   "zh": "右上睑提肌",
+   "en": "Right levator palpebrae superioris",
+   "system": "orbit",
+   "desc": "位于上直肌上方，提上睑；受损导致上睑下垂。",
+   "color": "#fdfea3",
+   "volumeMl": 1.1,
+   "centroidVoxel": [
+    76.7,
+    113.0,
+    80.1
+   ],
+   "bestSlice": [
+    75,
+    117,
+    81
+   ],
+   "bboxVoxel": [
+    [
+     72,
+     85
+    ],
+    [
+     95,
+     124
+    ],
+    [
+     74,
+     82
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 30,
+   "key": "auditory_canal_right",
+   "zh": "右外耳道",
+   "en": "Right external auditory canal",
+   "system": "orbit",
+   "desc": "外侧 1/3 为软骨部、内侧 2/3 为骨部，内端为鼓膜；CT 骨窗显示最佳。",
+   "color": "#fefc93",
+   "volumeMl": 1.0,
+   "centroidVoxel": [
+    97.3,
+    69.8,
+    57.8
+   ],
+   "bestSlice": [
+    99,
+    69,
+    58
+   ],
+   "bboxVoxel": [
+    [
+     87,
+     105
+    ],
+    [
+     67,
+     73
+    ],
+    [
+     54,
+     60
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 31,
+   "key": "hyoid",
+   "zh": "舌骨",
+   "en": "Hyoid bone",
+   "system": "oral",
+   "desc": "不与其他骨直接相连的 U 形骨，约平第 3 颈椎。",
+   "color": "#ffccb2",
+   "volumeMl": 1.0,
+   "centroidVoxel": [
+    58.2,
+    80.0,
+    10.9
+   ],
+   "bestSlice": [
+    68,
+    83,
+    10
+   ],
+   "bboxVoxel": [
+    [
+     45,
+     71
+    ],
+    [
+     69,
+     85
+    ],
+    [
+     7,
+     18
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 32,
+   "key": "auditory_canal_left",
+   "zh": "左外耳道",
+   "en": "Left external auditory canal",
+   "system": "orbit",
+   "desc": "外侧 1/3 为软骨部、内侧 2/3 为骨部，内端为鼓膜；CT 骨窗显示最佳。",
+   "color": "#ffdb4f",
+   "volumeMl": 1.0,
+   "centroidVoxel": [
+    20.0,
+    67.4,
+    59.1
+   ],
+   "bestSlice": [
+    19,
+    67,
+    60
+   ],
+   "bboxVoxel": [
+    [
+     12,
+     31
+    ],
+    [
+     64,
+     71
+    ],
+    [
+     56,
+     61
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 33,
+   "key": "levator_palpebrae_superioris_left",
+   "zh": "左上睑提肌",
+   "en": "Left levator palpebrae superioris",
+   "system": "orbit",
+   "desc": "位于上直肌上方，提上睑；受损导致上睑下垂。",
+   "color": "#fff075",
+   "volumeMl": 0.9,
+   "centroidVoxel": [
+    39.7,
+    110.7,
+    80.6
+   ],
+   "bestSlice": [
+    41,
+    115,
+    82
+   ],
+   "bboxVoxel": [
+    [
+     33,
+     45
+    ],
+    [
+     95,
+     122
+    ],
+    [
+     75,
+     83
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 34,
+   "key": "medial_rectus_muscle_right",
+   "zh": "右内直肌",
+   "en": "Right medial rectus",
+   "system": "orbit",
+   "desc": "使眼球内收，受动眼神经（III）支配；是最粗的眼外肌。",
+   "color": "#feff9e",
+   "volumeMl": 0.8,
+   "centroidVoxel": [
+    70.1,
+    108.7,
+    71.9
+   ],
+   "bestSlice": [
+    70,
+    108,
+    72
+   ],
+   "bboxVoxel": [
+    [
+     69,
+     71
+    ],
+    [
+     95,
+     121
+    ],
+    [
+     70,
+     74
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 35,
+   "key": "internal_carotid_artery_right",
+   "zh": "右颈内动脉",
+   "en": "Right internal carotid artery",
+   "system": "cardio",
+   "desc": "在甲状软骨上缘平面由颈总动脉分出，经颈动脉管入颅，供应大脑前部和眼。",
+   "color": "#cc263a",
+   "volumeMl": 0.7,
+   "centroidVoxel": [
+    76.2,
+    67.4,
+    26.5
+   ],
+   "bestSlice": [
+    76,
+    66,
+    20
+   ],
+   "bboxVoxel": [
+    [
+     74,
+     78
+    ],
+    [
+     64,
+     71
+    ],
+    [
+     7,
+     54
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 36,
+   "key": "medial_rectus_muscle_left",
+   "zh": "左内直肌",
+   "en": "Left medial rectus",
+   "system": "orbit",
+   "desc": "使眼球内收，受动眼神经（III）支配；是最粗的眼外肌。",
+   "color": "#fffd96",
+   "volumeMl": 0.7,
+   "centroidVoxel": [
+    45.3,
+    108.0,
+    72.5
+   ],
+   "bestSlice": [
+    45,
+    109,
+    72
+   ],
+   "bboxVoxel": [
+    [
+     44,
+     47
+    ],
+    [
+     94,
+     120
+    ],
+    [
+     70,
+     75
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 37,
+   "key": "inferior_rectus_muscle_left",
+   "zh": "左下直肌",
+   "en": "Left inferior rectus",
+   "system": "orbit",
+   "desc": "使眼球下转；眶底骨折时可嵌顿导致上视受限。",
+   "color": "#ffe159",
+   "volumeMl": 0.6,
+   "centroidVoxel": [
+    41.6,
+    104.8,
+    68.2
+   ],
+   "bestSlice": [
+    40,
+    101,
+    69
+   ],
+   "bboxVoxel": [
+    [
+     37,
+     46
+    ],
+    [
+     93,
+     115
+    ],
+    [
+     65,
+     71
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 38,
+   "key": "inferior_rectus_muscle_right",
+   "zh": "右下直肌",
+   "en": "Right inferior rectus",
+   "system": "orbit",
+   "desc": "使眼球下转；眶底骨折时可嵌顿导致上视受限。",
+   "color": "#fff47d",
+   "volumeMl": 0.6,
+   "centroidVoxel": [
+    74.0,
+    105.0,
+    67.3
+   ],
+   "bestSlice": [
+    74,
+    106,
+    68
+   ],
+   "bboxVoxel": [
+    [
+     71,
+     77
+    ],
+    [
+     94,
+     115
+    ],
+    [
+     64,
+     71
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 39,
+   "key": "lateral_rectus_muscle_right",
+   "zh": "右外直肌",
+   "en": "Right lateral rectus",
+   "system": "orbit",
+   "desc": "使眼球外展，受展神经（VI）支配。",
+   "color": "#ffe967",
+   "volumeMl": 0.6,
+   "centroidVoxel": [
+    80.3,
+    105.1,
+    71.0
+   ],
+   "bestSlice": [
+    80,
+    102,
+    71
+   ],
+   "bboxVoxel": [
+    [
+     71,
+     86
+    ],
+    [
+     93,
+     115
+    ],
+    [
+     69,
+     74
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 40,
+   "key": "lateral_rectus_muscle_left",
+   "zh": "左外直肌",
+   "en": "Left lateral rectus",
+   "system": "orbit",
+   "desc": "使眼球外展，受展神经（VI）支配。",
+   "color": "#fef98a",
+   "volumeMl": 0.6,
+   "centroidVoxel": [
+    35.4,
+    104.2,
+    72.3
+   ],
+   "bestSlice": [
+    34,
+    103,
+    72
+   ],
+   "bboxVoxel": [
+    [
+     30,
+     45
+    ],
+    [
+     94,
+     112
+    ],
+    [
+     70,
+     75
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 41,
+   "key": "inferior_oblique_muscle_left",
+   "zh": "左下斜肌",
+   "en": "Left inferior oblique",
+   "system": "orbit",
+   "desc": "唯一起自眶底前部的眼外肌，使眼球上转、外旋。",
+   "color": "#fdffa2",
+   "volumeMl": 0.6,
+   "centroidVoxel": [
+    36.5,
+    116.9,
+    64.6
+   ],
+   "bestSlice": [
+    36,
+    119,
+    65
+   ],
+   "bboxVoxel": [
+    [
+     32,
+     42
+    ],
+    [
+     113,
+     120
+    ],
+    [
+     62,
+     67
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 42,
+   "key": "internal_carotid_artery_left",
+   "zh": "左颈内动脉",
+   "en": "Left internal carotid artery",
+   "system": "cardio",
+   "desc": "在甲状软骨上缘平面由颈总动脉分出，经颈动脉管入颅，供应大脑前部和眼。",
+   "color": "#cd263a",
+   "volumeMl": 0.6,
+   "centroidVoxel": [
+    38.9,
+    67.1,
+    29.9
+   ],
+   "bestSlice": [
+    39,
+    67,
+    47
+   ],
+   "bboxVoxel": [
+    [
+     37,
+     41
+    ],
+    [
+     65,
+     69
+    ],
+    [
+     7,
+     53
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 43,
    "key": "vertebrae_C5",
    "zh": "第5颈椎（C5）",
    "en": "Vertebra C5",
@@ -2027,6 +1677,356 @@
     ]
    ],
    "hasMesh": true
+  },
+  {
+   "id": 44,
+   "key": "superior_oblique_muscle_right",
+   "zh": "右上斜肌",
+   "en": "Right superior oblique",
+   "system": "orbit",
+   "desc": "经滑车反折，使眼球下转、内旋，受滑车神经（IV）支配。",
+   "color": "#fefe9c",
+   "volumeMl": 0.5,
+   "centroidVoxel": [
+    69.3,
+    114.5,
+    77.1
+   ],
+   "bestSlice": [
+    69,
+    123,
+    75
+   ],
+   "bboxVoxel": [
+    [
+     67,
+     74
+    ],
+    [
+     101,
+     125
+    ],
+    [
+     74,
+     81
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 45,
+   "key": "inferior_oblique_muscle_right",
+   "zh": "右下斜肌",
+   "en": "Right inferior oblique",
+   "system": "orbit",
+   "desc": "唯一起自眶底前部的眼外肌，使眼球上转、外旋。",
+   "color": "#ffea68",
+   "volumeMl": 0.5,
+   "centroidVoxel": [
+    78.7,
+    117.1,
+    63.6
+   ],
+   "bestSlice": [
+    78,
+    117,
+    64
+   ],
+   "bboxVoxel": [
+    [
+     74,
+     85
+    ],
+    [
+     113,
+     121
+    ],
+    [
+     62,
+     67
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 46,
+   "key": "superior_rectus_muscle_left",
+   "zh": "左上直肌",
+   "en": "Left superior rectus",
+   "system": "orbit",
+   "desc": "使眼球上转，受动眼神经支配。",
+   "color": "#feec6c",
+   "volumeMl": 0.4,
+   "centroidVoxel": [
+    39.6,
+    108.5,
+    79.1
+   ],
+   "bestSlice": [
+    40,
+    111,
+    80
+   ],
+   "bboxVoxel": [
+    [
+     36,
+     44
+    ],
+    [
+     99,
+     116
+    ],
+    [
+     76,
+     81
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 47,
+   "key": "superior_oblique_muscle_left",
+   "zh": "左上斜肌",
+   "en": "Left superior oblique",
+   "system": "orbit",
+   "desc": "经滑车反折，使眼球下转、内旋，受滑车神经（IV）支配。",
+   "color": "#fff98a",
+   "volumeMl": 0.4,
+   "centroidVoxel": [
+    45.7,
+    113.1,
+    77.4
+   ],
+   "bestSlice": [
+    47,
+    123,
+    77
+   ],
+   "bboxVoxel": [
+    [
+     41,
+     48
+    ],
+    [
+     99,
+     124
+    ],
+    [
+     74,
+     81
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 48,
+   "key": "superior_rectus_muscle_right",
+   "zh": "右上直肌",
+   "en": "Right superior rectus",
+   "system": "orbit",
+   "desc": "使眼球上转，受动眼神经支配。",
+   "color": "#ffdd53",
+   "volumeMl": 0.4,
+   "centroidVoxel": [
+    75.7,
+    109.3,
+    78.2
+   ],
+   "bestSlice": [
+    76,
+    110,
+    80
+   ],
+   "bboxVoxel": [
+    [
+     71,
+     79
+    ],
+    [
+     92,
+     117
+    ],
+    [
+     72,
+     80
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 49,
+   "key": "optic_nerve_right",
+   "zh": "右视神经",
+   "en": "Right optic nerve",
+   "system": "orbit",
+   "desc": "自眼球后极经视神经管入颅，在鞍上池形成视交叉。被四条直肌围成的肌锥包绕。",
+   "color": "#fff888",
+   "volumeMl": 0.3,
+   "centroidVoxel": [
+    73.9,
+    104.4,
+    73.0
+   ],
+   "bestSlice": [
+    74,
+    108,
+    73
+   ],
+   "bboxVoxel": [
+    [
+     71,
+     77
+    ],
+    [
+     96,
+     111
+    ],
+    [
+     72,
+     74
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 50,
+   "key": "optic_nerve_left",
+   "zh": "左视神经",
+   "en": "Left optic nerve",
+   "system": "orbit",
+   "desc": "自眼球后极经视神经管入颅，在鞍上池形成视交叉。被四条直肌围成的肌锥包绕。",
+   "color": "#fee967",
+   "volumeMl": 0.3,
+   "centroidVoxel": [
+    41.5,
+    103.3,
+    73.6
+   ],
+   "bestSlice": [
+    39,
+    108,
+    74
+   ],
+   "bboxVoxel": [
+    [
+     38,
+     46
+    ],
+    [
+     94,
+     110
+    ],
+    [
+     73,
+     75
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 51,
+   "key": "styloid_process_left",
+   "zh": "左茎突",
+   "en": "Left styloid process",
+   "system": "skeletal",
+   "desc": "颞骨向前下方伸出的细长骨突；过长时可引起茎突综合征。",
+   "color": "#dfcbae",
+   "volumeMl": 0.1,
+   "centroidVoxel": [
+    33.1,
+    67.1,
+    47.2
+   ],
+   "bestSlice": [
+    32,
+    67,
+    49
+   ],
+   "bboxVoxel": [
+    [
+     31,
+     37
+    ],
+    [
+     63,
+     73
+    ],
+    [
+     37,
+     50
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 52,
+   "key": "styloid_process_right",
+   "zh": "右茎突",
+   "en": "Right styloid process",
+   "system": "skeletal",
+   "desc": "颞骨向前下方伸出的细长骨突；过长时可引起茎突综合征。",
+   "color": "#ddc6a8",
+   "volumeMl": 0.1,
+   "centroidVoxel": [
+    85.3,
+    69.0,
+    48.2
+   ],
+   "bestSlice": [
+    86,
+    69,
+    48
+   ],
+   "bboxVoxel": [
+    [
+     84,
+     87
+    ],
+    [
+     66,
+     71
+    ],
+    [
+     46,
+     50
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 53,
+   "key": "thyroid_cartilage",
+   "zh": "甲状软骨",
+   "en": "Thyroid cartilage",
+   "system": "oral",
+   "desc": "喉软骨中最大者，前缘上部突出为喉结；成人常有不同程度钙化。",
+   "color": "#ffccb2",
+   "volumeMl": 0.1,
+   "centroidVoxel": [
+    56.5,
+    78.1,
+    1.3
+   ],
+   "bestSlice": [
+    45,
+    79,
+    1
+   ],
+   "bboxVoxel": [
+    [
+     45,
+     70
+    ],
+    [
+     68,
+     83
+    ],
+    [
+     0,
+     7
+    ]
+   ],
+   "hasMesh": false
   },
   {
    "id": 54,

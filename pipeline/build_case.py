@@ -158,17 +158,35 @@ def main(src: str, case_id: str):
         extras[f.name[6:-7]] = mr_normalize(np.asarray(img.dataobj, dtype=np.float32))
     info_override = json.loads((src / "info.json").read_text()) if (src / "info.json").exists() else {}
 
-    labels = np.zeros(ct.shape, np.uint8)
-    keys = []
+    # 输入是每个结构一份二值掩膜，输出是单标签体积，重叠体素只能归属一个结构。
+    # 规则：体积大的先写、小的后写，重叠处归属较小（通常更具体）的结构，
+    # 例如颅骨标注中包含了下颌骨区域时，下颌骨不会被颅骨覆盖。
+    masks = {}
     for f in sorted((src / "segmentations").glob("*.nii.gz")):
-        key = f.name[:-7]
         seg = nib.as_closest_canonical(nib.load(f))
         assert np.allclose(seg.affine, affine)
         m = np.asarray(seg.dataobj) > 0
-        if not m.any():
+        if m.any():
+            masks[f.name[:-7]] = m
+    order = sorted(masks, key=lambda k: (-int(masks[k].sum()), k))
+    labels = np.zeros(ct.shape, np.uint8)
+    for i, key in enumerate(order, start=1):
+        labels[masks[key]] = i
+    keys = []
+    remap = np.zeros(len(order) + 1, np.uint8)
+    for i, key in enumerate(order, start=1):
+        kept = int((labels == i).sum())
+        total = int(masks[key].sum())
+        if kept < total:
+            print(f"  重叠：{key} 有 {total - kept} 个体素（{100 * (total - kept) / total:.1f}%）归属了更小的结构")
+        if kept == 0:
+            print(f"  警告：{key} 被完全覆盖，已跳过")
             continue
         keys.append(key)
-        labels[m] = len(keys)
+        remap[i] = len(keys)
+    labels = remap[labels]
+    del masks
+    assert len(keys) < 256, "uint8 标签最多 255 个结构"
     print(len(keys), "structures")
 
     # 裁剪到人体范围（去掉空气和床板外的大片空白）
