@@ -1,5 +1,11 @@
 [
  {
+  "id": "head_s1194",
+  "modality": "CT",
+  "desc": "男 18 岁 · 头颈部 CT",
+  "structures": 25
+ },
+ {
   "id": "s0058",
   "modality": "CT",
   "desc": "女 72 岁 · 胸腹盆 CT · 含肿瘤（腹部，未标注）",

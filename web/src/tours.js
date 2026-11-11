@@ -369,9 +369,9 @@ export const TOURS = [
     steps: [
       {
         title: '眼球与晶状体',
-        wl: '软组织', select: 'eye_lens_left', clip: 'axial', view: 'top', only: 'all',
-        requires: ['eye_left', 'eye_lens_left'],
-        text: '横断位经过眼球中部。<b>晶状体</b>呈双凸透镜状，密度高于玻璃体；<b>玻璃体</b>接近水样密度。',
+        wl: '软组织', select: 'eye_left', clip: 'axial', view: 'top', only: 'all',
+        requires: ['eye_left'],
+        text: '横断位经过眼球中部。<b>玻璃体</b>接近水样密度；前部的<b>晶状体</b>呈双凸透镜状，密度明显高于玻璃体（本例层厚 1.5 mm，晶状体太小未单独标注，可在图像上直接辨认）。',
       },
       {
         title: '视神经',

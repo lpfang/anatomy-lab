@@ -63,6 +63,9 @@ def merge(case):
         if np.asarray(nib.load(f).dataobj).any():
             shutil.copy(f, seg / f.name); n += 1
     for t in TASKS:
+        if not (FULL / f"seg_{case}" / t).exists():
+            print("未运行，跳过", t)
+            continue
         for f in sorted((FULL / f"seg_{case}" / t).glob("*.nii.gz")):
             key = f.name[:-7]
             if key in SKIP or f"{key}@{t}" in SKIP or (seg / f.name).exists():
