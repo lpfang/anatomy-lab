@@ -133,6 +133,7 @@ async function main() {
   });
   let view3d = null;
   let ready3d = false;
+  let pendingView = null;   // 导览在 3D 就绪前请求的相机方向
   // 3D 模型就绪后才执行（模型加载中或失败时，二维功能照常工作）
   const with3d = (fn) => { if (ready3d) fn(view3d); };
   let pending = false;
@@ -195,7 +196,8 @@ async function main() {
     seqBox.hidden = false;
     seqBox.innerHTML = '<span class="lbl">序列</span><div class="seg">' +
       meta.sequences.map((x) => `<button data-id="${x.id}" class="${x.id === state.seq ? 'on' : ''}">${x.id}</button>`).join('') + '</div>';
-    seqBox.querySelectorAll('button').forEach((b) => b.onclick = () => setSequence(b.dataset.id));
+    seqBox.querySelectorAll('button').forEach((b) => b.onclick = () => setSequence(b.dataset.id)
+      .catch((err) => showToast(`${b.dataset.id} 序列下载失败：${err.message || err}`)));
   }
   const c = meta.caseInfo || {};
   const sp = meta.spacing.map((x) => +x.toFixed(2));
@@ -359,6 +361,7 @@ async function main() {
       v3msg.hidden = true;
       view3d.applyAppearance();
       view3d.setClip($('#opt-clip').value);
+      if (pendingView) { view3d.resetView(new THREE.Vector3(...pendingView)); pendingView = null; }
       invalidateAll();
     } catch (err) {
       console.error(err);
@@ -420,13 +423,17 @@ async function main() {
     openLesson: (id) => handbook.open(id),
     runTour: (c, t) => runTour(c, t),
     hasCase: (id) => id === CASE || list.some((x) => x.id === id),
-    setView: (d) => with3d((v) => v.resetView(new THREE.Vector3(...d))),
+    setView: (d) => {
+      // 3D 尚未就绪时记下导览要求的视角，模型加载完成后再应用
+      if (ready3d) view3d.resetView(new THREE.Vector3(...d)); else pendingView = d;
+    },
     onEnter: () => {
       saved = { overlay: state.overlay, hidden: new Set(state.hiddenIds), clip: $('#opt-clip').value, planes: { ...state.showPlanes } };
       $('#tour').hidden = false; $('#card').hidden = true;
       tourBtn.classList.add('on'); tourBtn.textContent = '退出导览';
     },
     onExit: () => {
+      pendingView = null;
       $('#tour').hidden = true; $('#card').hidden = false;
       tourBtn.classList.remove('on'); tourBtn.textContent = '导览';
       for (const s of meta.structures) setHidden(s.id, saved.hidden.has(s.id));

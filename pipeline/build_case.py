@@ -161,32 +161,38 @@ def main(src: str, case_id: str):
     # 输入是每个结构一份二值掩膜，输出是单标签体积，重叠体素只能归属一个结构。
     # 规则：体积大的先写、小的后写，重叠处归属较小（通常更具体）的结构，
     # 例如颅骨标注中包含了下颌骨区域时，下颌骨不会被颅骨覆盖。
-    masks = {}
-    for f in sorted((src / "segmentations").glob("*.nii.gz")):
+    def read_mask(f):
         seg = nib.as_closest_canonical(nib.load(f))
-        assert np.allclose(seg.affine, affine)
-        m = np.asarray(seg.dataobj) > 0
-        if m.any():
-            masks[f.name[:-7]] = m
-    order = sorted(masks, key=lambda k: (-int(masks[k].sum()), k))
-    labels = np.zeros(ct.shape, np.uint8)
-    for i, key in enumerate(order, start=1):
-        labels[masks[key]] = i
+        assert np.allclose(seg.affine, affine), f
+        return np.asarray(seg.dataobj) > 0
+
+    # 第一遍：逐个读取，只记录体素数（不保留全尺寸掩膜，控制峰值内存）
+    sizes = {}
+    for f in sorted((src / "segmentations").glob("*.nii.gz")):
+        n = int(read_mask(f).sum())
+        if n:
+            sizes[f] = n
+    order = sorted(sizes, key=lambda f: (-sizes[f], f.name))
+    # 第二遍：按体积从大到小写入；临时用 uint16，结构数超过 255 也不会在写入时溢出
+    labels16 = np.zeros(ct.shape, np.uint16)
+    for i, f in enumerate(order, start=1):
+        labels16[read_mask(f)] = i
+    kept = np.bincount(labels16.ravel(), minlength=len(order) + 1)
     keys = []
-    remap = np.zeros(len(order) + 1, np.uint8)
-    for i, key in enumerate(order, start=1):
-        kept = int((labels == i).sum())
-        total = int(masks[key].sum())
-        if kept < total:
-            print(f"  重叠：{key} 有 {total - kept} 个体素（{100 * (total - kept) / total:.1f}%）归属了更小的结构")
-        if kept == 0:
+    remap = np.zeros(len(order) + 1, np.uint16)
+    for i, f in enumerate(order, start=1):
+        key, total = f.name[:-7], sizes[f]
+        if kept[i] < total:
+            print(f"  重叠：{key} 有 {total - kept[i]} 个体素（{100 * (total - kept[i]) / total:.1f}%）归属了更小的结构")
+        if kept[i] == 0:
             print(f"  警告：{key} 被完全覆盖，已跳过")
             continue
         keys.append(key)
         remap[i] = len(keys)
-    labels = remap[labels]
-    del masks
-    assert len(keys) < 256, "uint8 标签最多 255 个结构"
+    if len(keys) > 255:
+        sys.exit(f"结构数 {len(keys)} 超过 uint8 标签上限 255，请减少结构或改用 uint16 标签格式")
+    labels = remap[labels16].astype(np.uint8)
+    del labels16
     print(len(keys), "structures")
 
     # 裁剪到人体范围（去掉空气和床板外的大片空白）

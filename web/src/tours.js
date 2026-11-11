@@ -875,21 +875,33 @@ export class TourPlayer {
 
   start(tour) {
     this.tour = tour;
-    this.i = 0;
-    return this.show();
+    this.i = -1;          // 尚未成功显示任何一步
+    return this.show(0);
   }
 
   go(d) {
     const n = this.i + d;
     if (n < 0 || n >= this.tour.steps.length) return;
-    this.i = n;
-    return this.show();
+    return this.show(n);
   }
 
-  async show() {
+  // 显示第 n 步。需要切换 MRI 序列时先下载，成功后才应用本步设置并提交步骤索引；
+  // 下载失败则停留在当前步骤，并在面板中给出原因和重试按钮。
+  async show(n = this.i) {
     const { api } = this;
-    const t = this.tour, s = t.steps[this.i];
+    const t = this.tour, s = t.steps[n];
     const token = (this._token = (this._token || 0) + 1); // 快速连点时只让最后一次生效
+    if (s.seq && api.setSequence) {
+      let ok;
+      try {
+        ok = await api.setSequence(s.seq, () => token === this._token && this.active);
+      } catch (err) {
+        if (token === this._token && this.active) this.showError(n, s.seq, err);
+        return;
+      }
+      if (!ok || token !== this._token || !this.active) return;
+    }
+    this.i = n;
     // 3D 可见性：only / systems / 全部
     const CORTEX = ['frontal', 'parietal', 'temporal', 'occipital', 'insula', 'limbic'];
     if (s.only === 'all') api.setVisible(null);
@@ -898,8 +910,6 @@ export class TourPlayer {
     else if (s.only) api.setVisible(new Set(s.only.filter((k) => api.vol.byKey.has(k))));
     else if (s.systems) api.setVisible(new Set(api.vol.meta.structures.filter((x) => s.systems.includes(x.system)).map((x) => x.key)));
     else if (this.i === 0) api.setVisible(null);
-    if (s.seq) await api.setSequence?.(s.seq, () => token === this._token && this.active);
-    if (token !== this._token || !this.active) return;
     if (s.wl) api.setPreset(s.wl);
     if (s.select) api.select(s.select);
     if (s.at) {
@@ -912,12 +922,12 @@ export class TourPlayer {
     if (s.clip) api.setClip(s.clip);
     if (s.view) api.setView(VIEW_DIRS[s.view]);
 
-    const n = t.steps.length;
+    const total = t.steps.length;
     const p = api.panel;
     p.innerHTML = `
       <div class="q-head"><h2>${esc(t.title)}</h2><button class="q-x" title="退出导览">✕</button></div>
-      <div class="q-progress"><span>第 ${this.i + 1} / ${n} 步</span><span class="en">${esc(t.en)}</span></div>
-      <div class="q-bar"><i style="width:${((this.i + 1) / n) * 100}%"></i></div>
+      <div class="q-progress"><span>第 ${this.i + 1} / ${total} 步</span><span class="en">${esc(t.en)}</span></div>
+      <div class="q-bar"><i style="width:${((this.i + 1) / total) * 100}%"></i></div>
       <h3 class="t-step">${esc(s.title)}</h3>
       <p class="t-text">${s.text}</p>
       ${s.probe ? this.probeHtml(s.probe) : ''}
@@ -925,7 +935,7 @@ export class TourPlayer {
       <p class="q-hint">可随时滚轮翻层、点击结构、旋转 3D 自由探索；点"下一步"继续路线。</p>
       <div class="q-acts">
         <button data-act="prev" ${this.i === 0 ? 'disabled' : ''}>← 上一步</button>
-        ${this.i + 1 < n ? '<button class="q-primary" data-act="next">下一步 →</button>'
+        ${this.i + 1 < total ? '<button class="q-primary" data-act="next">下一步 →</button>'
           : s.next && api.hasCase?.(s.next.case) ? `<button class="q-primary" data-act="nextcase">继续：${esc(s.next.label)} →</button>`
           : '<button class="q-primary" data-act="done">完成，返回列表</button>'}
       </div>`;
@@ -935,6 +945,20 @@ export class TourPlayer {
     p.querySelector('[data-act=next]')?.addEventListener('click', () => this.go(1));
     p.querySelector('[data-act=nextcase]')?.addEventListener('click', () => api.runTour(s.next.case, s.next.tour));
     p.querySelector('[data-act=done]')?.addEventListener('click', () => { api.setVisible(null); api.setClip('none'); this.renderList(); });
+  }
+
+  showError(n, seq, err) {
+    const p = this.api.panel;
+    p.querySelector('.t-err')?.remove();
+    const box = document.createElement('div');
+    box.className = 't-err';
+    box.innerHTML = `<b>${esc(seq)} 序列下载失败</b>，未能进入第 ${n + 1} 步。<br><small>${esc(err?.message || String(err))}</small>
+      <div class="q-acts"><button class="q-primary" data-act="retry">重试</button>${this.i < 0 ? '<button data-act="list">返回列表</button>' : ''}</div>`;
+    if (this.i < 0) p.innerHTML = `<div class="q-head"><h2>${esc(this.tour.title)}</h2><button class="q-x" title="退出导览">✕</button></div>`;
+    p.querySelector('.q-head').after(box);
+    p.querySelector('.q-x').onclick = () => this.exit();
+    box.querySelector('[data-act=retry]').onclick = () => this.show(n);
+    box.querySelector('[data-act=list]')?.addEventListener('click', () => this.renderList());
   }
 
   refreshProbe() {
