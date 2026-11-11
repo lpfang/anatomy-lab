@@ -89,7 +89,7 @@ export const LESSONS = [
 <tr><td>肺窗</td><td>1500 / −600</td><td>肺实质、支气管、小结节</td></tr>
 <tr><td>骨窗</td><td>1800 ~ 2800 / 400 ~ 600</td><td>骨折、骨质破坏</td></tr>
 </table>
-<p class="tip">在本平台的切片上<b>按住右键拖动</b>（Mac 触控板用 <b>Ctrl 或 ⌘ + 左键拖动</b>）可连续调节窗宽窗位：左右拖动改变窗宽，上下拖动改变窗位，顶栏实时显示当前 W / L。</p>`,
+<p class="tip">在本平台的切片上<b>按住右键拖动</b>（Mac 触控板用 <b>Ctrl 或 ⌘ + 左键拖动</b>）可连续调节窗宽窗位：左右拖动改变窗宽，上下拖动改变窗位，顶栏和每幅切片左下角实时显示当前 W / L。</p>`,
     demos: [{ case: 's0344', tour: 'ct-basics', label: '胸腹 CT：软组织/肺/骨窗' }, { case: 'head_s1194', tour: 'head-ct-windows', label: '颅脑 CT：脑窗/骨窗/硬膜下窗' }],
   },
   {

@@ -146,7 +146,7 @@ export class SliceView {
     const sp = this.vol.meta.spacing[this.p.n];
     const w = this.vol.toWorld(cur);
     const mm = [w.x, w.y, w.z][this.p.n];
-    this.posEl.textContent = `层 ${this.slice + 1} / ${this.Nn}  ·  ${mm.toFixed(1)} mm  ·  层厚 ${sp} mm  ·  缩放 ${this.zoom.toFixed(1)}×`;
+    this.posEl.textContent = `层 ${this.slice + 1} / ${this.Nn}  ·  ${mm.toFixed(1)} mm  ·  层厚 ${sp} mm  ·  缩放 ${this.zoom.toFixed(1)}×  ·  W ${this.state.wl[0]} / L ${this.state.wl[1]}`;
   }
 
   _bind() {

@@ -32,7 +32,7 @@ button, input { font: inherit; color: inherit; }
 .seg button:last-child { border-right: 0; }
 .seg button:hover { background: var(--panel2); }
 .seg button.on { background: var(--accent); color: #062433; }
-.readout { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 120px; }
+.readout { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 9.5em; white-space: nowrap; }
 .case { margin-left: auto; color: var(--muted); font-size: 12px; white-space: nowrap; }
 
 /* ---- 左侧结构树 ---- */
@@ -179,7 +179,8 @@ body.quiz-lock .sidebar::after { content: '作答中，结构列表已隐藏'; p
 .case { flex: 1 1 auto !important; min-width: 0; justify-content: flex-end; }
 #case-info { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 #case-select { flex: 0 1 260px; min-width: 120px; }
-@media (max-width: 1750px) { .brand small, .readout { display: none; } }
+@media (max-width: 1750px) { .brand small { display: none; } }
+@media (max-width: 1250px) { .readout { display: none; } }
 @media (max-width: 1450px) { #case-info { display: none; } }
 
 /* ---------- 导览：实测信号表 ---------- */
