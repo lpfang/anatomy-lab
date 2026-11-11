@@ -29,7 +29,7 @@ pipeline/            Python 预处理
   build_case.py      CT + 标注 → 体数据 / 标签 / glb 网格 / meta.json
   anatomy_names.py   结构中英文名、系统分组、教学说明 ← 修改名称和说明请改这里
 web/                 前端（Vite + three.js，切片渲染为自写 Canvas）
-  public/cases/<id>/ 预处理输出（不入库，可重新生成）
+  public/cases/<id>/ 预处理输出（随仓库发布，供 GitHub Pages 直接使用；可用 pipeline 重新生成）
 ```
 
 ## 运行
@@ -44,6 +44,11 @@ cd web && npm install && npm run dev      # http://localhost:5178
 ```
 
 切换病例：`?case=<id>`。
+
+## 发布
+
+推送到 `main` 后，GitHub Actions（`.github/workflows/pages.yml`）会自动构建 `web/` 并发布到 GitHub Pages。
+首次使用需在仓库 Settings → Pages 中把 Source 设为 **GitHub Actions**。
 
 ## 数据与许可
 

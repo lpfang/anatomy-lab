@@ -1,0 +1,2880 @@
+{
+ "caseId": "s0058",
+ "modality": "CT",
+ "unit": "HU",
+ "presets": [
+  {
+   "zh": "软组织",
+   "w": 400,
+   "l": 40
+  },
+  {
+   "zh": "肝脏",
+   "w": 160,
+   "l": 60
+  },
+  {
+   "zh": "肺窗",
+   "w": 1500,
+   "l": -600
+  },
+  {
+   "zh": "骨窗",
+   "w": 1800,
+   "l": 400
+  }
+ ],
+ "source": "TotalSegmentator dataset v2.0.1 (Wasserthal et al., Radiology: AI 2023), CC BY 4.0",
+ "dims": [
+  298,
+  249,
+  325
+ ],
+ "spacing": [
+  1.5,
+  1.5,
+  1.5
+ ],
+ "affine": [
+  [
+   1.5,
+   0.0,
+   0.0,
+   -215.06348
+  ],
+  [
+   0.0,
+   1.5,
+   0.0,
+   6.93652
+  ],
+  [
+   0.0,
+   0.0,
+   1.5,
+   615.20001
+  ],
+  [
+   0.0,
+   0.0,
+   0.0,
+   1.0
+  ]
+ ],
+ "orientation": "RAS",
+ "caseInfo": {
+  "sex": "f",
+  "age": 72,
+  "studyType": "ct thorax-abdomen-pelvis",
+  "desc": "女 72 岁 · 胸腹盆 CT · 含肿瘤（腹部，未标注）"
+ },
+ "systems": {
+  "skeletal": {
+   "zh": "骨骼系统",
+   "en": "Skeletal",
+   "color": "#e8dcc4"
+  },
+  "muscular": {
+   "zh": "肌肉系统",
+   "en": "Muscular",
+   "color": "#c0504d"
+  },
+  "cardio": {
+   "zh": "心血管系统",
+   "en": "Cardiovascular",
+   "color": "#d9363e"
+  },
+  "respiratory": {
+   "zh": "呼吸系统",
+   "en": "Respiratory",
+   "color": "#7fb3d5"
+  },
+  "digestive": {
+   "zh": "消化系统",
+   "en": "Digestive",
+   "color": "#d4a24c"
+  },
+  "urogenital": {
+   "zh": "泌尿生殖系统",
+   "en": "Urogenital",
+   "color": "#e6b800"
+  },
+  "endocrine": {
+   "zh": "内分泌系统",
+   "en": "Endocrine",
+   "color": "#9b59b6"
+  },
+  "nervous": {
+   "zh": "神经系统",
+   "en": "Nervous",
+   "color": "#f5d76e"
+  }
+ },
+ "structures": [
+  {
+   "id": 1,
+   "key": "adrenal_gland_left",
+   "zh": "左肾上腺",
+   "en": "Left adrenal gland",
+   "system": "endocrine",
+   "desc": "位于左肾上内侧，CT 上呈倒 V 或倒 Y 形细薄结构。",
+   "color": "#a868bc",
+   "volumeMl": 5.3,
+   "centroidVoxel": [
+    115.2,
+    110.4,
+    235.4
+   ],
+   "bestSlice": [
+    116,
+    113,
+    237
+   ],
+   "bboxVoxel": [
+    [
+     106,
+     122
+    ],
+    [
+     98,
+     120
+    ],
+    [
+     223,
+     246
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 2,
+   "key": "adrenal_gland_right",
+   "zh": "右肾上腺",
+   "en": "Right adrenal gland",
+   "system": "endocrine",
+   "desc": "位于右肾上极上方、下腔静脉后方，呈线状或倒 V 形。",
+   "color": "#9a58b5",
+   "volumeMl": 4.3,
+   "centroidVoxel": [
+    158.7,
+    97.9,
+    243.4
+   ],
+   "bestSlice": [
+    157,
+    100,
+    243
+   ],
+   "bboxVoxel": [
+    [
+     151,
+     166
+    ],
+    [
+     85,
+     106
+    ],
+    [
+     233,
+     256
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 3,
+   "key": "aorta",
+   "zh": "主动脉",
+   "en": "Aorta",
+   "system": "cardio",
+   "desc": "包括升主动脉、主动脉弓、胸主动脉和腹主动脉，于第 4 腰椎水平分为左右髂总动脉。",
+   "color": "#e74c3c",
+   "volumeMl": 104.1,
+   "centroidVoxel": [
+    129.7,
+    100.3,
+    257.8
+   ],
+   "bestSlice": [
+    126,
+    96,
+    324
+   ],
+   "bboxVoxel": [
+    [
+     111,
+     148
+    ],
+    [
+     71,
+     135
+    ],
+    [
+     152,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 4,
+   "key": "autochthon_left",
+   "zh": "左竖脊肌",
+   "en": "Left erector spinae (autochthonous)",
+   "system": "muscular",
+   "desc": "脊柱两侧的固有背肌群。",
+   "color": "#aa3c44",
+   "volumeMl": 425.0,
+   "centroidVoxel": [
+    110.6,
+    52.4,
+    209.0
+   ],
+   "bestSlice": [
+    113,
+    55,
+    159
+   ],
+   "bboxVoxel": [
+    [
+     84,
+     136
+    ],
+    [
+     29,
+     82
+    ],
+    [
+     108,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 5,
+   "key": "autochthon_right",
+   "zh": "右竖脊肌",
+   "en": "Right erector spinae (autochthonous)",
+   "system": "muscular",
+   "desc": "脊柱两侧的固有背肌群。",
+   "color": "#c86e64",
+   "volumeMl": 437.2,
+   "centroidVoxel": [
+    155.1,
+    48.6,
+    212.6
+   ],
+   "bestSlice": [
+    154,
+    53,
+    161
+   ],
+   "bboxVoxel": [
+    [
+     132,
+     187
+    ],
+    [
+     24,
+     78
+    ],
+    [
+     105,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 6,
+   "key": "colon",
+   "zh": "结肠",
+   "en": "Colon",
+   "system": "digestive",
+   "desc": "包括升结肠、横结肠、降结肠和乙状结肠，肠腔内常含气体和粪便。",
+   "color": "#c49a6c",
+   "volumeMl": 1159.7,
+   "centroidVoxel": [
+    145.1,
+    140.4,
+    142.9
+   ],
+   "bestSlice": [
+    142,
+    142,
+    171
+   ],
+   "bboxVoxel": [
+    [
+     42,
+     242
+    ],
+    [
+     53,
+     228
+    ],
+    [
+     25,
+     263
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 7,
+   "key": "costal_cartilages",
+   "zh": "肋软骨",
+   "en": "Costal cartilages",
+   "system": "skeletal",
+   "desc": "连接肋骨前端与胸骨。",
+   "color": "#bfd8d2",
+   "volumeMl": 83.5,
+   "centroidVoxel": [
+    142.0,
+    169.1,
+    285.2
+   ],
+   "bestSlice": [
+    161,
+    169,
+    297
+   ],
+   "bboxVoxel": [
+    [
+     40,
+     228
+    ],
+    [
+     134,
+     183
+    ],
+    [
+     206,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 8,
+   "key": "duodenum",
+   "zh": "十二指肠",
+   "en": "Duodenum",
+   "system": "digestive",
+   "desc": "小肠起始段，呈 C 形环绕胰头，分为上部、降部、水平部、升部。",
+   "color": "#d98c5f",
+   "volumeMl": 96.4,
+   "centroidVoxel": [
+    141.7,
+    131.9,
+    192.8
+   ],
+   "bestSlice": [
+    168,
+    131,
+    180
+   ],
+   "bboxVoxel": [
+    [
+     96,
+     180
+    ],
+    [
+     120,
+     152
+    ],
+    [
+     166,
+     226
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 9,
+   "key": "esophagus",
+   "zh": "食管",
+   "en": "Esophagus",
+   "system": "digestive",
+   "desc": "位于气管后方、脊柱前方，于后纵隔内下行，穿膈肌食管裂孔入腹。",
+   "color": "#cf8a6a",
+   "volumeMl": 24.0,
+   "centroidVoxel": [
+    134.9,
+    98.0,
+    289.0
+   ],
+   "bestSlice": [
+    136,
+    84,
+    272
+   ],
+   "bboxVoxel": [
+    [
+     124,
+     146
+    ],
+    [
+     80,
+     119
+    ],
+    [
+     267,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 10,
+   "key": "femur_left",
+   "zh": "左股骨",
+   "en": "Left femur",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 159.2,
+   "centroidVoxel": [
+    63.3,
+    97.9,
+    36.7
+   ],
+   "bestSlice": [
+    55,
+    99,
+    50
+   ],
+   "bboxVoxel": [
+    [
+     37,
+     95
+    ],
+    [
+     73,
+     118
+    ],
+    [
+     0,
+     67
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 11,
+   "key": "femur_right",
+   "zh": "右股骨",
+   "en": "Right femur",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9dfc7",
+   "volumeMl": 126.7,
+   "centroidVoxel": [
+    205.0,
+    90.9,
+    31.3
+   ],
+   "bestSlice": [
+    205,
+    93,
+    30
+   ],
+   "bboxVoxel": [
+    [
+     185,
+     225
+    ],
+    [
+     66,
+     112
+    ],
+    [
+     0,
+     65
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 12,
+   "key": "gallbladder",
+   "zh": "胆囊",
+   "en": "Gallbladder",
+   "system": "digestive",
+   "desc": "位于肝下面的胆囊窝内，内含胆汁，CT 呈水样低密度（0–20 HU）。",
+   "color": "#3cb371",
+   "volumeMl": 17.0,
+   "centroidVoxel": [
+    190.4,
+    148.8,
+    216.6
+   ],
+   "bestSlice": [
+    190,
+    148,
+    213
+   ],
+   "bboxVoxel": [
+    [
+     178,
+     202
+    ],
+    [
+     139,
+     160
+    ],
+    [
+     207,
+     228
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 13,
+   "key": "gluteus_maximus_left",
+   "zh": "左臀大肌",
+   "en": "Left gluteus maximus",
+   "system": "muscular",
+   "desc": "臀部最浅层、最大的肌肉。",
+   "color": "#ad3d44",
+   "volumeMl": 674.2,
+   "centroidVoxel": [
+    76.9,
+    53.9,
+    53.1
+   ],
+   "bestSlice": [
+    75,
+    58,
+    61
+   ],
+   "bboxVoxel": [
+    [
+     28,
+     127
+    ],
+    [
+     24,
+     84
+    ],
+    [
+     0,
+     129
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 14,
+   "key": "gluteus_maximus_right",
+   "zh": "右臀大肌",
+   "en": "Right gluteus maximus",
+   "system": "muscular",
+   "desc": "臀部最浅层、最大的肌肉。",
+   "color": "#a53a44",
+   "volumeMl": 624.6,
+   "centroidVoxel": [
+    200.7,
+    49.8,
+    55.2
+   ],
+   "bestSlice": [
+    215,
+    54,
+    78
+   ],
+   "bboxVoxel": [
+    [
+     152,
+     247
+    ],
+    [
+     24,
+     83
+    ],
+    [
+     0,
+     130
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 15,
+   "key": "gluteus_medius_left",
+   "zh": "左臀中肌",
+   "en": "Left gluteus medius",
+   "system": "muscular",
+   "desc": "位于臀大肌深面的外上方。",
+   "color": "#ab3c44",
+   "volumeMl": 295.7,
+   "centroidVoxel": [
+    56.0,
+    94.5,
+    100.3
+   ],
+   "bestSlice": [
+    43,
+    87,
+    85
+   ],
+   "bboxVoxel": [
+    [
+     30,
+     91
+    ],
+    [
+     45,
+     133
+    ],
+    [
+     59,
+     146
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 16,
+   "key": "gluteus_medius_right",
+   "zh": "右臀中肌",
+   "en": "Right gluteus medius",
+   "system": "muscular",
+   "desc": "位于臀大肌深面的外上方。",
+   "color": "#c5645b",
+   "volumeMl": 218.0,
+   "centroidVoxel": [
+    216.6,
+    88.6,
+    106.6
+   ],
+   "bestSlice": [
+    229,
+    86,
+    95
+   ],
+   "bboxVoxel": [
+    [
+     185,
+     244
+    ],
+    [
+     63,
+     130
+    ],
+    [
+     68,
+     146
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 17,
+   "key": "gluteus_minimus_left",
+   "zh": "左臀小肌",
+   "en": "Left gluteus minimus",
+   "system": "muscular",
+   "desc": "位于臀中肌深面。",
+   "color": "#c76d62",
+   "volumeMl": 58.1,
+   "centroidVoxel": [
+    59.6,
+    111.4,
+    82.4
+   ],
+   "bestSlice": [
+    58,
+    122,
+    86
+   ],
+   "bboxVoxel": [
+    [
+     42,
+     78
+    ],
+    [
+     79,
+     135
+    ],
+    [
+     55,
+     109
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 18,
+   "key": "gluteus_minimus_right",
+   "zh": "右臀小肌",
+   "en": "Right gluteus minimus",
+   "system": "muscular",
+   "desc": "位于臀中肌深面。",
+   "color": "#b23f44",
+   "volumeMl": 34.9,
+   "centroidVoxel": [
+    217.2,
+    110.5,
+    86.5
+   ],
+   "bestSlice": [
+    220,
+    116,
+    78
+   ],
+   "bboxVoxel": [
+    [
+     201,
+     234
+    ],
+    [
+     76,
+     133
+    ],
+    [
+     69,
+     109
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 19,
+   "key": "heart",
+   "zh": "心",
+   "en": "Heart",
+   "system": "cardio",
+   "desc": "位于中纵隔，约 2/3 在正中线左侧。平扫时心腔与心肌密度相近。",
+   "color": "#c0392b",
+   "volumeMl": 515.4,
+   "centroidVoxel": [
+    119.4,
+    130.2,
+    305.5
+   ],
+   "bestSlice": [
+    115,
+    140,
+    307
+   ],
+   "bboxVoxel": [
+    [
+     76,
+     169
+    ],
+    [
+     82,
+     162
+    ],
+    [
+     282,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 20,
+   "key": "hip_left",
+   "zh": "左髋骨",
+   "en": "Left hip bone",
+   "system": "skeletal",
+   "desc": "由髂骨、坐骨和耻骨融合而成。",
+   "color": "#e9dfc7",
+   "volumeMl": 369.7,
+   "centroidVoxel": [
+    88.7,
+    96.1,
+    87.3
+   ],
+   "bestSlice": [
+    95,
+    87,
+    67
+   ],
+   "bboxVoxel": [
+    [
+     41,
+     138
+    ],
+    [
+     50,
+     145
+    ],
+    [
+     15,
+     153
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 21,
+   "key": "hip_right",
+   "zh": "右髋骨",
+   "en": "Right hip bone",
+   "system": "skeletal",
+   "desc": "由髂骨、坐骨和耻骨融合而成。",
+   "color": "#e2d1b6",
+   "volumeMl": 398.9,
+   "centroidVoxel": [
+    190.6,
+    93.5,
+    82.2
+   ],
+   "bestSlice": [
+    184,
+    81,
+    66
+   ],
+   "bboxVoxel": [
+    [
+     140,
+     237
+    ],
+    [
+     46,
+     142
+    ],
+    [
+     15,
+     152
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 22,
+   "key": "iliac_artery_left",
+   "zh": "左髂动脉",
+   "en": "Left iliac artery",
+   "system": "cardio",
+   "desc": "腹主动脉的终末分支。",
+   "color": "#de5953",
+   "volumeMl": 14.6,
+   "centroidVoxel": [
+    116.2,
+    122.3,
+    99.5
+   ],
+   "bestSlice": [
+    138,
+    122,
+    114
+   ],
+   "bboxVoxel": [
+    [
+     82,
+     142
+    ],
+    [
+     109,
+     138
+    ],
+    [
+     37,
+     153
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 23,
+   "key": "iliac_artery_right",
+   "zh": "右髂动脉",
+   "en": "Right iliac artery",
+   "system": "cardio",
+   "desc": "腹主动脉的终末分支。",
+   "color": "#d7303b",
+   "volumeMl": 13.8,
+   "centroidVoxel": [
+    167.8,
+    122.8,
+    100.0
+   ],
+   "bestSlice": [
+    161,
+    122,
+    138
+   ],
+   "bboxVoxel": [
+    [
+     143,
+     194
+    ],
+    [
+     107,
+     137
+    ],
+    [
+     33,
+     153
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 24,
+   "key": "iliac_vena_left",
+   "zh": "左髂静脉",
+   "en": "Left iliac vein",
+   "system": "cardio",
+   "desc": "左右髂总静脉在第 5 腰椎右前方汇合成下腔静脉。",
+   "color": "#3559d9",
+   "volumeMl": 29.0,
+   "centroidVoxel": [
+    116.0,
+    115.5,
+    93.9
+   ],
+   "bestSlice": [
+    106,
+    113,
+    135
+   ],
+   "bboxVoxel": [
+    [
+     87,
+     152
+    ],
+    [
+     100,
+     135
+    ],
+    [
+     33,
+     147
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 25,
+   "key": "iliac_vena_right",
+   "zh": "右髂静脉",
+   "en": "Right iliac vein",
+   "system": "cardio",
+   "desc": "",
+   "color": "#4b61de",
+   "volumeMl": 20.8,
+   "centroidVoxel": [
+    172.7,
+    119.8,
+    83.5
+   ],
+   "bestSlice": [
+    180,
+    112,
+    38
+   ],
+   "bboxVoxel": [
+    [
+     152,
+     189
+    ],
+    [
+     104,
+     136
+    ],
+    [
+     30,
+     145
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 26,
+   "key": "iliopsoas_left",
+   "zh": "左髂腰肌",
+   "en": "Left iliopsoas",
+   "system": "muscular",
+   "desc": "由腰大肌和髂肌组成，止于股骨小转子。",
+   "color": "#be4b49",
+   "volumeMl": 354.5,
+   "centroidVoxel": [
+    90.7,
+    112.7,
+    112.5
+   ],
+   "bestSlice": [
+    109,
+    112,
+    105
+   ],
+   "bboxVoxel": [
+    [
+     54,
+     122
+    ],
+    [
+     74,
+     146
+    ],
+    [
+     5,
+     222
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 27,
+   "key": "iliopsoas_right",
+   "zh": "右髂腰肌",
+   "en": "Right iliopsoas",
+   "system": "muscular",
+   "desc": "由腰大肌和髂肌组成，止于股骨小转子。",
+   "color": "#c6675e",
+   "volumeMl": 254.7,
+   "centroidVoxel": [
+    180.7,
+    105.1,
+    127.0
+   ],
+   "bestSlice": [
+    165,
+    101,
+    109
+   ],
+   "bboxVoxel": [
+    [
+     147,
+     217
+    ],
+    [
+     68,
+     143
+    ],
+    [
+     36,
+     226
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 28,
+   "key": "inferior_vena_cava",
+   "zh": "下腔静脉",
+   "en": "Inferior vena cava",
+   "system": "cardio",
+   "desc": "位于腹主动脉右侧，穿膈肌腔静脉孔注入右心房。",
+   "color": "#3b5bdb",
+   "volumeMl": 87.2,
+   "centroidVoxel": [
+    153.1,
+    111.6,
+    231.7
+   ],
+   "bestSlice": [
+    154,
+    113,
+    289
+   ],
+   "bboxVoxel": [
+    [
+     139,
+     163
+    ],
+    [
+     99,
+     124
+    ],
+    [
+     144,
+     306
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 29,
+   "key": "kidney_left",
+   "zh": "左肾",
+   "en": "Left kidney",
+   "system": "urogenital",
+   "desc": "腹膜后位，平第 12 胸椎至第 3 腰椎；左肾通常略高于右肾。",
+   "color": "#b5523b",
+   "volumeMl": 159.0,
+   "centroidVoxel": [
+    93.5,
+    100.0,
+    205.4
+   ],
+   "bestSlice": [
+    90,
+    103,
+    213
+   ],
+   "bboxVoxel": [
+    [
+     68,
+     116
+    ],
+    [
+     78,
+     122
+    ],
+    [
+     167,
+     240
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 30,
+   "key": "kidney_right",
+   "zh": "右肾",
+   "en": "Right kidney",
+   "system": "urogenital",
+   "desc": "腹膜后位，因肝的存在通常比左肾低约半个椎体。",
+   "color": "#b5523b",
+   "volumeMl": 161.3,
+   "centroidVoxel": [
+    180.4,
+    103.2,
+    193.2
+   ],
+   "bestSlice": [
+    181,
+    117,
+    205
+   ],
+   "bboxVoxel": [
+    [
+     159,
+     200
+    ],
+    [
+     75,
+     129
+    ],
+    [
+     158,
+     226
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 31,
+   "key": "liver",
+   "zh": "肝",
+   "en": "Liver",
+   "system": "digestive",
+   "desc": "人体最大的实质性器官，位于右上腹。CT 平扫呈均匀软组织密度（约 55–65 HU），门静脉期可见肝内血管分支。",
+   "color": "#a0522d",
+   "volumeMl": 2290.2,
+   "centroidVoxel": [
+    181.4,
+    126.9,
+    254.5
+   ],
+   "bestSlice": [
+    194,
+    121,
+    257
+   ],
+   "bboxVoxel": [
+    [
+     98,
+     230
+    ],
+    [
+     52,
+     193
+    ],
+    [
+     189,
+     316
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 32,
+   "key": "lung_lower_lobe_left",
+   "zh": "左肺下叶",
+   "en": "Left lower lobe",
+   "system": "respiratory",
+   "desc": "位于斜裂后下方。",
+   "color": "#5dade2",
+   "volumeMl": 560.6,
+   "centroidVoxel": [
+    81.9,
+    81.6,
+    299.4
+   ],
+   "bestSlice": [
+    80,
+    66,
+    292
+   ],
+   "bboxVoxel": [
+    [
+     44,
+     120
+    ],
+    [
+     44,
+     153
+    ],
+    [
+     257,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 33,
+   "key": "lung_lower_lobe_right",
+   "zh": "右肺下叶",
+   "en": "Right lower lobe",
+   "system": "respiratory",
+   "desc": "位于斜裂后下方。",
+   "color": "#a9cce3",
+   "volumeMl": 584.2,
+   "centroidVoxel": [
+    178.4,
+    73.6,
+    296.9
+   ],
+   "bestSlice": [
+    165,
+    63,
+    304
+   ],
+   "bboxVoxel": [
+    [
+     141,
+     227
+    ],
+    [
+     41,
+     144
+    ],
+    [
+     246,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 34,
+   "key": "lung_middle_lobe_right",
+   "zh": "右肺中叶",
+   "en": "Right middle lobe",
+   "system": "respiratory",
+   "desc": "位于水平裂与斜裂之间，只有右肺有中叶。",
+   "color": "#6ca6cd",
+   "volumeMl": 158.7,
+   "centroidVoxel": [
+    189.2,
+    124.4,
+    317.4
+   ],
+   "bestSlice": [
+    171,
+    115,
+    321
+   ],
+   "bboxVoxel": [
+    [
+     152,
+     219
+    ],
+    [
+     76,
+     165
+    ],
+    [
+     301,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 35,
+   "key": "lung_upper_lobe_left",
+   "zh": "左肺上叶",
+   "en": "Left upper lobe",
+   "system": "respiratory",
+   "desc": "左肺由斜裂分为上、下两叶。",
+   "color": "#7fb3d5",
+   "volumeMl": 86.2,
+   "centroidVoxel": [
+    70.4,
+    133.2,
+    312.1
+   ],
+   "bestSlice": [
+    70,
+    141,
+    324
+   ],
+   "bboxVoxel": [
+    [
+     53,
+     107
+    ],
+    [
+     93,
+     164
+    ],
+    [
+     277,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 36,
+   "key": "lung_upper_lobe_right",
+   "zh": "右肺上叶",
+   "en": "Right upper lobe",
+   "system": "respiratory",
+   "desc": "右肺由斜裂和水平裂分为上、中、下三叶。",
+   "color": "#85c1e9",
+   "volumeMl": 1.6,
+   "centroidVoxel": [
+    175.9,
+    136.6,
+    318.8
+   ],
+   "bestSlice": [
+    187,
+    159,
+    324
+   ],
+   "bboxVoxel": [
+    [
+     150,
+     203
+    ],
+    [
+     105,
+     161
+    ],
+    [
+     311,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 37,
+   "key": "pancreas",
+   "zh": "胰",
+   "en": "Pancreas",
+   "system": "digestive",
+   "desc": "腹膜后位器官，横卧于第 1–2 腰椎前方，分为胰头、胰颈、胰体、胰尾；胰头被十二指肠环绕。",
+   "color": "#f0c27b",
+   "volumeMl": 118.6,
+   "centroidVoxel": [
+    133.8,
+    133.2,
+    220.1
+   ],
+   "bestSlice": [
+    151,
+    139,
+    233
+   ],
+   "bboxVoxel": [
+    [
+     83,
+     170
+    ],
+    [
+     104,
+     154
+    ],
+    [
+     181,
+     246
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 38,
+   "key": "portal_vein_and_splenic_vein",
+   "zh": "门静脉及脾静脉",
+   "en": "Portal & splenic vein",
+   "system": "cardio",
+   "desc": "肠系膜上静脉与脾静脉在胰颈后方汇合成门静脉，入肝门。",
+   "color": "#7048e8",
+   "volumeMl": 26.9,
+   "centroidVoxel": [
+    148.8,
+    130.3,
+    235.7
+   ],
+   "bestSlice": [
+    167,
+    130,
+    223
+   ],
+   "bboxVoxel": [
+    [
+     77,
+     184
+    ],
+    [
+     107,
+     162
+    ],
+    [
+     211,
+     256
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 39,
+   "key": "pulmonary_vein",
+   "zh": "肺静脉",
+   "en": "Pulmonary veins",
+   "system": "cardio",
+   "desc": "将氧合血从肺送回左心房，通常左右各两支。",
+   "color": "#e8590c",
+   "volumeMl": 9.4,
+   "centroidVoxel": [
+    134.1,
+    88.0,
+    317.5
+   ],
+   "bestSlice": [
+    155,
+    87,
+    320
+   ],
+   "bboxVoxel": [
+    [
+     94,
+     174
+    ],
+    [
+     75,
+     105
+    ],
+    [
+     304,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 40,
+   "key": "rib_left_10",
+   "zh": "左第10肋",
+   "en": "Left rib 10",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9dfc7",
+   "volumeMl": 12.0,
+   "centroidVoxel": [
+    65.9,
+    72.8,
+    244.1
+   ],
+   "bestSlice": [
+    40,
+    48,
+    254
+   ],
+   "bboxVoxel": [
+    [
+     38,
+     113
+    ],
+    [
+     44,
+     140
+    ],
+    [
+     209,
+     280
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 41,
+   "key": "rib_left_11",
+   "zh": "左第11肋",
+   "en": "Left rib 11",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e4d5bb",
+   "volumeMl": 9.1,
+   "centroidVoxel": [
+    76.2,
+    66.9,
+    224.1
+   ],
+   "bestSlice": [
+    54,
+    52,
+    196
+   ],
+   "bboxVoxel": [
+    [
+     50,
+     114
+    ],
+    [
+     48,
+     106
+    ],
+    [
+     191,
+     260
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 42,
+   "key": "rib_left_12",
+   "zh": "左第12肋",
+   "en": "Left rib 12",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e3d3b9",
+   "volumeMl": 3.5,
+   "centroidVoxel": [
+    94.2,
+    67.0,
+    215.8
+   ],
+   "bestSlice": [
+    114,
+    63,
+    212
+   ],
+   "bboxVoxel": [
+    [
+     68,
+     116
+    ],
+    [
+     60,
+     83
+    ],
+    [
+     191,
+     239
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 43,
+   "key": "rib_left_4",
+   "zh": "左第4肋",
+   "en": "Left rib 4",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e2d1b6",
+   "volumeMl": 0.9,
+   "centroidVoxel": [
+    86.4,
+    164.6,
+    322.2
+   ],
+   "bestSlice": [
+    91,
+    165,
+    324
+   ],
+   "bboxVoxel": [
+    [
+     75,
+     106
+    ],
+    [
+     158,
+     169
+    ],
+    [
+     318,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 44,
+   "key": "rib_left_5",
+   "zh": "左第5肋",
+   "en": "Left rib 5",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 6.3,
+   "centroidVoxel": [
+    65.1,
+    145.4,
+    313.0
+   ],
+   "bestSlice": [
+    53,
+    166,
+    309
+   ],
+   "bboxVoxel": [
+    [
+     50,
+     98
+    ],
+    [
+     96,
+     172
+    ],
+    [
+     300,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 45,
+   "key": "rib_left_6",
+   "zh": "左第6肋",
+   "en": "Left rib 6",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 10.9,
+   "centroidVoxel": [
+    57.3,
+    119.7,
+    305.7
+   ],
+   "bestSlice": [
+    48,
+    167,
+    292
+   ],
+   "bboxVoxel": [
+    [
+     45,
+     84
+    ],
+    [
+     47,
+     173
+    ],
+    [
+     284,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 46,
+   "key": "rib_left_7",
+   "zh": "左第7肋",
+   "en": "Left rib 7",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e7dbc2",
+   "volumeMl": 18.3,
+   "centroidVoxel": [
+    60.8,
+    95.7,
+    298.9
+   ],
+   "bestSlice": [
+    45,
+    42,
+    311
+   ],
+   "bboxVoxel": [
+    [
+     42,
+     108
+    ],
+    [
+     39,
+     170
+    ],
+    [
+     265,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 47,
+   "key": "rib_left_8",
+   "zh": "左第8肋",
+   "en": "Left rib 8",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#dfcbae",
+   "volumeMl": 16.0,
+   "centroidVoxel": [
+    60.5,
+    86.3,
+    283.1
+   ],
+   "bestSlice": [
+    42,
+    41,
+    295
+   ],
+   "bboxVoxel": [
+    [
+     39,
+     108
+    ],
+    [
+     38,
+     164
+    ],
+    [
+     243,
+     312
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 48,
+   "key": "rib_left_9",
+   "zh": "左第9肋",
+   "en": "Left rib 9",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9dfc7",
+   "volumeMl": 14.9,
+   "centroidVoxel": [
+    64.7,
+    78.7,
+    266.0
+   ],
+   "bestSlice": [
+    43,
+    45,
+    275
+   ],
+   "bboxVoxel": [
+    [
+     40,
+     110
+    ],
+    [
+     41,
+     152
+    ],
+    [
+     230,
+     296
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 49,
+   "key": "rib_right_10",
+   "zh": "右第10肋",
+   "en": "Right rib 10",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9dec7",
+   "volumeMl": 12.3,
+   "centroidVoxel": [
+    195.1,
+    64.1,
+    248.1
+   ],
+   "bestSlice": [
+    231,
+    44,
+    253
+   ],
+   "bboxVoxel": [
+    [
+     145,
+     234
+    ],
+    [
+     40,
+     128
+    ],
+    [
+     217,
+     280
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 50,
+   "key": "rib_right_11",
+   "zh": "右第11肋",
+   "en": "Right rib 11",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 8.1,
+   "centroidVoxel": [
+    189.7,
+    61.0,
+    228.5
+   ],
+   "bestSlice": [
+    221,
+    48,
+    239
+   ],
+   "bboxVoxel": [
+    [
+     148,
+     226
+    ],
+    [
+     44,
+     97
+    ],
+    [
+     198,
+     260
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 51,
+   "key": "rib_right_12",
+   "zh": "右第12肋",
+   "en": "Right rib 12",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e1c7",
+   "volumeMl": 3.1,
+   "centroidVoxel": [
+    182.1,
+    63.2,
+    207.2
+   ],
+   "bestSlice": [
+    171,
+    57,
+    215
+   ],
+   "bboxVoxel": [
+    [
+     122,
+     205
+    ],
+    [
+     44,
+     81
+    ],
+    [
+     71,
+     227
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 52,
+   "key": "rib_right_5",
+   "zh": "右第5肋",
+   "en": "Right rib 5",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e1c7",
+   "volumeMl": 5.0,
+   "centroidVoxel": [
+    205.8,
+    145.2,
+    318.5
+   ],
+   "bestSlice": [
+    216,
+    160,
+    317
+   ],
+   "bboxVoxel": [
+    [
+     177,
+     219
+    ],
+    [
+     102,
+     169
+    ],
+    [
+     308,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 53,
+   "key": "rib_right_6",
+   "zh": "右第6肋",
+   "en": "Right rib 6",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#dfcaad",
+   "volumeMl": 10.7,
+   "centroidVoxel": [
+    213.3,
+    113.7,
+    308.9
+   ],
+   "bestSlice": [
+    220,
+    161,
+    299
+   ],
+   "bboxVoxel": [
+    [
+     191,
+     223
+    ],
+    [
+     46,
+     167
+    ],
+    [
+     291,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 54,
+   "key": "rib_right_7",
+   "zh": "右第7肋",
+   "en": "Right rib 7",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9dec7",
+   "volumeMl": 17.9,
+   "centroidVoxel": [
+    207.3,
+    88.2,
+    301.0
+   ],
+   "bestSlice": [
+    227,
+    38,
+    313
+   ],
+   "bboxVoxel": [
+    [
+     153,
+     230
+    ],
+    [
+     35,
+     163
+    ],
+    [
+     271,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 55,
+   "key": "rib_right_8",
+   "zh": "右第8肋",
+   "en": "Right rib 8",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e5d8be",
+   "volumeMl": 15.7,
+   "centroidVoxel": [
+    206.3,
+    78.0,
+    285.5
+   ],
+   "bestSlice": [
+    231,
+    39,
+    296
+   ],
+   "bboxVoxel": [
+    [
+     152,
+     234
+    ],
+    [
+     35,
+     152
+    ],
+    [
+     250,
+     312
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 56,
+   "key": "rib_right_9",
+   "zh": "右第9肋",
+   "en": "Right rib 9",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e5d8be",
+   "volumeMl": 15.4,
+   "centroidVoxel": [
+    203.1,
+    73.0,
+    266.4
+   ],
+   "bestSlice": [
+    229,
+    42,
+    274
+   ],
+   "bboxVoxel": [
+    [
+     150,
+     232
+    ],
+    [
+     38,
+     142
+    ],
+    [
+     235,
+     295
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 57,
+   "key": "sacrum",
+   "zh": "骶骨",
+   "en": "Sacrum",
+   "system": "skeletal",
+   "desc": "由 5 块骶椎融合而成。",
+   "color": "#e2d1b6",
+   "volumeMl": 171.9,
+   "centroidVoxel": [
+    139.4,
+    65.6,
+    108.5
+   ],
+   "bestSlice": [
+    116,
+    82,
+    112
+   ],
+   "bboxVoxel": [
+    [
+     100,
+     177
+    ],
+    [
+     32,
+     106
+    ],
+    [
+     46,
+     139
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 58,
+   "key": "scapula_left",
+   "zh": "左肩胛骨",
+   "en": "Left scapula",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e6d9c0",
+   "volumeMl": 6.7,
+   "centroidVoxel": [
+    38.3,
+    75.6,
+    313.7
+   ],
+   "bestSlice": [
+    32,
+    82,
+    323
+   ],
+   "bboxVoxel": [
+    [
+     30,
+     55
+    ],
+    [
+     59,
+     88
+    ],
+    [
+     300,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 59,
+   "key": "scapula_right",
+   "zh": "右肩胛骨",
+   "en": "Right scapula",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 7.3,
+   "centroidVoxel": [
+    223.6,
+    62.1,
+    314.5
+   ],
+   "bestSlice": [
+    227,
+    63,
+    321
+   ],
+   "bboxVoxel": [
+    [
+     204,
+     233
+    ],
+    [
+     48,
+     72
+    ],
+    [
+     301,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 60,
+   "key": "small_bowel",
+   "zh": "小肠（空回肠）",
+   "en": "Small bowel",
+   "system": "digestive",
+   "desc": "空肠多位于左上腹，回肠多位于右下腹及盆腔。",
+   "color": "#e8b07a",
+   "volumeMl": 1231.0,
+   "centroidVoxel": [
+    131.8,
+    146.8,
+    144.2
+   ],
+   "bestSlice": [
+    93,
+    156,
+    119
+   ],
+   "bboxVoxel": [
+    [
+     61,
+     230
+    ],
+    [
+     108,
+     178
+    ],
+    [
+     70,
+     235
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 61,
+   "key": "spinal_cord",
+   "zh": "脊髓",
+   "en": "Spinal cord",
+   "system": "nervous",
+   "desc": "位于椎管内，成人下端约平第 1 腰椎下缘（脊髓圆锥）。",
+   "color": "#f5d76e",
+   "volumeMl": 49.1,
+   "centroidVoxel": [
+    134.1,
+    68.4,
+    212.7
+   ],
+   "bestSlice": [
+    134,
+    82,
+    125
+   ],
+   "bboxVoxel": [
+    [
+     126,
+     146
+    ],
+    [
+     47,
+     90
+    ],
+    [
+     115,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 62,
+   "key": "spleen",
+   "zh": "脾",
+   "en": "Spleen",
+   "system": "cardio",
+   "desc": "位于左季肋区，第 9–11 肋深面；属淋巴器官，这里归入循环系统。",
+   "color": "#8e3b5a",
+   "volumeMl": 573.5,
+   "centroidVoxel": [
+    71.9,
+    94.8,
+    249.0
+   ],
+   "bestSlice": [
+    67,
+    90,
+    261
+   ],
+   "bboxVoxel": [
+    [
+     44,
+     116
+    ],
+    [
+     54,
+     148
+    ],
+    [
+     207,
+     286
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 63,
+   "key": "sternum",
+   "zh": "胸骨",
+   "en": "Sternum",
+   "system": "skeletal",
+   "desc": "由胸骨柄、胸骨体和剑突组成。",
+   "color": "#e3d3b8",
+   "volumeMl": 15.1,
+   "centroidVoxel": [
+    139.5,
+    165.1,
+    312.4
+   ],
+   "bestSlice": [
+    147,
+    166,
+    323
+   ],
+   "bboxVoxel": [
+    [
+     124,
+     155
+    ],
+    [
+     159,
+     173
+    ],
+    [
+     289,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 64,
+   "key": "stomach",
+   "zh": "胃",
+   "en": "Stomach",
+   "system": "digestive",
+   "desc": "位于左上腹，形态随充盈程度变化；胃腔内常见气体或液体。",
+   "color": "#e3a869",
+   "volumeMl": 301.5,
+   "centroidVoxel": [
+    117.2,
+    147.7,
+    243.1
+   ],
+   "bestSlice": [
+    111,
+    167,
+    259
+   ],
+   "bboxVoxel": [
+    [
+     88,
+     167
+    ],
+    [
+     82,
+     191
+    ],
+    [
+     197,
+     280
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 65,
+   "key": "superior_vena_cava",
+   "zh": "上腔静脉",
+   "en": "Superior vena cava",
+   "system": "cardio",
+   "desc": "由左右头臂静脉汇合而成，注入右心房。",
+   "color": "#3b5bdb",
+   "volumeMl": 0.5,
+   "centroidVoxel": [
+    156.1,
+    111.9,
+    323.2
+   ],
+   "bestSlice": [
+    155,
+    111,
+    324
+   ],
+   "bboxVoxel": [
+    [
+     151,
+     161
+    ],
+    [
+     109,
+     115
+    ],
+    [
+     321,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 66,
+   "key": "urinary_bladder",
+   "zh": "膀胱",
+   "en": "Urinary bladder",
+   "system": "urogenital",
+   "desc": "位于盆腔前部、耻骨联合后方；充盈时内为尿液，呈水样密度。",
+   "color": "#e8d36a",
+   "volumeMl": 115.0,
+   "centroidVoxel": [
+    144.8,
+    120.2,
+    51.6
+   ],
+   "bestSlice": [
+    149,
+    113,
+    51
+   ],
+   "bboxVoxel": [
+    [
+     116,
+     169
+    ],
+    [
+     96,
+     148
+    ],
+    [
+     34,
+     70
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 67,
+   "key": "vertebrae_L1",
+   "zh": "第1腰椎（L1）",
+   "en": "Vertebra L1",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 43.0,
+   "centroidVoxel": [
+    134.2,
+    75.9,
+    219.8
+   ],
+   "bestSlice": [
+    131,
+    63,
+    217
+   ],
+   "bboxVoxel": [
+    [
+     112,
+     152
+    ],
+    [
+     45,
+     96
+    ],
+    [
+     199,
+     235
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 68,
+   "key": "vertebrae_L2",
+   "zh": "第2腰椎（L2）",
+   "en": "Vertebra L2",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e1c7",
+   "volumeMl": 51.3,
+   "centroidVoxel": [
+    135.0,
+    79.9,
+    199.0
+   ],
+   "bestSlice": [
+    132,
+    69,
+    196
+   ],
+   "bboxVoxel": [
+    [
+     108,
+     159
+    ],
+    [
+     47,
+     107
+    ],
+    [
+     179,
+     212
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 69,
+   "key": "vertebrae_L3",
+   "zh": "第3腰椎（L3）",
+   "en": "Vertebra L3",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e4d4ba",
+   "volumeMl": 58.4,
+   "centroidVoxel": [
+    136.7,
+    85.6,
+    181.7
+   ],
+   "bestSlice": [
+    134,
+    74,
+    176
+   ],
+   "bboxVoxel": [
+    [
+     106,
+     165
+    ],
+    [
+     51,
+     110
+    ],
+    [
+     162,
+     195
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 70,
+   "key": "vertebrae_L4",
+   "zh": "第4腰椎（L4）",
+   "en": "Vertebra L4",
+   "system": "skeletal",
+   "desc": "约平髂嵴最高点，腹主动脉多在此水平分叉。",
+   "color": "#e9e1c7",
+   "volumeMl": 61.5,
+   "centroidVoxel": [
+    137.1,
+    90.5,
+    160.7
+   ],
+   "bestSlice": [
+    137,
+    99,
+    167
+   ],
+   "bboxVoxel": [
+    [
+     104,
+     168
+    ],
+    [
+     56,
+     114
+    ],
+    [
+     143,
+     175
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 71,
+   "key": "vertebrae_L5",
+   "zh": "第5腰椎（L5）",
+   "en": "Vertebra L5",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e0ccaf",
+   "volumeMl": 61.8,
+   "centroidVoxel": [
+    138.4,
+    91.7,
+    141.2
+   ],
+   "bestSlice": [
+    137,
+    101,
+    145
+   ],
+   "bboxVoxel": [
+    [
+     107,
+     171
+    ],
+    [
+     58,
+     113
+    ],
+    [
+     127,
+     157
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 72,
+   "key": "vertebrae_S1",
+   "zh": "第1骶椎（S1）",
+   "en": "Vertebra S1",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 41.6,
+   "centroidVoxel": [
+    135.9,
+    86.7,
+    124.7
+   ],
+   "bestSlice": [
+    122,
+    86,
+    123
+   ],
+   "bboxVoxel": [
+    [
+     118,
+     160
+    ],
+    [
+     59,
+     105
+    ],
+    [
+     112,
+     143
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 73,
+   "key": "vertebrae_T10",
+   "zh": "第10胸椎（T10）",
+   "en": "Vertebra T10",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9e0c7",
+   "volumeMl": 38.7,
+   "centroidVoxel": [
+    132.6,
+    64.8,
+    273.7
+   ],
+   "bestSlice": [
+    139,
+    52,
+    270
+   ],
+   "bboxVoxel": [
+    [
+     112,
+     151
+    ],
+    [
+     36,
+     88
+    ],
+    [
+     255,
+     298
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 74,
+   "key": "vertebrae_T11",
+   "zh": "第11胸椎（T11）",
+   "en": "Vertebra T11",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e1ceb2",
+   "volumeMl": 40.8,
+   "centroidVoxel": [
+    132.4,
+    68.2,
+    256.8
+   ],
+   "bestSlice": [
+    139,
+    55,
+    253
+   ],
+   "bboxVoxel": [
+    [
+     113,
+     152
+    ],
+    [
+     41,
+     94
+    ],
+    [
+     238,
+     270
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 75,
+   "key": "vertebrae_T12",
+   "zh": "第12胸椎（T12）",
+   "en": "Vertebra T12",
+   "system": "skeletal",
+   "desc": "胸腰交界；第 12 肋附着于此。",
+   "color": "#e9e1c7",
+   "volumeMl": 42.1,
+   "centroidVoxel": [
+    133.2,
+    72.6,
+    238.8
+   ],
+   "bestSlice": [
+    139,
+    59,
+    236
+   ],
+   "bboxVoxel": [
+    [
+     117,
+     152
+    ],
+    [
+     43,
+     95
+    ],
+    [
+     221,
+     252
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 76,
+   "key": "vertebrae_T6",
+   "zh": "第6胸椎（T6）",
+   "en": "Vertebra T6",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#dbc2a4",
+   "volumeMl": 0.7,
+   "centroidVoxel": [
+    129.9,
+    32.9,
+    320.7
+   ],
+   "bestSlice": [
+    130,
+    31,
+    324
+   ],
+   "bboxVoxel": [
+    [
+     128,
+     132
+    ],
+    [
+     28,
+     40
+    ],
+    [
+     313,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 77,
+   "key": "vertebrae_T7",
+   "zh": "第7胸椎（T7）",
+   "en": "Vertebra T7",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e6d9c0",
+   "volumeMl": 21.0,
+   "centroidVoxel": [
+    131.0,
+    55.1,
+    318.2
+   ],
+   "bestSlice": [
+    130,
+    44,
+    324
+   ],
+   "bboxVoxel": [
+    [
+     111,
+     149
+    ],
+    [
+     28,
+     77
+    ],
+    [
+     296,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 78,
+   "key": "vertebrae_T8",
+   "zh": "第8胸椎（T8）",
+   "en": "Vertebra T8",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e9dfc7",
+   "volumeMl": 32.7,
+   "centroidVoxel": [
+    132.0,
+    57.5,
+    305.2
+   ],
+   "bestSlice": [
+    130,
+    45,
+    303
+   ],
+   "bboxVoxel": [
+    [
+     111,
+     150
+    ],
+    [
+     32,
+     78
+    ],
+    [
+     280,
+     324
+    ]
+   ],
+   "hasMesh": true
+  },
+  {
+   "id": 79,
+   "key": "vertebrae_T9",
+   "zh": "第9胸椎（T9）",
+   "en": "Vertebra T9",
+   "system": "skeletal",
+   "desc": "",
+   "color": "#e2d1b5",
+   "volumeMl": 35.6,
+   "centroidVoxel": [
+    131.3,
+    60.5,
+    289.7
+   ],
+   "bestSlice": [
+    129,
+    49,
+    287
+   ],
+   "bboxVoxel": [
+    [
+     111,
+     150
+    ],
+    [
+     34,
+     81
+    ],
+    [
+     268,
+     304
+    ]
+   ],
+   "hasMesh": true
+  }
+ ]
+}

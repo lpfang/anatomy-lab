@@ -1,0 +1,26 @@
+[
+ {
+  "id": "s0058",
+  "modality": "CT",
+  "desc": "女 72 岁 · 胸腹盆 CT · 含肿瘤（腹部，未标注）",
+  "structures": 79
+ },
+ {
+  "id": "s0223",
+  "modality": "CT",
+  "desc": "女 67 岁 · 颈胸 CT",
+  "structures": 82
+ },
+ {
+  "id": "s0344",
+  "modality": "CT",
+  "desc": "男 57 岁 · 胸腹盆 CT · 含炎症（腹部，未标注）",
+  "structures": 107
+ },
+ {
+  "id": "mr_s0646",
+  "modality": "MR",
+  "desc": "腹部 MRI",
+  "structures": 34
+ }
+]
