@@ -22,8 +22,8 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
 export class Quiz {
-  constructor({ vol, state, anchorOf, refresh, focus3d, panel, onEnter, onExit }) {
-    Object.assign(this, { vol, state, anchorOf, refresh, focus3d, panel, onEnter, onExit });
+  constructor({ vol, state, anchorOf, refresh, focus3d, panel, onEnter, onExit, getClip, setClip }) {
+    Object.assign(this, { vol, state, anchorOf, refresh, focus3d, panel, onEnter, onExit, getClip, setClip });
     this.active = false;
     const present = new Set(vol.meta.structures.map((s) => s.system));
     const def = DEFAULT_SYSTEMS.filter((k) => present.has(k));
@@ -35,7 +35,9 @@ export class Quiz {
   enter() {
     if (this.active) return;
     const s = this.state;
-    this.saved = { overlay: s.overlay, outline: s.outline, ghost: s.ghost, selected: s.selected, hidden: new Set(s.hiddenIds) };
+    this.saved = { overlay: s.overlay, outline: s.outline, ghost: s.ghost, selected: s.selected, hidden: new Set(s.hiddenIds), clip: this.getClip?.() };
+    // 测验期间暂停 3D 剖切：题目目标可能整体落在被裁掉的一侧（如矢状剖切去掉左半身）
+    if (this.saved.clip && this.saved.clip !== 'none') this.setClip?.('none');
     this.active = true;
     s.quiz = this;
     this.onEnter?.();
@@ -51,7 +53,9 @@ export class Quiz {
     this.active = false;
     this.phase = null;
     s.quiz = null;
+    this._lockView(false);   // 答题途中退出时解除作答锁定（结构列表模糊、不可点击）
     this.onExit?.(selectId || this.saved.selected);
+    if (this.saved.clip && this.saved.clip !== 'none') this.setClip?.(this.saved.clip);
   }
 
   // 作答阶段遮蔽名称

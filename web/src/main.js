@@ -382,6 +382,8 @@ async function main() {
     panel: $('#quiz'),
     refresh: () => { invalidateAll(); with3d((v) => v.applyAppearance()); },
     focus3d: (id) => with3d((v) => (id ? v.focusOn(id) : v.resetView())),
+    getClip: () => $('#opt-clip').value,
+    setClip: (mode) => { $('#opt-clip').value = mode; if (ready3d) view3d.setClip(mode); else pendingView = null; },
     onEnter: () => {
       $('#quiz').hidden = false; $('#card').hidden = true; $('.overlay-ctl').hidden = true;
       quizBtn.classList.add('on'); quizBtn.textContent = '退出测验';
