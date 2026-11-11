@@ -294,16 +294,20 @@ async function main() {
     const s = vol.byId.get(state.selected);
     if (!s) { card.className = 'card empty'; card.innerHTML = emptyCard; return; }
     const sys = meta.systems[s.system];
+    // 没有 3D 网格的结构（标注过小或被扫描范围截断）：只保留二维标签，卡片中注明
+    const partialLabel = s.hasMesh === false;
+    const volume = s.volumeMl < 0.05 ? '<0.1' : s.volumeMl.toLocaleString();
     card.className = 'card';
     card.innerHTML = `
       <h2><span class="dot" style="background:${s.color};width:14px;height:14px"></span>${esc(s.zh)}</h2>
       <div class="en">${esc(s.en)}</div>
       <div class="meta">
         <span>系统</span><b>${sys.zh} · ${sys.en}</b>
-        <span>体积</span><b>${s.volumeMl.toLocaleString()} mL</b>
+        <span>${partialLabel ? '标注体积' : '体积'}</span><b>${esc(volume)} mL</b>
         <span>范围</span><b>横断层 ${s.bboxVoxel[2][0] + 1} – ${s.bboxVoxel[2][1] + 1}</b>
         <span>光标处</span><b id="card-hu">—</b>
       </div>
+      ${partialLabel ? '<p class="desc">本例自动分割标注不完整（标注过小或被扫描范围截断），仅供二维切片参考，无 3D 网格。</p>' : ''}
       ${s.desc ? `<p class="desc">${esc(s.desc)}</p>` : ''}
       <div class="acts">
         <button data-act="locate">定位到代表层面</button>

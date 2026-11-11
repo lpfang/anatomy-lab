@@ -784,8 +784,8 @@ export const TOURS = [
       },
       {
         title: '舌骨与喉软骨',
-        select: 'thyroid_cartilage', view: 'front', clip: 'none', requires: ['thyroid_cartilage', 'hyoid'],
-        text: '<b>舌骨</b>约平 C3，<b>甲状软骨</b>约平 C4–C5，<b>环状软骨</b>约平 C6，后者是喉与气管、咽与食管的分界。这些骨性标志可以帮助确定颈部横断层面的高度。',
+        select: 'hyoid', view: 'front', clip: 'none',
+        text: '<b>舌骨</b>约平 C3，<b>甲状软骨</b>约平 C4–C5，<b>环状软骨</b>约平 C6，后者是喉与气管、咽与食管的分界。这些骨性标志可以帮助确定颈部横断层面的高度。<br><br>本步定位舌骨。本例甲状软骨的自动分割标注不完整，无法展示完整形态。',
       },
     ],
   },
@@ -798,7 +798,7 @@ export const TOURS = [
       {
         title: '颈内动脉与颈内静脉',
         wl: '软组织', select: 'internal_carotid_artery_left', clip: 'none', view: 'front',
-        only: ['internal_carotid_artery_left', 'internal_carotid_artery_right', 'internal_jugular_vein_left', 'internal_jugular_vein_right', 'skull', 'mandible', 'vertebrae_C1', 'vertebrae_C2', 'vertebrae_C3', 'vertebrae_C4', 'vertebrae_C5', 'hyoid', 'thyroid_cartilage'],
+        only: ['internal_carotid_artery_left', 'internal_carotid_artery_right', 'internal_jugular_vein_left', 'internal_jugular_vein_right', 'skull', 'mandible', 'vertebrae_C1', 'vertebrae_C2', 'vertebrae_C3', 'vertebrae_C4', 'vertebrae_C5', 'hyoid'],
         requires: ['internal_carotid_artery_left', 'internal_jugular_vein_left'],
         text: '<b>颈动脉鞘</b>内：<b>颈内动脉</b>居内侧、<b>颈内静脉</b>居外侧，迷走神经位于两者后方。颈内动脉在颈部没有分支，经颅底颈动脉管入颅。',
       },
