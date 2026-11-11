@@ -15,6 +15,7 @@
 //   overlay        标签叠加透明度 0–1（0 = 只看原始灰度图像）；导览结束后恢复
 //   probe          在面板中列出这些结构的实测中位数（CT 为 HU，MRI 为当前序列的相对信号）
 //   （路线级）cases  仅在这些病例中出现（讲解中引用了具体病例的实测值时使用）
+//   next           { case, tour, label } 在本步显示"继续"按钮，切换到另一病例的导览（用于跨病例对比）
 //   lesson         附带"读片手册"中对应章节的链接（章节 id）
 
 export const TOURS = [
@@ -135,6 +136,92 @@ export const TOURS = [
         title: '和 CT 对照',
         overlay: 0.35, select: 'kidney_left', clip: 'coronal', view: 'front', lesson: 'compare',
         text: '可以切换到 CT 病例对照：CT 对<b>骨骼、肺、钙化、急性出血</b>更敏感、扫描快；MRI 无电离辐射、<b>软组织对比更好</b>，能区分脂肪、水、出血、纤维组织等成分，在肝脏局灶病变、胰胆管（MRCP）、盆腔、神经系统和关节中优势明显。',
+      },
+    ],
+  },
+  // ------------- 肾的三个增强期相（跨病例，依次切换） -------------
+  {
+    id: 'kidney-phase-1',
+    cases: ['s1421'],
+    title: '肾的增强期相 ①：皮髓质期',
+    en: 'Renal phases 1/3: corticomedullary',
+    desc: '三个病例连起来看：皮髓质期 → 肾实质期 → 排泄期。本病例为第一站。',
+    steps: [
+      {
+        title: '动脉期：皮质先亮',
+        select: 'kidney_left', wl: '血管窗', overlay: 0, clip: 'coronal', view: 'front', only: 'all', lesson: 'uro',
+        requires: ['kidney_left', 'aorta'],
+        probe: ['aorta', 'kidney_left', 'portal_vein_and_splenic_vein', 'liver', 'urinary_bladder'],
+        text: '注射造影剂后约 <b>25 ~ 40 秒</b>，造影剂首先到达血供最丰富的<b>肾皮质</b>，髓质还来不及强化。冠状位上可以看到：<b>肾周边一圈亮的皮质</b>，以及向内伸入的肾柱，包绕着<b>较暗的锥形髓质（肾锥体）</b>。<br><br>同时看下表：<b>主动脉 500 多 HU</b>，而门静脉不到 100 HU——这是典型的<b>动脉期</b>。',
+      },
+      {
+        title: '皮质与髓质：自己测一测',
+        select: 'kidney_right', clip: 'axial', view: 'top',
+        text: '把鼠标分别放在肾皮质（外周亮环）和髓质（内部暗区）上，比较提示框中的 CT 值：本例皮质约 <b>250 ~ 300 HU</b>，髓质只有约 <b>100 ~ 150 HU</b>。<br><br><b>用途</b>：评估肾动脉、富血供肿瘤（如透明细胞癌）的强化程度。<b>陷阱</b>：较暗的髓质可能掩盖或"假装"成小肿瘤，因此不能只看这一期。',
+      },
+      {
+        title: '膀胱里为什么已经有造影剂？',
+        select: 'urinary_bladder', wl: '软组织', clip: 'sagittal', view: 'left',
+        probe: ['urinary_bladder'],
+        text: '动脉期才过了几十秒，这次注射的造影剂不可能已经排到膀胱。本例膀胱下半部分是浓造影剂（约 900 HU 以上），上方是尿液，形成液-液平面——最可能来自<b>之前另一次增强检查</b>残留的造影剂（病史不详，属推测）。<br><br><b>启示</b>：判断期相要看<b>血管和肾实质</b>，不能只看膀胱亮不亮。',
+      },
+      {
+        title: '下一站：肾实质期',
+        select: 'kidney_left', clip: 'coronal', view: 'front', overlay: 0,
+        next: { case: 's0344', tour: 'kidney-phase-2', label: '肾实质期（切换病例）' },
+        text: '记住皮质和髓质这种"一亮一暗"的对比。点击下方按钮，切换到另一例在<b>门静脉期</b>扫描的 CT，看看大约一分钟之后肾会变成什么样。',
+      },
+    ],
+  },
+  {
+    id: 'kidney-phase-2',
+    cases: ['s0344'],
+    title: '肾的增强期相 ②：肾实质期',
+    en: 'Renal phases 2/3: nephrographic',
+    desc: '门静脉期 / 肾实质期：皮髓质均匀强化，最适合发现肾肿块。',
+    steps: [
+      {
+        title: '皮髓质"融"成一片',
+        select: 'kidney_left', wl: '软组织', overlay: 0, clip: 'coronal', view: 'front', only: 'all', lesson: 'uro',
+        probe: ['aorta', 'kidney_left', 'portal_vein_and_splenic_vein', 'liver', 'urinary_bladder'],
+        text: '注射后约 <b>80 ~ 120 秒</b>，造影剂进入肾小管，髓质也强化起来，<b>皮质和髓质密度趋于一致</b>，整个肾实质均匀强化。这一期称为<b>肾实质期（肾图期）</b>，时间上与腹部常规的<b>门静脉期</b>大致重合。<br><br>对比下表与上一个病例：主动脉已降到约 100 HU，与门静脉接近；膀胱尿液仍是水样密度——造影剂还没排出来。',
+      },
+      {
+        title: '为什么这一期最适合找肿瘤？',
+        select: 'kidney_right', clip: 'axial', view: 'top',
+        text: '肾实质均匀，任何<b>不强化或强化程度不同</b>的病灶都会显得很突出，因此肾实质期是<b>检出肾肿块最敏感</b>的一期。皮髓质期里髓质本来就暗，小肿瘤容易混在其中被漏掉。<br><br>临床上肾肿块的标准 CT 方案通常包括：平扫 + 皮髓质期 + 肾实质期（必要时加排泄期）。',
+      },
+      {
+        title: '下一站：排泄期',
+        select: 'kidney_left', clip: 'coronal', view: 'front',
+        next: { case: 'uro_s0329', tour: 'kidney-phase-3', label: '排泄期（切换病例）' },
+        text: '再等几分钟，造影剂会被滤过进入集合系统。点击下方按钮，切换到排泄期病例。',
+      },
+    ],
+  },
+  {
+    id: 'kidney-phase-3',
+    cases: ['uro_s0329'],
+    title: '肾的增强期相 ③：排泄期',
+    en: 'Renal phases 3/3: excretory',
+    desc: '造影剂排入肾盏、肾盂、输尿管和膀胱；三期总结。',
+    steps: [
+      {
+        title: '集合系统被充盈',
+        select: 'renal_pelvis_left', wl: '尿路窗', overlay: 0, clip: 'coronal', view: 'front', only: 'all', lesson: 'uro',
+        requires: ['renal_pelvis_left'],
+        probe: ['aorta', 'kidney_left', 'renal_pelvis_left', 'ureter_left', 'urinary_bladder'],
+        text: '注射后约 <b>5 ~ 15 分钟</b>：肾实质强化开始消退，<b>肾盏、肾盂、输尿管</b>被高密度造影剂充盈，膀胱背侧出现造影剂分层。主动脉降到约 80 HU。<br><br>这一期用来观察<b>尿路腔内</b>：充盈缺损（尿路上皮肿瘤、结石、血块）、狭窄、扩张和尿漏。',
+      },
+      {
+        title: '三期总结',
+        select: 'kidney_left', wl: '软组织', overlay: 0.35, clip: 'none',
+        next: { case: 'uro_s0329', tour: 'uro-ctu', label: '沿尿路走一遍（排泄期导览）' },
+        text: '<table class="t-tbl"><tr><th>期相</th><th>时间</th><th>主动脉</th><th>肾</th><th>尿路</th></tr>' +
+          '<tr><td>皮髓质期</td><td>25 ~ 40 s</td><td>很亮</td><td>皮质亮、髓质暗</td><td>不显影</td></tr>' +
+          '<tr><td>肾实质期</td><td>80 ~ 120 s</td><td>中等</td><td>均匀强化</td><td>不显影</td></tr>' +
+          '<tr><td>排泄期</td><td>5 ~ 15 min</td><td>减低</td><td>强化消退</td><td>充盈</td></tr></table>' +
+          '读片时先问：<b>造影剂走到哪里了？</b>看主动脉、门静脉、肾皮髓质和集合系统，就能判断期相，进而知道这一期适合看什么、可能漏掉什么。',
       },
     ],
   },
@@ -838,12 +925,14 @@ export class TourPlayer {
       <div class="q-acts">
         <button data-act="prev" ${this.i === 0 ? 'disabled' : ''}>← 上一步</button>
         ${this.i + 1 < n ? '<button class="q-primary" data-act="next">下一步 →</button>'
+          : s.next && api.hasCase?.(s.next.case) ? `<button class="q-primary" data-act="nextcase">继续：${esc(s.next.label)} →</button>`
           : '<button class="q-primary" data-act="done">完成，返回列表</button>'}
       </div>`;
     p.querySelector('.q-x').onclick = () => this.exit();
     p.querySelector('[data-act=prev]').onclick = () => this.go(-1);
     p.querySelector('.t-lesson')?.addEventListener('click', () => api.openLesson?.(s.lesson));
     p.querySelector('[data-act=next]')?.addEventListener('click', () => this.go(1));
+    p.querySelector('[data-act=nextcase]')?.addEventListener('click', () => api.runTour(s.next.case, s.next.tour));
     p.querySelector('[data-act=done]')?.addEventListener('click', () => { api.setVisible(null); api.setClip('none'); this.renderList(); });
   }
 

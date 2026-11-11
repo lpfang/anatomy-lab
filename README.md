@@ -58,6 +58,8 @@ uv venv .venv && uv pip install --python .venv/bin/python remotezip nibabel nump
 .venv/bin/python pipeline/prepare_headct.py fetch s0329             # 排泄期 CT（肾盂、输尿管由造影剂阈值提取）
 .venv/bin/python pipeline/prepare_uroct.py s0329
 .venv/bin/python pipeline/build_case.py data/raw/uroct/s0329 uro_s0329
+.venv/bin/python pipeline/prepare_headct.py fetch s1421             # 动脉期 / 肾皮髓质期 CT（描述写在病例目录的 info.json 中）
+.venv/bin/python pipeline/build_case.py data/raw/ctfull/s1421 s1421
 .venv/bin/python pipeline/fetch_case.py --mri s0273                 # 前列腺 MRI（三维 T2），描述写在病例目录的 info.json 中
 .venv/bin/python pipeline/build_case.py data/raw/mri/Totalsegmentator_dataset_v300/s0273 mr_s0273
 cd web && npm install && npm run dev      # http://localhost:5178

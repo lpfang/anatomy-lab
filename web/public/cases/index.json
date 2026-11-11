@@ -25,6 +25,12 @@
   "default": true
  },
  {
+  "id": "s1421",
+  "modality": "CT",
+  "desc": "男 69 岁 · 腹盆 CT 动脉期（肾皮髓质期）",
+  "structures": 88
+ },
+ {
   "id": "uro_s0329",
   "modality": "CT",
   "desc": "男 46 岁 · 腹盆 CT 排泄期（尿路造影）",

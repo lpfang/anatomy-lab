@@ -90,7 +90,7 @@ export const LESSONS = [
 <li><b>延迟期</b>（3 ~ 5 分钟以后）：造影剂进入肾盂、输尿管和膀胱。</li>
 </ul>
 <p class="tip">在本平台任意切片上移动鼠标，提示框会显示该点的 CT 值。试着测一下皮下脂肪、胆囊和骨皮质。</p>`,
-    demos: [{ case: 's0344', tour: 'ct-basics', label: 'CT 读片入门（实测 CT 值）' }],
+    demos: [{ case: 's0344', tour: 'ct-basics', label: 'CT 读片入门（实测 CT 值）' }, { case: 's1421', tour: 'kidney-phase-1', label: '肾的三个增强期相' }],
   },
   {
     id: 'window', group: 'CT', title: '窗宽与窗位',
@@ -295,7 +295,7 @@ export const LESSONS = [
 <li><b>输尿管的三个生理狭窄</b>：肾盂输尿管连接部、跨越髂血管处、膀胱壁内段（输尿管膀胱连接部），是结石最易嵌顿的部位。</li>
 <li><b>前列腺分区</b>：CT 上只能看大小和钙化；MRI T2 上<b>外周带呈高信号</b>，约 70% 的前列腺癌发生于此，表现为外周带内的低信号灶。良性增生主要发生于<b>移行带</b>。</li>
 </ul>`,
-    demos: [{ case: 's0344', tour: 'uro-ct', label: '泌尿系统 CT（门静脉期）' }, { case: 'uro_s0329', tour: 'uro-ctu', label: '排泄期 CT：尿路全程' }, { case: 'mr_s0273', tour: 'prostate-mri', label: '前列腺 MRI' }],
+    demos: [{ case: 's0344', tour: 'uro-ct', label: '泌尿系统 CT（门静脉期）' }, { case: 's1421', tour: 'kidney-phase-1', label: '肾的三个增强期相' }, { case: 'uro_s0329', tour: 'uro-ctu', label: '排泄期 CT：尿路全程' }, { case: 'mr_s0273', tour: 'prostate-mri', label: '前列腺 MRI' }],
   },
 ];
 

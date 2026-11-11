@@ -374,6 +374,8 @@ async function main() {
     setClip: (mode) => { $('#opt-clip').value = mode; view3d.setClip(mode); },
     setOverlay: (v) => { state.overlay = v; $('#opt-overlay').value = Math.round(v * 100); invalidateAll(); },
     openLesson: (id) => handbook.open(id),
+    runTour: (c, t) => runTour(c, t),
+    hasCase: (id) => id === CASE || list.some((x) => x.id === id),
     setView: (d) => view3d.resetView(new THREE.Vector3(...d)),
     onEnter: () => {
       overlay0 = state.overlay;
@@ -404,18 +406,20 @@ async function main() {
   });
 
   // ---------------- 读片手册 ----------------
+  // 在指定病例中启动导览；病例不同时带参数跳转页面
+  function runTour(caseId, tourId) {
+    if (caseId !== CASE) {
+      const u = new URL(location.href);
+      u.searchParams.set('case', caseId); u.searchParams.set('tour', tourId);
+      location.href = u.toString();
+      return;
+    }
+    quiz.exit(); tour.enter(); tour.startById(tourId);
+  }
   const handbook = new Handbook({
     currentCase: CASE,
     hasCase: (id) => id === CASE || list.some((x) => x.id === id),
-    runTour: (caseId, tourId) => {
-      if (caseId !== CASE) {
-        const u = new URL(location.href);
-        u.searchParams.set('case', caseId); u.searchParams.set('tour', tourId);
-        location.href = u.toString();
-        return;
-      }
-      quiz.exit(); tour.enter(); tour.startById(tourId);
-    },
+    runTour,
   });
   $('#btn-learn').addEventListener('click', () => handbook.open());
   const tourParam = new URLSearchParams(location.search).get('tour');
