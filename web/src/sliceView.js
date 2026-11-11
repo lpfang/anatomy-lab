@@ -170,7 +170,8 @@ export class SliceView {
     c.addEventListener('pointerdown', (e) => {
       c.setPointerCapture(e.pointerId);
       sx = e.offsetX; sy = e.offsetY; moved = false;
-      if (e.button === 2) { mode = 'wl'; wl0 = [...this.state.wl]; }
+      // 右键拖动调窗；Mac 触控板难以按住右键拖动，因此 Ctrl / ⌘ + 左键拖动等效
+      if (e.button === 2 || (e.button === 0 && (e.ctrlKey || e.metaKey))) { mode = 'wl'; wl0 = [...this.state.wl]; }
       else if (e.button === 1 || (e.button === 0 && e.altKey)) { mode = 'pan'; wl0 = [...this.pan]; }
       else if (e.button === 0) { mode = 'cursor'; this.state.setCursor(this.screenToVoxel(e.offsetX, e.offsetY), { from: this.plane }); }
     });
