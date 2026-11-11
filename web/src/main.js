@@ -335,8 +335,9 @@ async function main() {
   document.querySelectorAll('.planes input').forEach((cb) => cb.addEventListener('change', () => {
     state.showPlanes[cb.dataset.plane] = cb.checked; view3d?.syncSlices();
   }));
-  $('#opt-clip').addEventListener('change', (e) => with3d((v) => v.setClip(e.target.value)));
-  $('#btn-reset').addEventListener('click', () => with3d((v) => v.resetView()));
+  // 3D 就绪前改剖切：剖切自带相机方向，是更新的相机意图，丢弃之前导览记下的视角
+  $('#opt-clip').addEventListener('change', (e) => { if (ready3d) view3d.setClip(e.target.value); else pendingView = null; });
+  $('#btn-reset').addEventListener('click', () => { if (ready3d) view3d.resetView(); else pendingView = null; });
   window.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT') return;
     if (e.key === 'Escape') state.select(0, { from: 'key' });
@@ -418,7 +419,7 @@ async function main() {
       for (const s of meta.structures) setHidden(s.id, !!keys && !keys.has(s.key));
       with3d((v) => v.resetView());
     },
-    setClip: (mode) => { $('#opt-clip').value = mode; with3d((v) => v.setClip(mode)); },
+    setClip: (mode) => { $('#opt-clip').value = mode; if (ready3d) view3d.setClip(mode); else pendingView = null; },
     setOverlay: (v) => { state.overlay = v; $('#opt-overlay').value = Math.round(v * 100); invalidateAll(); },
     openLesson: (id) => handbook.open(id),
     runTour: (c, t) => runTour(c, t),

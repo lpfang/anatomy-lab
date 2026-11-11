@@ -861,6 +861,7 @@ export class TourPlayer {
 
   renderList() {
     this.tour = null;
+    this._token = (this._token || 0) + 1;   // 与退出导览相同：让仍在等待（如序列下载）的旧步骤失效
     const tours = this.available();
     const p = this.api.panel;
     p.innerHTML = `
