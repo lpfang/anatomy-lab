@@ -26,7 +26,7 @@ async function main() {
   // 病例列表
   let cases = [];
   try { cases = await (await fetch(`./cases/index.json?v=${V}`)).json(); } catch { /* 单病例部署时可没有 index.json */ }
-  const CASE = new URLSearchParams(location.search).get('case') || cases.find((c) => c.modality === 'CT')?.id || cases[0]?.id || 's0344';
+  const CASE = new URLSearchParams(location.search).get('case') || cases.find((c) => c.default)?.id || cases.find((c) => c.modality === 'CT')?.id || cases[0]?.id || 's0344';
   const vol = await loadCase(`./cases/${CASE}`, (p) => { bar.style.width = `${(p * 100).toFixed(0)}%`; });
   const { meta } = vol;
   const unit = meta.unit || 'HU';

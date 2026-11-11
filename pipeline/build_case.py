@@ -251,6 +251,9 @@ def update_index(meta: dict):
     cases = json.loads(p.read_text()) if p.exists() else []
     entry = {"id": meta["caseId"], "modality": meta["modality"],
              "desc": meta["caseInfo"].get("desc", ""), "structures": len(meta["structures"])}
+    old = next((c for c in cases if c["id"] == entry["id"]), {})
+    if old.get("default"):
+        entry["default"] = True  # 保留手工指定的默认病例
     cases = [c for c in cases if c["id"] != entry["id"]] + [entry]
     cases.sort(key=lambda c: (c["modality"], c["id"]))
     p.write_text(json.dumps(cases, ensure_ascii=False, indent=1))

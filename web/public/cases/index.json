@@ -15,7 +15,8 @@
   "id": "s0344",
   "modality": "CT",
   "desc": "男 57 岁 · 胸腹盆 CT · 含炎症（腹部，未标注）",
-  "structures": 107
+  "structures": 107,
+  "default": true
  },
  {
   "id": "mr_s0646",
