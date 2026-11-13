@@ -54,6 +54,7 @@ export class SliceView {
     const su = strides[p.u], sv = strides[p.v], base = s * strides[p.n];
     const showOverlay = a > 0;
     const hidden = state.hiddenIds;
+    const isolated = state.isolatedSliceLabel;
     for (let r = 0; r < Nv; r++) {
       const vv = Nv - 1 - r;
       let idx = base + vv * sv + (Nu - 1) * su;
@@ -61,7 +62,7 @@ export class SliceView {
       for (let c = 0; c < Nu; c++, idx -= su, o += 4) {
         const g = lut[ct[idx] + 1024];
         const L = labels[idx];
-        if (L && showOverlay && !hidden.has(L)) {
+        if (L && showOverlay && (!isolated || L === isolated) && !hidden.has(L)) {
           const k = L === sel ? aSel : a, k1 = 1 - k;
           data[o] = g * k1 + colors[L * 3] * k;
           data[o + 1] = g * k1 + colors[L * 3 + 1] * k;
@@ -73,7 +74,7 @@ export class SliceView {
       }
     }
     // 选中结构描边（四邻域边界）；结构被隐藏时不描边，与彩色叠加一致
-    if (sel && state.outline && !hidden.has(sel)) {
+    if (sel && state.outline && (!isolated || sel === isolated) && !hidden.has(sel)) {
       for (let r = 0; r < Nv; r++) {
         const vv = Nv - 1 - r;
         for (let c = 0; c < Nu; c++) {
@@ -146,7 +147,7 @@ export class SliceView {
     const sp = this.vol.meta.spacing[this.p.n];
     const w = this.vol.toWorld(cur);
     const mm = [w.x, w.y, w.z][this.p.n];
-    this.posEl.textContent = `层 ${this.slice + 1} / ${this.Nn}  ·  ${mm.toFixed(1)} mm  ·  层厚 ${+sp.toFixed(2)} mm  ·  缩放 ${this.zoom.toFixed(1)}×  ·  W ${this.state.wl[0]} / L ${this.state.wl[1]}`;
+    this.posEl.textContent = `层 ${this.slice + 1} / ${this.Nn}  ·  ${mm.toFixed(1)} mm  ·  层间距 ${+sp.toFixed(2)} mm  ·  缩放 ${this.zoom.toFixed(1)}×  ·  W ${this.state.wl[0]} / L ${this.state.wl[1]}`;
   }
 
   _bind() {

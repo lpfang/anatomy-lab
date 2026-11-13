@@ -59,6 +59,7 @@ async function main() {
     ghost: true,
     showPlanes: { axial: true, coronal: false, sagittal: false },
     hiddenIds: new Set(),
+    isolatedSliceLabel: 0,
     hideCrosshair: false,
     quiz: null,
     setCursor(v, opts = {}) {
@@ -86,6 +87,7 @@ async function main() {
         this.setCursor(v);
       }
       if (changed) {
+        this.isolatedSliceLabel = 0;
         invalidateAll();
         with3d((v) => v.applyAppearance());
         renderCard();
@@ -296,6 +298,7 @@ async function main() {
     const sys = meta.systems[s.system];
     // 没有 3D 网格的结构（标注过小或被扫描范围截断）：只保留二维标签，卡片中注明
     const partialLabel = s.hasMesh === false;
+    const isolated = partialLabel ? state.isolatedSliceLabel === s.id : isIsolated(s.id);
     const volume = s.volumeMl < 0.05 ? '<0.1' : s.volumeMl.toLocaleString();
     card.className = 'card';
     card.innerHTML = `
@@ -311,13 +314,18 @@ async function main() {
       ${s.desc ? `<p class="desc">${esc(s.desc)}</p>` : ''}
       <div class="acts">
         <button data-act="locate">定位到代表层面</button>
-        <button data-act="isolate">${isIsolated(s.id) ? '显示全部' : '仅显示此结构'}</button>
+        <button data-act="isolate">${isolated ? '显示全部' : (partialLabel ? '仅显示此二维标注' : '仅显示此结构')}</button>
         <button data-act="hide">${state.hiddenIds.has(s.id) ? '显示' : '隐藏'}</button>
       </div>`;
     card.querySelector('[data-act=locate]').onclick = () => state.setCursor(anchorOf(s));
     card.querySelector('[data-act=isolate]').onclick = () => {
-      const iso = isIsolated(s.id);
-      for (const o of meta.structures) setHidden(o.id, iso ? false : o.id !== s.id);
+      if (partialLabel) {
+        state.isolatedSliceLabel = isolated ? 0 : s.id;
+        if (!isolated && state.hiddenIds.has(s.id)) setHidden(s.id, false);
+        invalidateAll();
+      } else {
+        for (const o of meta.structures) setHidden(o.id, isolated ? false : o.id !== s.id);
+      }
       renderCard();
     };
     card.querySelector('[data-act=hide]').onclick = () => { setHidden(s.id, !state.hiddenIds.has(s.id)); renderCard(); };
@@ -367,6 +375,7 @@ async function main() {
       view3d.applyAppearance();
       view3d.setClip($('#opt-clip').value);
       if (pendingView) { view3d.resetView(new THREE.Vector3(...pendingView)); pendingView = null; }
+      if (quiz.active && quiz.phase === 'setup') quiz.renderSetup();   // 3D 就绪后开放"看 3D 找断层"
       invalidateAll();
     } catch (err) {
       console.error(err);
@@ -386,9 +395,12 @@ async function main() {
     panel: $('#quiz'),
     refresh: () => { invalidateAll(); with3d((v) => v.applyAppearance()); },
     focus3d: (id) => with3d((v) => (id ? v.focusOn(id) : v.resetView())),
+    has3d: () => ready3d,
     getClip: () => $('#opt-clip').value,
     setClip: (mode) => { $('#opt-clip').value = mode; if (ready3d) view3d.setClip(mode); else pendingView = null; },
     onEnter: () => {
+      state.isolatedSliceLabel = 0;
+      invalidateAll();
       $('#quiz').hidden = false; $('#card').hidden = true; $('.overlay-ctl').hidden = true;
       // 测验期间禁用剖切，避免题目要求观察的 3D 目标被裁掉；退出后恢复
       const clipSel = $('#opt-clip');
@@ -420,6 +432,7 @@ async function main() {
     panel: $('#tour'),
     select: (key) => state.select(vol.byKey.get(key).id, { from: 'tour' }),
     axialTo: (k) => state.setCursor([state.cursor[0], state.cursor[1], k]),
+    axisTo: (axis, k) => { const c = [...state.cursor]; c[axis] = k; state.setCursor(c); },
     setSequence,
     setPreset: (name) => {
       const i = WL_PRESETS.findIndex((p) => p.zh === name);
@@ -439,6 +452,8 @@ async function main() {
       if (ready3d) view3d.resetView(new THREE.Vector3(...d)); else pendingView = d;
     },
     onEnter: () => {
+      state.isolatedSliceLabel = 0;
+      invalidateAll();
       saved = { overlay: state.overlay, hidden: new Set(state.hiddenIds), clip: $('#opt-clip').value, planes: { ...state.showPlanes } };
       $('#tour').hidden = false; $('#card').hidden = true;
       tourBtn.classList.add('on'); tourBtn.textContent = '退出导览';

@@ -17,13 +17,16 @@ const PLANES = new Set(['axial', 'coronal', 'sagittal']);
 const SLICE_AXES = { axial: { u: 0, v: 1 }, coronal: { u: 0, v: 2 }, sagittal: { u: 1, v: 2 } };
 const DEFAULT_SYSTEMS = ['digestive', 'respiratory', 'cardio', 'urogenital', 'endocrine', 'nervous'];
 const MIN_ML = 3; // 体积过小的结构不出题（太难点中）
+// 被扫描上/下缘截断的结构：椎骨、肋骨要靠完整形态和计数辨认，截断后不出题；
+// 其他结构截断后只剩小碎片（< EDGE_MIN_ML）时也不出题。较大的截断器官（如肺下叶、股骨）仍可辨认，保留。
+const EDGE_MIN_ML = 15;
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const shuffle = (a) => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
 export class Quiz {
-  constructor({ vol, state, anchorOf, refresh, focus3d, panel, onEnter, onExit, getClip, setClip }) {
-    Object.assign(this, { vol, state, anchorOf, refresh, focus3d, panel, onEnter, onExit, getClip, setClip });
+  constructor({ vol, state, anchorOf, refresh, focus3d, has3d, panel, onEnter, onExit, getClip, setClip }) {
+    Object.assign(this, { vol, state, anchorOf, refresh, focus3d, has3d, panel, onEnter, onExit, getClip, setClip });
     this.active = false;
     const present = new Set(vol.meta.structures.map((s) => s.system));
     const def = DEFAULT_SYSTEMS.filter((k) => present.has(k));
@@ -67,13 +70,15 @@ export class Quiz {
     this._lockView(false);
     const { meta } = this.vol;
     const sysCounts = {};
-    for (const s of meta.structures) if (s.volumeMl >= MIN_ML) sysCounts[s.system] = (sysCounts[s.system] || 0) + 1;
+    for (const s of meta.structures) if (this._eligible(s)) sysCounts[s.system] = (sysCounts[s.system] || 0) + 1;
+    // "看 3D 找断层"依赖实际加载出的 3D 模型；WebGL 不可用或模型未就绪时不开放
+    const no3d = !this.has3d?.();
     this.panel.innerHTML = `
       <div class="q-head"><h2>测验模式 <small>Quiz</small></h2><button class="q-x" title="退出测验">✕</button></div>
       <div class="q-sec">题型</div>
       ${Object.entries(TYPES).map(([k, t]) => `
-        <label class="q-opt"><input type="checkbox" name="type" value="${k}" ${this.cfg.types.has(k) ? 'checked' : ''}/>
-          ${t.zh} <span class="en">${t.en}</span></label>`).join('')}
+        <label class="q-opt${k === 'from3d' && no3d ? ' off' : ''}"><input type="checkbox" name="type" value="${k}" ${this.cfg.types.has(k) && !(k === 'from3d' && no3d) ? 'checked' : ''} ${k === 'from3d' && no3d ? 'disabled' : ''}/>
+          ${t.zh} <span class="en">${t.en}</span>${k === 'from3d' && no3d ? ' <span class="en">（3D 模型未就绪）</span>' : ''}</label>`).join('')}
       <div class="q-sec">范围（系统）</div>
       <div class="q-sys">
       ${Object.entries(meta.systems).filter(([k]) => sysCounts[k]).map(([k, v]) => `
@@ -92,6 +97,7 @@ export class Quiz {
     });
     p.querySelector('[data-act=start]').onclick = () => {
       this.cfg.types = new Set([...p.querySelectorAll('input[name=type]:checked')].map((i) => i.value));
+      if (!this.has3d?.()) this.cfg.types.delete('from3d');
       this.cfg.systems = new Set([...p.querySelectorAll('input[name=sys]:checked')].map((i) => i.value));
       const pool = this._pool();
       const note = p.querySelector('.q-note');
@@ -102,7 +108,18 @@ export class Quiz {
   }
 
   _pool() {
-    return this.vol.meta.structures.filter((s) => this.cfg.systems.has(s.system) && s.volumeMl >= MIN_ML && s.hasMesh && !s.key.includes('cyst'));
+    return this.vol.meta.structures.filter((s) => this.cfg.systems.has(s.system) && this._eligible(s));
+  }
+
+  // 出题资格：设置页的计数与实际题库共用这一套筛选
+  _eligible(s) {
+    return s.volumeMl >= MIN_ML && s.hasMesh && !s.key.includes('cyst') && !this._truncated(s);
+  }
+
+  _truncated(s) {
+    const z = s.bboxVoxel?.[2];
+    if (!z || (z[0] > 0 && z[1] < this.vol.nz - 1)) return false;
+    return /^(vertebrae_|rib_)/.test(s.key) || s.volumeMl < EDGE_MIN_ML;
   }
 
   // ---------------- 出题 ----------------
@@ -212,13 +229,16 @@ export class Quiz {
     return true;
   }
 
-  // 点击容差：只在用户点击的那一层切片内搜索，点击处 3 mm 以内有目标结构即算对。
+  // 判分：点击处已有结构标签时以标签为准（点中相邻结构就算错，如找尾状核点到侧脑室）；
+  // 只有点在未标注区域（标签 0）时，才在同一层切片内搜索 3 mm 容差，宽容边缘处的轻微点偏。
   // 容差按体素间距换算成毫米，不同分辨率的病例判定一致；不跨层，避免相邻层的结构被判为点中。
   _hit(id, v, plane) {
     if (!v) return false;
+    const here = this.vol.labelAt(...v.map(Math.round));
+    if (here) return here === id;
     const TOL = 3;
     const p = SLICE_AXES[plane];
-    if (!p) return this.vol.labelAt(...v) === id;
+    if (!p) return false;
     const sp = this.vol.meta.spacing;
     const ru = Math.floor(TOL / sp[p.u]), rv = Math.floor(TOL / sp[p.v]);
     const c = v.map(Math.round);
