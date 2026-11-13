@@ -978,6 +978,15 @@ export class TourPlayer {
     }
     const fixed = s.slices?.[api.vol.meta.caseId];
     if (fixed) for (const [ax, k] of Object.entries(fixed)) api.axisTo({ axial: 2, coronal: 1, sagittal: 0 }[ax], k);
+    // 定位层面确定后，把光标移到目标结构在该层截面的中心，另两个平面随之穿过目标；
+    // 否则它们停在 select 结构自身的代表位置（如分叉步骤的冠状位会停在胸主动脉）
+    if (at) {
+      const axis = { axial: 2, coronal: 1, sagittal: 0 }[at.axis || 'axial'];
+      const k = Math.round(api.state.cursor[axis]), w = at.with || [];
+      // 优先以 select 结构为中心（at.key 有时只是定位参照，如女性膀胱步骤的髋骨内缘）；select 不在该层时用 at.key
+      const c = (s.select && this.sliceCenter([s.select, ...w], axis, k)) || this.sliceCenter([at.key, ...w], axis, k);
+      if (c) for (const ax of [0, 1, 2]) if (ax !== axis) api.axisTo(ax, c[ax]);
+    }
     if (s.overlay != null) api.setOverlay(s.overlay);
     const spotAvail = (!!s.select || Array.isArray(s.spotlight)) && s.spotlight !== false;
     api.setSpotlight?.(spotAvail && this.spotOn !== false, [s.select, ...(Array.isArray(s.spotlight) ? s.spotlight : [])].filter(Boolean));
@@ -1064,6 +1073,31 @@ export class TourPlayer {
 
   // 肾门层：从肾截面质心朝 toward 结构（如主动脉）方向 ±60° 发射射线，统计不再碰到肾标签的比例（肾门开口），
   // 取三层滑动平均最大的轴位（并列取中间）；没有开口层时返回 null
+  // 结构在某一层截面上的中心：各结构分别取截面质心再平均（让左右髂动脉之间、而不是面积大的一侧居中），
+  // 再取离该点最近、属于第一个结构（at.key）的体素（保证光标落在目标上）。该层没有这些结构时返回 null
+  sliceCenter(keys, axis, k) {
+    const vol = this.api.vol, dims = [vol.nx, vol.ny, vol.nz];
+    const ids = keys.map((key) => vol.byKey.get(key)?.id).filter(Boolean);
+    if (!ids.length) return null;
+    const [a1, a2] = [0, 1, 2].filter((x) => x !== axis);
+    const sums = new Map(ids.map((id) => [id, [0, 0, 0]]));
+    const p = [0, 0, 0]; p[axis] = k;
+    for (p[a2] = 0; p[a2] < dims[a2]; p[a2]++) for (p[a1] = 0; p[a1] < dims[a1]; p[a1]++) {
+      const t = sums.get(vol.labels[vol.idx(p[0], p[1], p[2])]);
+      if (t) { t[0] += p[a1]; t[1] += p[a2]; t[2]++; }
+    }
+    const cs = [...sums.values()].filter((t) => t[2]);
+    if (!sums.get(ids[0])[2]) return null;
+    const m1 = cs.reduce((s, t) => s + t[0] / t[2], 0) / cs.length, m2 = cs.reduce((s, t) => s + t[1] / t[2], 0) / cs.length;
+    let best = null, bd = Infinity;
+    for (p[a2] = 0; p[a2] < dims[a2]; p[a2]++) for (p[a1] = 0; p[a1] < dims[a1]; p[a1]++) {
+      if (vol.labels[vol.idx(p[0], p[1], p[2])] !== ids[0]) continue;
+      const d = (p[a1] - m1) ** 2 + (p[a2] - m2) ** 2;
+      if (d < bd) { bd = d; best = [...p]; }
+    }
+    return best;
+  }
+
   hilumSlice(key, toward) {
     const { vol } = this.api;
     const st = vol.byKey.get(key), ref = vol.byKey.get(toward);
