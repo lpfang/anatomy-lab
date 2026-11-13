@@ -54,6 +54,7 @@ button, input { font: inherit; color: inherit; }
 .item.sel { background: #3a3220; outline: 1px solid var(--sel); }
 .item .zh { white-space: nowrap; }
 .item .en { color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.item.outspot { opacity: .35; cursor: not-allowed; }
 .item.hidden3d .zh, .item.hidden3d .en { opacity: .4; }
 .eye { background: none; border: 0; cursor: pointer; padding: 0 2px; opacity: .7; font-size: 12px; }
 .eye:hover { opacity: 1; }

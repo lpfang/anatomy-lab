@@ -58,6 +58,9 @@ export class SliceView {
     const hidden = state.hiddenIds;
     const isolated = state.isolatedSliceLabel;
     const spot = this.spot = this._spotlight(base, su, sv);
+    // 聚光灯开启时记录本层可操作（照亮范围内，或本层无目标时整层）的结构，供 3D / 结构树判断能否选中
+    const lit = this.litLabels = this.state.spotlight ? new Set() : null;
+    const litLim = spot ? ((1 + spot.out) / 2) ** 2 : Infinity;
     for (let r = 0; r < Nv; r++) {
       const vv = Nv - 1 - r;
       let idx = base + vv * sv + (Nu - 1) * su;
@@ -66,12 +69,13 @@ export class SliceView {
       for (let c = 0; c < Nu; c++, idx -= su, o += 4) {
         let g = lut[ct[idx] + 1024];
         let f = 1;
+        const L = labels[idx];
         if (spot) {
           const dx = (c - spot.cx) / spot.rx, d2 = dx * dx + dy * dy;
+          if (L && d2 <= litLim) lit.add(L);
           if (d2 > 1) f = d2 >= spot.out2 ? SPOT_DIM : 1 - (1 - SPOT_DIM) * (Math.sqrt(d2) - 1) / (spot.out - 1);
           g *= f;
-        }
-        const L = labels[idx];
+        } else if (L && lit) lit.add(L);
         if (L && showOverlay && (!isolated || L === isolated) && !hidden.has(L)) {
           const k = L === sel ? aSel : a, k1 = 1 - k, kf = k * f;
           data[o] = g * k1 + colors[L * 3] * kf;

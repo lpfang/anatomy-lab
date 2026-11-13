@@ -83,6 +83,11 @@ async function main() {
     },
     select(id, opts = {}) {
       if (this.quiz?.intercept(id, opts)) return;
+      // 导览聚光灯开启时，3D 与结构树也只能选中照亮范围内的结构（断层视图在 SliceView 中按位置拦截）
+      if (id && (opts.from === '3d' || opts.from === 'tree') && !inSpotlight(id)) {
+        if (opts.event) this.tooltip({ x: opts.event.clientX, y: opts.event.clientY, msg: '聚光灯外的结构：关闭导览面板中的"聚光灯"后可选' });
+        return;
+      }
       const changed = id !== this.selected;
       this.selected = id;
       if (id && opts.from !== 'axial' && opts.from !== 'coronal' && opts.from !== 'sagittal') {
@@ -99,6 +104,13 @@ async function main() {
     },
     tooltip(t) {
       const el = $('#tooltip');
+      clearTimeout(this._tipT);
+      if (t?.msg) {
+        el.hidden = false; el.innerHTML = `<span class="en">${esc(t.msg)}</span>`;
+        el.style.left = `${t.x + 14}px`; el.style.top = `${t.y + 12}px`;
+        this._tipT = setTimeout(() => { el.hidden = true; }, 2000);
+        return;
+      }
       const masked = t && this.quiz?.hideNames;
       if (!t || (!t.s && t.hu == null) || (masked && t.hu == null)) { el.hidden = true; return; }
       el.hidden = false;
@@ -141,6 +153,17 @@ async function main() {
   let pendingView = null;   // 导览在 3D 就绪前请求的相机方向
   // 3D 模型就绪后才执行（模型加载中或失败时，二维功能照常工作）
   const with3d = (fn) => { if (ready3d) fn(view3d); };
+  // 结构是否在任一断层视图的聚光灯照亮范围内（聚光灯关闭时恒为真）
+  function inSpotlight(id) {
+    if (!state.spotlight) return true;
+    return Object.values(views).some((sv) => {
+      if (sv.dirty || !sv.litLabels) { sv.renderSlice(); }
+      return sv.litLabels?.has(id);
+    });
+  }
+  function updateTreeSpot() {
+    for (const [id, el] of itemEls) el.classList.toggle('outspot', !inSpotlight(id));
+  }
   let pending = false;
   function invalidateAll() { for (const sv of Object.values(views)) sv.dirty = true; schedule(); }
   function schedule() {
@@ -148,7 +171,9 @@ async function main() {
     pending = true;
     requestAnimationFrame(() => {
       pending = false;
+      const redrawn = Object.values(views).some((sv) => sv.dirty);
       for (const sv of Object.values(views)) { sv.draw(sv.dirty); sv.dirty = false; }
+      if (redrawn) updateTreeSpot();
       view3d?.syncSlices();
       if (state.selected) updateCardCursor();
     });
@@ -254,7 +279,7 @@ async function main() {
         <span class="en">${esc(s.en)}</span><button class="eye" title="显示/隐藏">👁</button>`;
       it.addEventListener('click', (e) => {
         if (e.target.classList.contains('eye')) { setHidden(s.id, !state.hiddenIds.has(s.id)); return; }
-        state.select(s.id, { from: 'tree' });
+        state.select(s.id, { from: 'tree', event: e });
       });
       list.appendChild(it);
       itemEls.set(s.id, it);

@@ -258,7 +258,7 @@ export class View3D {
       // 交点沿视线方向推进 2mm，落到结构内部，再换算到体素坐标
       const inv = this.root.matrixWorld.clone().invert();
       const pRas = hit.point.clone().addScaledVector(hit.dir, 2).applyMatrix4(inv);
-      this.state.select(hit.id, { from: '3d', voxel: this.vol.toVoxel(pRas).toArray() });
+      this.state.select(hit.id, { from: '3d', voxel: this.vol.toVoxel(pRas).toArray(), event: e });
     });
     let hoverT = 0;
     dom.addEventListener('pointermove', (e) => {
