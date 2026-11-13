@@ -58,7 +58,8 @@ async function main() {
     outline: true,
     ghost: true,
     spotlight: false, // 导览中的聚光灯：压暗选中结构周围以外的区域
-    spotlightIds: new Set(), // 聚光灯额外照亮的结构 id（与选中结构合并）
+    spotlightIds: new Set(), // 聚光灯照亮的结构 id（导览本步所指结构）
+    spotlightMain: 0,        // 其中的主结构（本步 select）
     showPlanes: { axial: true, coronal: false, sagittal: false },
     hiddenIds: new Set(),
     isolatedSliceLabel: 0,
@@ -446,7 +447,10 @@ async function main() {
     },
     setClip: (mode) => { $('#opt-clip').value = mode; if (ready3d) view3d.setClip(mode); else pendingView = null; },
     setSpotlight: (on, keys) => {
-      if (keys) state.spotlightIds = new Set(keys.map((k) => vol.byKey.get(k)?.id).filter(Boolean));
+      if (keys) {
+        state.spotlightIds = new Set(keys.map((k) => vol.byKey.get(k)?.id).filter(Boolean));
+        state.spotlightMain = vol.byKey.get(keys[0])?.id || 0;
+      }
       state.spotlight = !!on; invalidateAll();
     },
     setOverlay: (v) => { state.overlay = v; $('#opt-overlay').value = Math.round(v * 100); invalidateAll(); },

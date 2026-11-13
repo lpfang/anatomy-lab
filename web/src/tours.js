@@ -25,8 +25,9 @@
 //   view           3D 视角 front / top / left / right / back
 //   requires       该步需要的结构（默认取 select / at.key）
 //   overlay        标签叠加透明度 0–1（0 = 只看原始灰度图像）；导览结束后恢复
-//   spotlight      聚光灯（默认开启：压暗选中结构周围以外的区域，学生可在面板中关闭）；false = 本步不用；
-//                  结构 key 数组 = 额外照亮这些结构（如分叉层面腹主动脉已分开，需照亮两侧髂动脉）
+//   spotlight      聚光灯（默认开启：压暗 select 结构周围以外的区域，范围外不能定位、点选；学生可在面板中关闭）；false = 本步不用；
+//                  结构 key 数组 = 同时照亮这些配角结构（只计入 select 结构附近 6 cm 内的部分；select 不在本层时全部计入，
+//                  如分叉层面腹主动脉已分开，照亮两侧髂动脉）
 //   probe          在面板中列出这些结构的实测中位数（CT 为 HU，MRI 为当前序列的相对信号）
 //   （路线级）cases  仅在这些病例中出现（讲解中引用了具体病例的实测值时使用）
 //   next           { case, tour, label } 在本步显示"继续"按钮，切换到另一病例的导览（用于跨病例对比）
@@ -54,7 +55,7 @@ export const TOURS = [
       },
       {
         title: '平扫还是增强？',
-        select: 'aorta', lesson: 'hu',
+        spotlight: false, select: 'aorta', lesson: 'hu',
         probe: ['aorta', 'portal_vein_and_splenic_vein', 'inferior_vena_cava', 'liver', 'iliopsoas_left'],
         text: '读片第一件事是确认<b>有没有打造影剂</b>。平扫时血液约 40 ~ 50 HU，与肌肉接近，血管和周围组织分不开。<br><br>看下表的主动脉：如果<b>明显高于肌肉</b>，是增强扫描的有力线索。但平扫血液的 CT 值也会随血红蛋白水平变化（贫血时偏低），所以要结合整体表现：门静脉、肾、脾等实质器官是否强化，以及扫描记录。<br><br>期相同样看整体：主动脉远高于门静脉、肾皮髓质分明，是<b>动脉期</b>的表现（典型动脉期主动脉常在 200 HU 以上，这是示例数值，不是判定阈值）；主动脉与门静脉接近、肝实质均匀强化，是<b>门静脉期</b>的表现。你来判断本例是哪一种。',
       },
@@ -117,7 +118,7 @@ export const TOURS = [
       },
       {
         title: '本平台尚未包含的序列',
-        overlay: 0.35, select: 'hippocampus_left', clip: 'coronal', lesson: 'mri-more',
+        spotlight: false, overlay: 0.35, select: 'hippocampus_left', clip: 'coronal', lesson: 'mri-more',
         text: '临床上还有很多重要序列：<b>FLAIR</b>（抑制脑脊液的 T2，脑室旁病变最清楚）、<b>DWI / ADC</b>（急性脑梗死数分钟即可在 DWI 上变亮）、<b>T1 增强</b>（血脑屏障破坏处强化）、<b>SWI</b>（出血、微出血、钙化）、<b>MRA</b>（不打药显示血管）。本病例是群体平均模板，没有这些序列的图像；它们的原理和信号特点见右上角 <b>读片入门</b> 手册。',
       },
     ],
@@ -222,7 +223,7 @@ export const TOURS = [
     steps: [
       {
         title: '集合系统被充盈',
-        select: 'renal_pelvis_left', wl: '尿路窗', overlay: 0, clip: 'coronal', view: 'front', only: 'all', lesson: 'uro',
+        spotlight: false, select: 'renal_pelvis_left', wl: '尿路窗', overlay: 0, clip: 'coronal', view: 'front', only: 'all', lesson: 'uro',
         requires: ['renal_pelvis_left'],
         probe: ['aorta', 'kidney_left', 'renal_pelvis_left', 'ureter_left', 'urinary_bladder'],
         text: '注射后约 <b>5 ~ 15 分钟</b>：肾实质强化开始消退，<b>肾盏、肾盂、输尿管</b>被高密度造影剂充盈，膀胱背侧出现造影剂分层。本例测得主动脉约 80 HU，左肾盂、左输尿管分别约 290 HU。<br><br>这一期用来观察<b>尿路腔内</b>：充盈缺损（尿路上皮肿瘤、结石、血块）、狭窄、扩张和尿漏。',
@@ -248,13 +249,13 @@ export const TOURS = [
       {
         title: '排泄期：尿路"亮"起来了',
         only: ['renal_pelvis_left', 'renal_pelvis_right', 'ureter_left', 'ureter_right', 'urinary_bladder', 'kidney_left', 'kidney_right', 'vertebrae_L1', 'vertebrae_L2', 'vertebrae_L3', 'vertebrae_L4', 'vertebrae_L5', 'sacrum', 'hip_left', 'hip_right'],
-        select: 'renal_pelvis_left', wl: '尿路窗', overlay: 0.35, clip: 'none', view: 'front', lesson: 'uro',
+        spotlight: false, select: 'renal_pelvis_left', wl: '尿路窗', overlay: 0.35, clip: 'none', view: 'front', lesson: 'uro',
         requires: ['renal_pelvis_left', 'ureter_left', 'urinary_bladder'],
         text: '注射碘造影剂约 <b>5 ~ 15 分钟</b>后，造影剂经肾小球滤过排入集合系统，<b>肾盏、肾盂、输尿管和膀胱</b>都被充盈成高密度——这就是 CT 尿路造影（CTU）的<b>排泄期</b>。3D 中可以看到完整的尿路，相当于传统"静脉肾盂造影"的三维版本。<br><br>当前使用<b>尿路窗（W1500 / L350）</b>：造影剂密度可达数百至上千 HU，软组织窗下会一片"过曝"，加宽窗才能看清腔内细节。<br><br><small>说明：本例肾盂肾盏和输尿管由造影剂阈值自动提取，未经人工校对。</small>',
       },
       {
         title: '怎么确认是排泄期？',
-        select: 'renal_pelvis_left', wl: '软组织', overlay: 0, lesson: 'uro',
+        spotlight: false, select: 'renal_pelvis_left', wl: '软组织', overlay: 0, lesson: 'uro',
         probe: ['aorta', 'inferior_vena_cava', 'kidney_left', 'renal_pelvis_left', 'ureter_left', 'urinary_bladder'],
         text: '对比下表：<b>主动脉只有约 80 HU</b>，血管里的造影剂已大部分被稀释和排出；而<b>肾盂、输尿管数百 HU</b>，远高于血管。这正是排泄期的特征。<br><br>对照<b>另一病例</b> s0344（门静脉期样表现）：那里测得主动脉约 100 HU，膀胱约 10 HU。<b>判断期相，就看造影剂"走到了哪里"</b>。',
       },
@@ -366,7 +367,7 @@ export const TOURS = [
       },
       {
         title: '这是哪个增强期相？',
-        select: 'kidney_left', overlay: 0, wl: '软组织', lesson: 'uro',
+        spotlight: false, select: 'kidney_left', overlay: 0, wl: '软组织', lesson: 'uro',
         probe: ['kidney_left', 'kidney_right', 'liver', 'aorta', 'portal_vein_and_splenic_vein', 'urinary_bladder'],
         text: '肾的强化有明确时序：<b>皮髓质期</b>皮质亮、髓质暗；<b>肾实质期</b>皮髓质均匀强化；<b>排泄期</b>造影剂进入肾盂和膀胱，尿路变白。<br><br>本例未记录采集时间。从图像看：肾实质强化趋于均匀、门静脉已充分显影、集合系统未见造影剂充盈，膀胱呈水样密度——属于<b>门静脉期样表现</b>，不是排泄期。把鼠标放在肾皮质和髓质上比较 CT 值。',
       },
@@ -409,7 +410,7 @@ export const TOURS = [
       },
       {
         title: '胰腺与毗邻结构',
-        select: 'pancreas', at: { key: 'pancreas', with: ['duodenum', 'portal_vein_and_splenic_vein'], pos: 'largest' }, complete: ['pancreas'],
+        select: 'pancreas', spotlight: ['duodenum', 'portal_vein_and_splenic_vein'], at: { key: 'pancreas', with: ['duodenum', 'portal_vein_and_splenic_vein'], pos: 'largest' }, complete: ['pancreas'],
         // s0058：自动规则落在胰头钩突层（213），看不到胰体和脾静脉；225 由 AI 辅助审阅提出、截图核对，未经医生确认
         slices: { s0058: { axial: 225 } },
         clip: 'axial', view: 'top',
@@ -422,7 +423,7 @@ export const TOURS = [
       },
       {
         title: '肾门层面',
-        select: 'kidney_left', at: { key: 'kidney_left', pos: 'hilum', toward: 'aorta' }, complete: ['kidney_left'], requires: ['kidney_left', 'aorta'],
+        select: 'kidney_left', spotlight: ['aorta'], at: { key: 'kidney_left', pos: 'hilum', toward: 'aorta' }, complete: ['kidney_left'], requires: ['kidney_left', 'aorta'],
         clip: 'axial', view: 'top',
         text: '横断位已移到左肾门开口附近：肾门朝向<b>前内侧</b>，肾静脉、肾动脉和肾盂由此出入。左肾静脉较长，从<b>腹主动脉与肠系膜上动脉之间</b>穿过汇入下腔静脉；它的走行不一定落在同一层，可以从肾门开始上下翻几层追踪。静脉与周围组织对比不足时（如排泄期 CT 或部分 MRI），可能只能确认肾门开口，难以连续追到下腔静脉。通常左肾比右肾高约半个椎体。',
       },
@@ -454,19 +455,19 @@ export const TOURS = [
       },
       {
         title: '肾上腺',
-        select: 'adrenal_gland_right', at: { key: 'adrenal_gland_right', with: ['kidney_right'], axis: 'coronal', pos: 'best' }, view: 'back',
+        select: 'adrenal_gland_right', spotlight: ['kidney_right', 'inferior_vena_cava'], at: { key: 'adrenal_gland_right', with: ['kidney_right'], axis: 'coronal', pos: 'best' }, view: 'back',
         requires: ['adrenal_gland_right', 'kidney_right'],
         text: '<b>右肾上腺</b>位于右肾上极上方、<b>下腔静脉正后方</b>。CT 上呈细线状或倒 V 形，厚度通常不超过相邻膈肌脚。<br><br>两种切面各看一种关系：<b>冠状位</b>已移到同时穿过右肾上腺和右肾的层面，看它"骑"在肾上极上方；<b>横断位</b>停在肾上腺的代表层面，看它与下腔静脉的前后关系（这一层通常还没到肾）。',
       },
       {
         title: '左肾上腺',
-        select: 'adrenal_gland_left', at: { key: 'adrenal_gland_left', with: ['kidney_left'], axis: 'coronal', pos: 'best' }, view: 'back',
+        select: 'adrenal_gland_left', spotlight: ['kidney_left', 'aorta'], at: { key: 'adrenal_gland_left', with: ['kidney_left'], axis: 'coronal', pos: 'best' }, view: 'back',
         requires: ['adrenal_gland_left', 'kidney_left'],
         text: '<b>左肾上腺</b>位于左肾上极前内侧、腹主动脉左侧，形态多呈倒 Y 形，位置比右侧略低。<br><br><b>冠状位</b>已移到同时穿过左肾上腺和左肾的层面；<b>横断位</b>停在肾上腺的代表层面，看它与腹主动脉的左右关系。',
       },
       {
         title: '十二指肠 C 形环',
-        select: 'duodenum', at: { key: 'duodenum', with: ['pancreas'], pos: 'best' }, view: 'front',
+        select: 'duodenum', spotlight: ['pancreas'], at: { key: 'duodenum', with: ['pancreas'], pos: 'best' }, view: 'front',
         requires: ['duodenum', 'pancreas'],
         text: '<b>十二指肠</b>呈 C 形包绕胰头。横断位已移到能同时看清十二指肠肠腔和相邻<b>胰头</b>的层面，展示两者的毗邻。单个横断层只能看到 C 形环的一段，完整走行请上下翻层或在 3D 中观察。降部内侧壁有十二指肠乳头，是胆总管和胰管的开口。<br><br>水平部从<b>腹主动脉与肠系膜上动脉之间</b>穿过。本平台的病例没有单独标注肠系膜上动脉，这一关系需要自己在横断位上向下翻层寻找：胰颈后方、腹主动脉前方的小圆形血管就是它。',
       },
@@ -770,12 +771,12 @@ export const TOURS = [
       },
       {
         title: '内、外直肌',
-        select: 'medial_rectus_muscle_left', at: { key: 'optic_nerve_left', pos: 'best' }, requires: ['medial_rectus_muscle_left', 'optic_nerve_left'],
+        select: 'medial_rectus_muscle_left', spotlight: ['lateral_rectus_muscle_left', 'optic_nerve_left'], at: { key: 'optic_nerve_left', pos: 'best' }, requires: ['medial_rectus_muscle_left', 'optic_nerve_left'],
         text: '横断位已移到视神经的代表层面：同一层上可见<b>内直肌</b>和<b>外直肌</b>，二者与上、下直肌围成"肌锥"。甲状腺相关眼病时眼外肌肌腹增粗（通常不累及肌腱），下直肌和内直肌最常受累。',
       },
       {
         title: '上、下直肌与上睑提肌',
-        select: 'inferior_rectus_muscle_left', clip: 'coronal', view: 'front', requires: ['inferior_rectus_muscle_left'],
+        select: 'inferior_rectus_muscle_left', spotlight: ['superior_rectus_muscle_left', 'medial_rectus_muscle_left', 'lateral_rectus_muscle_left', 'levator_palpebrae_superioris_left'], clip: 'coronal', view: 'front', requires: ['inferior_rectus_muscle_left'],
         text: '<b>冠状位</b>最适合同时观察四条直肌的横断面。<b>下直肌</b>紧贴眶底。<br><br><small>以下为临床知识补充，本例用于观察解剖：</small>眶底爆裂骨折时，眶脂肪或下直肌可经骨折缺损<b>疝入上颌窦</b>，这是 CT 上能看到的<b>形态</b>。是否发生<b>肌肉嵌顿</b>（上视受限、复视）是临床诊断，要结合眼球运动检查判断，CT 上见到疝入并不等于嵌顿；儿童的"白眼型"骨折可能 CT 改变很轻却已有嵌顿。',
       },
     ],
@@ -804,12 +805,12 @@ export const TOURS = [
       },
       {
         title: '口咽与喉咽',
-        select: 'oropharynx', requires: ['oropharynx', 'hypopharynx'],
+        select: 'oropharynx', spotlight: ['hypopharynx'], requires: ['oropharynx', 'hypopharynx'],
         text: '口咽和喉咽的分界有两种常用定义：<br>• <b>系统解剖学</b>：口咽从软腭到会厌上缘，喉咽从会厌上缘到环状软骨下缘。<br>• <b>影像和肿瘤分期</b>（如 AJCC）：以<b>舌骨平面</b>（会厌谷底）为口咽下界、喉咽上界，喉咽下界仍为环状软骨下缘。<br><br>喉咽向下续为食管。读报告或做分期时，要先弄清用的是哪一种定义。本例的口咽、喉咽为自动分割标注，分界不一定与上述任一定义完全一致。',
       },
       {
         title: '舌骨与喉软骨',
-        select: 'hyoid', view: 'front', clip: 'none',
+        select: 'hyoid', spotlight: ['thyroid_cartilage'], view: 'front', clip: 'none',
         text: '<b>舌骨</b>约平 C3，<b>甲状软骨</b>约平 C4–C5，<b>环状软骨</b>约平 C6，后者是喉与气管、咽与食管的分界。这些椎体高度是<b>近似记忆</b>，随年龄、体型和颈部姿势有一到两个椎体的差异，可以帮助估计颈部横断层面的高度。<br><br>确定具体层面时，应在<b>矢状位从 C2（齿突）向下计数</b>。本例舌骨所在的横断层面上同时有 C3 和 C4 的标注，就是这种差异的例子。<br><br>本步定位舌骨。本例甲状软骨的自动分割标注不完整，无法展示完整形态。',
       },
     ],
@@ -822,7 +823,7 @@ export const TOURS = [
     steps: [
       {
         title: '颈内动脉与颈内静脉',
-        wl: '软组织', select: 'internal_carotid_artery_left', clip: 'none', view: 'front',
+        wl: '软组织', select: 'internal_carotid_artery_left', spotlight: ['internal_jugular_vein_left'], clip: 'none', view: 'front',
         only: ['internal_carotid_artery_left', 'internal_carotid_artery_right', 'internal_jugular_vein_left', 'internal_jugular_vein_right', 'skull', 'mandible', 'vertebrae_C1', 'vertebrae_C2', 'vertebrae_C3', 'vertebrae_C4', 'vertebrae_C5', 'hyoid'],
         requires: ['internal_carotid_artery_left', 'internal_jugular_vein_left'],
         text: '<b>颈动脉鞘</b>内：<b>颈内动脉</b>居内侧、<b>颈内静脉</b>居外侧，迷走神经位于两者后方。颈内动脉在颈部没有分支，经颅底颈动脉管入颅。',
@@ -976,7 +977,7 @@ export class TourPlayer {
     if (fixed) for (const [ax, k] of Object.entries(fixed)) api.axisTo({ axial: 2, coronal: 1, sagittal: 0 }[ax], k);
     if (s.overlay != null) api.setOverlay(s.overlay);
     const spotAvail = (!!s.select || Array.isArray(s.spotlight)) && s.spotlight !== false;
-    api.setSpotlight?.(spotAvail && this.spotOn !== false, Array.isArray(s.spotlight) ? s.spotlight : []);
+    api.setSpotlight?.(spotAvail && this.spotOn !== false, [s.select, ...(Array.isArray(s.spotlight) ? s.spotlight : [])].filter(Boolean));
     if (s.clip) api.setClip(s.clip);
     if (s.view) api.setView(VIEW_DIRS[s.view]);
 
@@ -990,7 +991,7 @@ export class TourPlayer {
       <p class="t-text">${s.text}</p>
       ${s.probe ? this.probeHtml(s.probe) : ''}
       ${s.lesson ? `<button class="t-lesson" data-lesson="${s.lesson}">📖 读片手册：相关章节</button>` : ''}
-      ${spotAvail ? `<label class="t-spot"><input type="checkbox" ${this.spotOn !== false ? 'checked' : ''} /> 聚光灯：压暗所指结构周围以外的区域</label>` : ''}
+      ${spotAvail ? `<label class="t-spot"><input type="checkbox" ${this.spotOn !== false ? 'checked' : ''} /> 聚光灯：只看所指结构周围（范围外暂不能点选）</label>` : ''}
       <p class="q-hint">可随时滚轮翻层、点击结构、旋转 3D 自由探索；点"下一步"继续路线。</p>
       <div class="q-acts">
         <button data-act="prev" ${this.i === 0 ? 'disabled' : ''}>← 上一步</button>

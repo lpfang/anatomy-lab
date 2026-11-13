@@ -8,7 +8,7 @@ export const PLANES = {
   sagittal: { n: 0, u: 1, v: 2, dirs: { l: 'A', r: 'P', t: 'S', b: 'I' } },
 };
 
-const SPOT_DIM = 0.3, SPOT_PAD_MM = 20;
+const SPOT_DIM = 0.3, SPOT_PAD_MM = 20, SPOT_NEAR_MM = 60;
 
 export class SliceView {
   constructor(el, plane, vol, state) {
@@ -57,7 +57,7 @@ export class SliceView {
     const showOverlay = a > 0;
     const hidden = state.hiddenIds;
     const isolated = state.isolatedSliceLabel;
-    const spot = this._spotlight(sel, base, su, sv);
+    const spot = this.spot = this._spotlight(base, su, sv);
     for (let r = 0; r < Nv; r++) {
       const vv = Nv - 1 - r;
       let idx = base + vv * sv + (Nu - 1) * su;
@@ -102,26 +102,50 @@ export class SliceView {
     this.version++;
   }
 
-  // 聚光灯：选中结构（及导览指定的结构 spotlightIds）在本层截面的包围盒外扩一圈（保留毗邻结构作为上下文），椭圆外逐渐压暗。
-  // 返回屏幕像素坐标下的椭圆；未开启、未选中或本层没有该结构时返回 null（整幅正常显示）
-  _spotlight(sel, base, su, sv) {
-    const extra = this.state.spotlightIds;
-    if (!this.state.spotlight || (!sel && !extra.size)) return null;
+  // 聚光灯：导览本步所指结构（spotlightIds，不随学生点选而移动）在本层截面的包围盒外扩一圈（保留毗邻结构作为上下文），
+  // 椭圆外逐渐压暗。返回离屏图像像素坐标下的椭圆；未开启或本层没有这些结构时返回 null（整幅正常显示、可自由操作）
+  _spotlight(base, su, sv) {
+    const ids = this.state.spotlightIds, main = this.state.spotlightMain;
+    if (!this.state.spotlight || !ids.size) return null;
     const { Nu, Nv } = this, labels = this.vol.labels;
-    let c0 = Nu, c1 = -1, r0 = Nv, r1 = -1;
-    for (let r = 0; r < Nv; r++) {
-      let idx = base + (Nv - 1 - r) * sv + (Nu - 1) * su;
-      for (let c = 0; c < Nu; c++, idx -= su) {
-        const L = labels[idx];
-        if (!L || (L !== sel && !extra.has(L))) continue;
-        if (c < c0) c0 = c; if (c > c1) c1 = c; if (r < r0) r0 = r; if (r > r1) r1 = r;
+    // 两遍扫描：先取主结构（本步 select）的包围盒；配角结构（如腹主动脉、下腔静脉这类长结构）只计入
+    // 主结构包围盒外 SPOT_NEAR_MM 以内的部分，避免冠状 / 矢状位上整条血管把聚光灯撑成整幅。
+    // 主结构不在本层时（如分叉层面已看不到腹主动脉）配角结构全部计入
+    const box = (test, lim) => {
+      let c0 = Nu, c1 = -1, r0 = Nv, r1 = -1;
+      for (let r = 0; r < Nv; r++) {
+        if (lim && (r < lim.r0 || r > lim.r1)) continue;
+        let idx = base + (Nv - 1 - r) * sv + (Nu - 1) * su;
+        for (let c = 0; c < Nu; c++, idx -= su) {
+          if (lim && (c < lim.c0 || c > lim.c1)) continue;
+          const L = labels[idx];
+          if (!L || !test(L)) continue;
+          if (c < c0) c0 = c; if (c > c1) c1 = c; if (r < r0) r0 = r; if (r > r1) r1 = r;
+        }
       }
-    }
-    if (c1 < 0) return null;
-    // 椭圆外接包围盒（×√2），再加 20 mm 余量；羽化带宽为半径的 35%
+      return c1 < 0 ? null : { c0, c1, r0, r1 };
+    };
+    let b = ids.has(main) ? box((L) => L === main) : null;
+    if (b) {
+      const mc = SPOT_NEAR_MM / this.su, mr = SPOT_NEAR_MM / this.sv;
+      const near = box((L) => ids.has(L), { c0: b.c0 - mc, c1: b.c1 + mc, r0: b.r0 - mr, r1: b.r1 + mr });
+      if (near) b = near;
+    } else b = box((L) => ids.has(L));
+    if (!b) return null;
+    // 椭圆外接包围盒（×√2），再加 SPOT_PAD_MM 余量；羽化带宽为半径的 35%
     const pad = (sz, mm) => (sz / 2) * Math.SQRT2 + SPOT_PAD_MM / mm;
     const out = 1.35;
-    return { cx: (c0 + c1) / 2, cy: (r0 + r1) / 2, rx: pad(c1 - c0 + 1, this.su), ry: pad(r1 - r0 + 1, this.sv), out, out2: out * out };
+    return { cx: (b.c0 + b.c1) / 2, cy: (b.r0 + b.r1) / 2, rx: pad(b.c1 - b.c0 + 1, this.su), ry: pad(b.r1 - b.r0 + 1, this.sv), out, out2: out * out };
+  }
+
+  // 屏幕点（CSS 像素）是否在聚光灯照亮范围内（含羽化带内侧一半）；聚光灯外不响应定位、点选和悬停
+  inSpot(x, y) {
+    const sp = this.spot;
+    if (!sp) return true;
+    const g = this._geom();
+    const c = ((x * this.dpr - g.ox) / g.w) * this.Nu - 0.5, r = ((y * this.dpr - g.oy) / g.h) * this.Nv - 0.5;
+    const dx = (c - sp.cx) / sp.rx, dy = (r - sp.cy) / sp.ry, lim = (1 + sp.out) / 2;
+    return dx * dx + dy * dy <= lim * lim;
   }
 
   _resize() {
@@ -206,7 +230,7 @@ export class SliceView {
       // 右键拖动调窗；Mac 触控板难以按住右键拖动，因此 Ctrl / ⌘ + 左键拖动等效
       if (e.button === 2 || (e.button === 0 && (e.ctrlKey || e.metaKey))) { mode = 'wl'; wl0 = [...this.state.wl]; }
       else if (e.button === 1 || (e.button === 0 && e.altKey)) { mode = 'pan'; wl0 = [...this.pan]; }
-      else if (e.button === 0) { mode = 'cursor'; this.state.setCursor(this.screenToVoxel(e.offsetX, e.offsetY), { from: this.plane }); }
+      else if (e.button === 0 && this.inSpot(e.offsetX, e.offsetY)) { mode = 'cursor'; this.state.setCursor(this.screenToVoxel(e.offsetX, e.offsetY), { from: this.plane }); }
     });
     c.addEventListener('pointermove', (e) => {
       const dx = e.offsetX - sx, dy = e.offsetY - sy;
@@ -215,7 +239,7 @@ export class SliceView {
         this.state.setWL(Math.max(1, wl0[0] + dx * 4), wl0[1] - dy * 2, null);
       } else if (mode === 'pan') {
         this.pan = [wl0[0] + dx, wl0[1] + dy]; this.draw(false);
-      } else if (mode === 'cursor') {
+      } else if (mode === 'cursor' && this.inSpot(e.offsetX, e.offsetY)) {
         this.state.setCursor(this.screenToVoxel(e.offsetX, e.offsetY), { from: this.plane });
       }
       this._hover(e);
@@ -232,6 +256,9 @@ export class SliceView {
   }
 
   _hover(e) {
+    const ok = this.inSpot(e.offsetX, e.offsetY);
+    this.canvas.style.cursor = ok ? '' : 'not-allowed';
+    if (!ok) { this.state.tooltip(null); return; }
     const v = this.screenToVoxel(e.offsetX, e.offsetY);
     const hu = this.vol.huAt(...v);
     if (hu === null) { this.state.tooltip(null); return; }
