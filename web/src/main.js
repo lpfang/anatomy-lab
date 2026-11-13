@@ -57,6 +57,8 @@ async function main() {
     overlay: 0.35,
     outline: true,
     ghost: true,
+    spotlight: false, // 导览中的聚光灯：压暗选中结构周围以外的区域
+    spotlightIds: new Set(), // 聚光灯额外照亮的结构 id（与选中结构合并）
     showPlanes: { axial: true, coronal: false, sagittal: false },
     hiddenIds: new Set(),
     isolatedSliceLabel: 0,
@@ -443,6 +445,10 @@ async function main() {
       with3d((v) => v.resetView());
     },
     setClip: (mode) => { $('#opt-clip').value = mode; if (ready3d) view3d.setClip(mode); else pendingView = null; },
+    setSpotlight: (on, keys) => {
+      if (keys) state.spotlightIds = new Set(keys.map((k) => vol.byKey.get(k)?.id).filter(Boolean));
+      state.spotlight = !!on; invalidateAll();
+    },
     setOverlay: (v) => { state.overlay = v; $('#opt-overlay').value = Math.round(v * 100); invalidateAll(); },
     openLesson: (id) => handbook.open(id),
     runTour: (c, t) => runTour(c, t),
@@ -469,6 +475,7 @@ async function main() {
       document.querySelectorAll('.planes input').forEach((cb) => { cb.checked = !!state.showPlanes[cb.dataset.plane]; });
       with3d((v) => { v.applyAppearance(); v.syncSlices(); });
       tour.api.setOverlay(saved.overlay);
+      tour.api.setSpotlight(false);
       renderCard();
     },
   });

@@ -25,6 +25,8 @@
 //   view           3D 视角 front / top / left / right / back
 //   requires       该步需要的结构（默认取 select / at.key）
 //   overlay        标签叠加透明度 0–1（0 = 只看原始灰度图像）；导览结束后恢复
+//   spotlight      聚光灯（默认开启：压暗选中结构周围以外的区域，学生可在面板中关闭）；false = 本步不用；
+//                  结构 key 数组 = 额外照亮这些结构（如分叉层面腹主动脉已分开，需照亮两侧髂动脉）
 //   probe          在面板中列出这些结构的实测中位数（CT 为 HU，MRI 为当前序列的相对信号）
 //   （路线级）cases  仅在这些病例中出现（讲解中引用了具体病例的实测值时使用）
 //   next           { case, tour, label } 在本步显示"继续"按钮，切换到另一病例的导览（用于跨病例对比）
@@ -41,12 +43,12 @@ export const TOURS = [
     steps: [
       {
         title: '先关掉颜色，看原片',
-        overlay: 0, wl: '软组织', select: 'liver', clip: 'none', view: 'front', only: 'all', lesson: 'orient',
+        spotlight: false, overlay: 0, wl: '软组织', select: 'liver', clip: 'none', view: 'front', only: 'all', lesson: 'orient',
         text: '真实的 CT 是<b>灰度图像</b>，本平台的彩色只是教学用的标签叠加，这一路线先把它关掉。<br><br><b>方位约定</b>：横断位相当于<b>从患者足侧向头侧看</b>，所以<b>屏幕左侧 = 患者右侧</b>。肝位于屏幕左侧、脾位于屏幕右侧，这是正常的。冠状位相当于面对面看患者，同样是屏幕左 = 患者右。图像四周的橙色字母（R/L/A/P/S/I）标明方向，读片前先看一眼。',
       },
       {
         title: 'CT 值（HU）：密度的"刻度尺"',
-        select: 'liver', lesson: 'hu',
+        spotlight: false, select: 'liver', lesson: 'hu',
         probe: ['lung_upper_lobe_left', 'gallbladder', 'urinary_bladder', 'iliopsoas_left', 'liver', 'spleen', 'kidney_left', 'aorta', 'vertebrae_L3'],
         text: 'CT 测量的是组织对 X 线的衰减，以<b>水 = 0 HU、空气 = −1000 HU</b> 为基准。常用参考：脂肪 −100 ~ −50，水/尿/胆汁 0 ~ 20，肌肉 40 ~ 50，平扫肝 50 ~ 65，松质骨 200 ~ 400，皮质骨 > 1000。<br><br>下表是<b>本病例的实测中位数</b>。把鼠标移到皮下脂肪或体外空气上，提示框会显示该点的 HU。CT 上描述为<b>高密度 / 等密度 / 低密度</b>（MRI 上则说"信号"）。<br><br>注意本例肝、脾、主动脉都比上面的平扫参考值高——为什么？下一步揭晓。',
       },
@@ -58,22 +60,22 @@ export const TOURS = [
       },
       {
         title: '窗宽窗位：同一组数据，换个"看法"',
-        wl: '软组织', select: 'pancreas', lesson: 'window',
+        spotlight: false, wl: '软组织', select: 'pancreas', lesson: 'window',
         text: '人眼只能分辨几十级灰度，而 CT 值跨越几千 HU。<b>窗位（L）</b>是要显示的 HU 范围的中心，<b>窗宽（W）</b>是范围的大小：低于 L − W/2 显示为纯黑，高于 L + W/2 显示为纯白。<br><br>当前是<b>软组织窗 W400 / L40</b>，显示 −160 ~ +240 HU，适合看实质脏器和血管。在任意切片上<b>按住右键拖动</b>（Mac 触控板：<b>Ctrl 或 ⌘ + 左键拖动</b>）可以连续调节：左右改窗宽、上下改窗位，顶栏和切片左下角会显示当前 W / L。',
       },
       {
         title: '肺窗',
-        wl: '肺窗', select: 'lung_upper_lobe_right', lesson: 'window',
+        spotlight: false, wl: '肺窗', select: 'lung_upper_lobe_right', lesson: 'window',
         text: '<b>肺窗 W1500 / L−600</b>：窗位降到负值、窗宽很大，肺纹理、支气管、小结节才看得清。软组织窗下肺是一片黑，肺窗下纵隔和腹部则"糊"成一片白。<b>胸部 CT 必须分别在肺窗和纵隔（软组织）窗下各读一遍。</b>',
       },
       {
         title: '骨窗',
-        wl: '骨窗', select: 'vertebrae_L1', clip: 'sagittal', view: 'left', lesson: 'window',
+        spotlight: false, wl: '骨窗', select: 'vertebrae_L1', clip: 'sagittal', view: 'left', lesson: 'window',
         text: '<b>骨窗</b>窗位高、窗宽大，皮质骨与松质骨的细节清楚，用于观察骨折、骨质破坏和骨转移。矢状位上可以一眼看到整条脊柱的排列与椎体高度。',
       },
       {
         title: '多平面重建（MPR）',
-        overlay: 0.35, wl: '软组织', select: 'kidney_left', clip: 'coronal', view: 'front', lesson: 'orient',
+        spotlight: false, overlay: 0.35, wl: '软组织', select: 'kidney_left', clip: 'coronal', view: 'front', lesson: 'orient',
         text: '现代 CT 一次扫描得到的是<b>一整块三维数据</b>，冠状位和矢状位都是从同一块数据里"切"出来的重建图像，所以三个平面的光标可以联动。<br><br>标签颜色已重新打开：对照 3D 模型可以看到，横断位上的一个"圆"在冠状位上可能是一条"管"，这就是建立空间概念的关键。',
       },
       {
@@ -91,26 +93,26 @@ export const TOURS = [
     steps: [
       {
         title: 'T1 加权像（T1WI）',
-        seq: 'T1', wl: '标准', overlay: 0, select: 'lateral_ventricle_left', clip: 'none', view: 'top', only: 'all', lesson: 'mri-basic',
+        spotlight: false, seq: 'T1', wl: '标准', overlay: 0, select: 'lateral_ventricle_left', clip: 'none', view: 'top', only: 'all', lesson: 'mri-basic',
         requires: ['lateral_ventricle_left', 'cerebral_white_matter_left'],
         probe: ['lateral_ventricle_left', 'eye_left', 'precentral_left', 'caudate_left', 'cerebral_white_matter_left'],
         text: '<small>说明：本病例是 <b>MNI ICBM152 群体平均图谱</b>，由 152 名健康年轻成人的 MRI 非线性配准到同一标准空间后平均而成，T1、T2、PD 三组图像都在这个空间里。它比真实单次扫描更平滑、噪声更少，适合学习信号规律。</small><br><br>MRI 的数值<b>没有绝对单位</b>，只能和同一幅图中的其他组织比较，描述为<b>高 / 等 / 低信号</b>。<br><br><b>T1WI</b>：<b>脑脊液黑</b>（侧脑室、眼球玻璃体都是暗的），<b>白质比灰质亮</b>，脂肪很亮。灰白质分界清楚、解剖细节好，常被称为"<b>解剖像</b>"，也是打钆造影剂后观察强化的序列。',
       },
       {
         title: 'T2 加权像（T2WI）',
-        seq: 'T2', wl: '标准', select: 'lateral_ventricle_left', lesson: 'mri-basic',
+        spotlight: false, seq: 'T2', wl: '标准', select: 'lateral_ventricle_left', lesson: 'mri-basic',
         probe: ['lateral_ventricle_left', 'eye_left', 'precentral_left', 'caudate_left', 'cerebral_white_matter_left'],
         text: '<b>T2WI</b>：<b>水最亮</b>——脑脊液、玻璃体呈明显高信号；<b>灰质比白质亮</b>，与 T1 正好相反。<br><br>绝大多数病变（水肿、炎症、肿瘤、梗死）含水量增加，在 T2 上变亮，所以 T2 常被称为"<b>病变像</b>"。记住一句话：<b>T2 上水是白的</b>。<br><br>但"病变像"只是粗略说法，不同病变、不同病程要看的序列不同。例如超急性期脑梗死：<b>DWI 已经变亮（ADC 降低）</b>时，T2 / FLAIR 可能还没有对应的高信号。DWI 和 ADC 的判读见 <b>读片入门 → 其他常用序列</b>。',
       },
       {
         title: '质子密度像（PD）',
-        seq: 'PD', wl: '标准', select: 'lateral_ventricle_left', lesson: 'mri-basic',
+        spotlight: false, seq: 'PD', wl: '标准', select: 'lateral_ventricle_left', lesson: 'mri-basic',
         probe: ['lateral_ventricle_left', 'eye_left', 'precentral_left', 'caudate_left', 'cerebral_white_matter_left'],
         text: '<b>PD</b> 尽量减少 T1 和 T2 的影响，信号主要反映组织中<b>氢质子的多少</b>。灰质仍略亮于白质，脑脊液含水多、质子密度高，因此也偏亮，但整体灰白质对比较平淡。PD 在脑部已较少单独使用，但在<b>关节（半月板、软骨、韧带）</b>检查中非常常用，常配合脂肪抑制。',
       },
       {
         title: '来回切换，自己总结',
-        seq: 'T1', select: 'caudate_left', clip: 'coronal', view: 'front', lesson: 'mri-table',
+        spotlight: false, seq: 'T1', select: 'caudate_left', clip: 'coronal', view: 'front', lesson: 'mri-table',
         text: '用顶栏的 <b>T1 / T2 / PD</b> 按钮来回切换，观察同一结构的变化。辨认<b>常规脑 MRI</b> 序列的口诀：<br>① <b>先看脑脊液</b>（侧脑室、眼球玻璃体）：脑脊液黑 → T1 或 FLAIR；脑脊液白 → T2。<br>② <b>再看灰白质</b>：白质亮于灰质 → T1；灰质亮于白质 → T2 / PD / FLAIR。<br>③ <b>水黑但灰质亮于白质</b> → FLAIR（压了水的 T2）。<br>④ <b>脂肪变暗</b> → 用了脂肪抑制。<br><br>口诀只用来辨认序列。腹部、盆腔很少做 FLAIR，不要直接套用。',
       },
       {
@@ -129,7 +131,7 @@ export const TOURS = [
     steps: [
       {
         title: '信号只有相对意义',
-        overlay: 0, wl: '标准', select: 'liver', clip: 'none', view: 'front', only: 'all', lesson: 'mri-table',
+        spotlight: false, overlay: 0, wl: '标准', select: 'liver', clip: 'none', view: 'front', only: 'all', lesson: 'mri-table',
         requires: ['liver', 'aorta', 'spinal_cord'],
         probe: ['portal_vein_and_splenic_vein', 'liver', 'kidney_left', 'spleen', 'aorta', 'gallbladder', 'iliopsoas_left', 'intervertebral_discs', 'spinal_cord'],
         text: '下表是本例 MRI 的归一化信号（已按本例自身的高信号分位数缩放），数值本身没有意义（不同机器、参数下完全不同），但<b>排序</b>有意义。描述时说"肝呈<b>稍高信号</b>"，而不是"肝 1400"。<br><br>这个病例的原始数据没有记录序列名称、TR / TE，也没有是否注射造影剂和期相的信息。我们来当一回侦探：下面的推断都是<b>根据图像表现的推测，未经核实</b>。',
@@ -146,7 +148,7 @@ export const TOURS = [
       },
       {
         title: '和 CT 对照',
-        overlay: 0.35, select: 'kidney_left', clip: 'coronal', view: 'front', lesson: 'compare',
+        spotlight: false, overlay: 0.35, select: 'kidney_left', clip: 'coronal', view: 'front', lesson: 'compare',
         text: '可以切换到 CT 病例对照：CT 对<b>骨骼、肺、钙化、急性出血</b>更敏感、扫描快；MRI 无电离辐射、<b>软组织对比更好</b>，能区分脂肪、水、出血、纤维组织等成分，在肝脏局灶病变、胰胆管（MRCP）、盆腔、神经系统和关节中优势明显。',
       },
     ],
@@ -299,7 +301,7 @@ export const TOURS = [
     steps: [
       {
         title: '盆腔 T2 加权像',
-        select: 'urinary_bladder', wl: '标准', overlay: 0, clip: 'none', view: 'front', only: 'all', lesson: 'uro',
+        spotlight: false, select: 'urinary_bladder', wl: '标准', overlay: 0, clip: 'none', view: 'front', only: 'all', lesson: 'uro',
         requires: ['prostate', 'urinary_bladder'],
         probe: ['urinary_bladder', 'prostate', 'colon', 'hip_left'],
         text: '这是一例<b>三维 T2 加权</b>盆腔 MRI（体素约 1 mm），可以在任意平面重建。先确认序列：盆腔里没有脑脊液可作参照，可以看<b>膀胱尿液</b>。尿液很亮，再结合扫描参数，可确认是 T2 加权（盆腔 MRI 一般不做 FLAIR）。<br><br>与 CT 相比，MRI 能看清前列腺内部的结构，而 CT 上前列腺只是一团均匀的软组织。',
@@ -342,7 +344,7 @@ export const TOURS = [
     steps: [
       {
         title: '全景：肾的位置',
-        only: ['kidney_left', 'kidney_right', 'adrenal_gland_left', 'adrenal_gland_right', 'urinary_bladder', 'prostate', 'aorta', 'inferior_vena_cava', 'iliac_artery_left', 'iliac_artery_right', 'iliac_vena_left', 'iliac_vena_right', 'iliopsoas_left', 'iliopsoas_right', 'vertebrae_T11', 'vertebrae_T12', 'vertebrae_L1', 'vertebrae_L2', 'vertebrae_L3', 'vertebrae_L4', 'vertebrae_L5', 'sacrum', 'hip_left', 'hip_right'],
+        spotlight: false, only: ['kidney_left', 'kidney_right', 'adrenal_gland_left', 'adrenal_gland_right', 'urinary_bladder', 'prostate', 'aorta', 'inferior_vena_cava', 'iliac_artery_left', 'iliac_artery_right', 'iliac_vena_left', 'iliac_vena_right', 'iliopsoas_left', 'iliopsoas_right', 'vertebrae_T11', 'vertebrae_T12', 'vertebrae_L1', 'vertebrae_L2', 'vertebrae_L3', 'vertebrae_L4', 'vertebrae_L5', 'sacrum', 'hip_left', 'hip_right'],
         select: 'kidney_right', wl: '软组织', overlay: 0.35, clip: 'none', view: 'front', lesson: 'uro',
         requires: ['kidney_left', 'kidney_right', 'urinary_bladder'],
         text: '3D 中只保留泌尿系统、大血管、腰大肌和脊柱。肾位于腹膜后、脊柱两侧，约平 <b>T12 ~ L3</b>。教科书说<b>右肾因上方有肝，通常比左肾低约半个椎体</b>。<br><br>但看本例：<b>右肾上极约平 T11，左肾上极约在 T12 与 L1 之间</b>，右肾反而更高。精确的椎体水平应在同一矢状位上计数确定。这是正常的个体差异——<b>读片要以实际图像为准</b>，不能只凭"规律"判断左右。',
@@ -396,7 +398,7 @@ export const TOURS = [
     id: 'abdomen-axial',
     title: '腹部横断面巡礼',
     en: 'Abdominal axial levels',
-    desc: '自上而下走过 5 个关键横断层面，建立"层面 ↔ 器官"的对应。',
+    desc: '从膈顶到盆腔，自上而下走过几个关键横断层面，建立"层面 ↔ 器官"的对应；最后一步加看矢状位。',
     steps: [
       {
         title: '起点：膈顶与肝顶',
@@ -426,7 +428,7 @@ export const TOURS = [
       },
       {
         title: '腹主动脉分叉',
-        select: 'aorta', at: { key: 'iliac_artery_left', with: ['iliac_artery_right'], without: ['aorta'], pos: 'top', offset: -3 }, clip: 'axial', view: 'front',
+        select: 'aorta', spotlight: ['iliac_artery_left', 'iliac_artery_right'], at: { key: 'iliac_artery_left', with: ['iliac_artery_right'], without: ['aorta'], pos: 'top', offset: -3 }, clip: 'axial', view: 'front',
         requires: ['aorta', 'iliac_artery_left', 'iliac_artery_right'],
         text: '横断位已移到<b>分叉稍下方</b>：脊柱前方可见刚分开的<b>左右髂总动脉</b>两个圆形管腔。向上翻几层，可以看到两个管腔先变成"双叶形"、再合成腹主动脉单干，这就是分叉的过程。腹主动脉在约<b>第 4 腰椎</b>水平分为左右髂总动脉，这一层面也大约是髂嵴最高点的水平。下腔静脉位于其右侧，在稍低的 L5 水平由左右髂总静脉汇合而成。',
       },
@@ -446,7 +448,7 @@ export const TOURS = [
     steps: [
       {
         title: '腹膜后间隙一览',
-        only: ['kidney_left', 'kidney_right', 'adrenal_gland_left', 'adrenal_gland_right', 'pancreas', 'duodenum', 'aorta', 'inferior_vena_cava', 'vertebrae_L1', 'vertebrae_L2', 'vertebrae_L3', 'vertebrae', 'iliopsoas_left', 'iliopsoas_right'],
+        spotlight: false, only: ['kidney_left', 'kidney_right', 'adrenal_gland_left', 'adrenal_gland_right', 'pancreas', 'duodenum', 'aorta', 'inferior_vena_cava', 'vertebrae_L1', 'vertebrae_L2', 'vertebrae_L3', 'vertebrae', 'iliopsoas_left', 'iliopsoas_right'],
         select: 'pancreas', clip: 'none', view: 'front', requires: ['pancreas', 'kidney_left'],
         text: '3D 中显示<b>腹膜后的主要器官</b>，并保留脊柱和腰大肌作定位参照。注意十二指肠<b>大部分</b>位于腹膜后，但起始约 2 ~ 3 cm（球部）属于腹膜内。旋转模型可以看到：<b>胰</b>和<b>十二指肠</b>位于最前方，<b>肾</b>和<b>肾上腺</b>靠后贴近腰大肌，大血管紧贴脊柱前方。',
       },
@@ -581,12 +583,12 @@ export const TOURS = [
     steps: [
       {
         title: 'T1 加权像',
-        seq: 'T1', wl: '标准', select: 'lateral_ventricle_left', clip: 'axial', view: 'top',
+        spotlight: false, seq: 'T1', wl: '标准', select: 'lateral_ventricle_left', clip: 'axial', view: 'top',
         text: '<b>T1</b> 像上：<b>脑脊液为低信号（黑）</b>，<b>白质比灰质亮</b>。T1 解剖细节清楚，常用于观察结构和增强扫描。',
       },
       {
         title: 'T2 加权像',
-        seq: 'T2', wl: '标准', select: 'lateral_ventricle_left',
+        spotlight: false, seq: 'T2', wl: '标准', select: 'lateral_ventricle_left',
         text: '切换到 <b>T2</b>：<b>脑脊液变为高信号（白）</b>，<b>白质比灰质暗</b>。多数病变（水肿、炎症、肿瘤）含水增多，在 T2 上呈高信号，因此 T2 对发现病变更敏感。',
       },
       {
@@ -596,7 +598,7 @@ export const TOURS = [
       },
       {
         title: '口诀',
-        seq: 'T1', select: 'cerebral_white_matter_left', clip: 'axial', view: 'top',
+        spotlight: false, seq: 'T1', select: 'cerebral_white_matter_left', clip: 'axial', view: 'top',
         text: '简记：<b>"T1 看解剖，T2 看病变"</b>；<b>"水在 T1 黑、在 T2 白"</b>。脂肪在两者上都偏亮，可用脂肪抑制序列区分。',
       },
     ],
@@ -733,18 +735,18 @@ export const TOURS = [
     steps: [
       {
         title: '脑窗（W80 / L40）',
-        wl: '脑窗', select: 'brain', clip: 'axial', view: 'top', only: 'all',
+        spotlight: false, wl: '脑窗', select: 'brain', clip: 'axial', view: 'top', only: 'all',
         requires: ['brain', 'skull'],
         text: '<b>脑窗</b>窗宽很窄，用来放大脑实质内细微的密度差：灰质约 35–40 HU，白质约 25–30 HU，脑脊液约 0–10 HU。急性出血约 60–80 HU，在脑窗下呈高密度。',
       },
       {
         title: '骨窗（W2800 / L600）',
-        wl: '骨窗', select: 'skull',
+        spotlight: false, wl: '骨窗', select: 'skull',
         text: '<b>骨窗</b>下脑组织一片灰，但颅骨的内外板、板障和骨缝清晰可见，用于观察<b>颅骨骨折</b>和颅底孔道。读颅脑外伤 CT 时，脑窗和骨窗都必须看。',
       },
       {
         title: '硬膜下窗（W200 / L75）',
-        wl: '硬膜下', select: 'brain',
+        spotlight: false, wl: '硬膜下', select: 'brain',
         text: '<small>说明：本例原始记录中病理和病变部位均为"不明确"，也没有血肿的标注。这一步只用本例比较窗位的显示效果；下面关于血肿的内容是临床知识补充。</small><br><br><b>硬膜下窗</b>介于脑窗和骨窗之间，可以把紧贴颅骨内板的薄层硬膜下血肿与颅骨区分开——在普通脑窗下它们常常"融"在一起。',
       },
     ],
@@ -889,6 +891,7 @@ export class TourPlayer {
     this.tour = null;
     this._token = (this._token || 0) + 1;   // 与退出导览相同：让仍在等待（如序列下载）的旧步骤失效
     const tours = this.available();
+    this.api.setSpotlight?.(false);
     const p = this.api.panel;
     p.innerHTML = `
       <div class="q-head"><h2>导览 <small>Guided tours</small></h2><button class="q-x" title="退出导览">✕</button></div>
@@ -972,6 +975,8 @@ export class TourPlayer {
     const fixed = s.slices?.[api.vol.meta.caseId];
     if (fixed) for (const [ax, k] of Object.entries(fixed)) api.axisTo({ axial: 2, coronal: 1, sagittal: 0 }[ax], k);
     if (s.overlay != null) api.setOverlay(s.overlay);
+    const spotAvail = (!!s.select || Array.isArray(s.spotlight)) && s.spotlight !== false;
+    api.setSpotlight?.(spotAvail && this.spotOn !== false, Array.isArray(s.spotlight) ? s.spotlight : []);
     if (s.clip) api.setClip(s.clip);
     if (s.view) api.setView(VIEW_DIRS[s.view]);
 
@@ -985,6 +990,7 @@ export class TourPlayer {
       <p class="t-text">${s.text}</p>
       ${s.probe ? this.probeHtml(s.probe) : ''}
       ${s.lesson ? `<button class="t-lesson" data-lesson="${s.lesson}">📖 读片手册：相关章节</button>` : ''}
+      ${spotAvail ? `<label class="t-spot"><input type="checkbox" ${this.spotOn !== false ? 'checked' : ''} /> 聚光灯：压暗所指结构周围以外的区域</label>` : ''}
       <p class="q-hint">可随时滚轮翻层、点击结构、旋转 3D 自由探索；点"下一步"继续路线。</p>
       <div class="q-acts">
         <button data-act="prev" ${this.i === 0 ? 'disabled' : ''}>← 上一步</button>
@@ -994,6 +1000,7 @@ export class TourPlayer {
       </div>`;
     p.querySelector('.q-x').onclick = () => this.exit();
     p.querySelector('[data-act=prev]').onclick = () => this.go(-1);
+    p.querySelector('.t-spot input')?.addEventListener('change', (e) => { this.spotOn = e.target.checked; api.setSpotlight?.(this.spotOn); });
     p.querySelector('.t-lesson')?.addEventListener('click', () => api.openLesson?.(s.lesson));
     p.querySelector('[data-act=next]')?.addEventListener('click', () => this.go(1));
     p.querySelector('[data-act=nextcase]')?.addEventListener('click', () => api.runTour(s.next.case, s.next.tour));

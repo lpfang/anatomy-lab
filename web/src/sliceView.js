@@ -8,6 +8,8 @@ export const PLANES = {
   sagittal: { n: 0, u: 1, v: 2, dirs: { l: 'A', r: 'P', t: 'S', b: 'I' } },
 };
 
+const SPOT_DIM = 0.3, SPOT_PAD_MM = 20;
+
 export class SliceView {
   constructor(el, plane, vol, state) {
     this.el = el;
@@ -55,18 +57,26 @@ export class SliceView {
     const showOverlay = a > 0;
     const hidden = state.hiddenIds;
     const isolated = state.isolatedSliceLabel;
+    const spot = this._spotlight(sel, base, su, sv);
     for (let r = 0; r < Nv; r++) {
       const vv = Nv - 1 - r;
       let idx = base + vv * sv + (Nu - 1) * su;
       let o = r * Nu * 4;
+      const dy = spot ? (r - spot.cy) / spot.ry : 0;
       for (let c = 0; c < Nu; c++, idx -= su, o += 4) {
-        const g = lut[ct[idx] + 1024];
+        let g = lut[ct[idx] + 1024];
+        let f = 1;
+        if (spot) {
+          const dx = (c - spot.cx) / spot.rx, d2 = dx * dx + dy * dy;
+          if (d2 > 1) f = d2 >= spot.out2 ? SPOT_DIM : 1 - (1 - SPOT_DIM) * (Math.sqrt(d2) - 1) / (spot.out - 1);
+          g *= f;
+        }
         const L = labels[idx];
         if (L && showOverlay && (!isolated || L === isolated) && !hidden.has(L)) {
-          const k = L === sel ? aSel : a, k1 = 1 - k;
-          data[o] = g * k1 + colors[L * 3] * k;
-          data[o + 1] = g * k1 + colors[L * 3 + 1] * k;
-          data[o + 2] = g * k1 + colors[L * 3 + 2] * k;
+          const k = L === sel ? aSel : a, k1 = 1 - k, kf = k * f;
+          data[o] = g * k1 + colors[L * 3] * kf;
+          data[o + 1] = g * k1 + colors[L * 3 + 1] * kf;
+          data[o + 2] = g * k1 + colors[L * 3 + 2] * kf;
         } else {
           data[o] = data[o + 1] = data[o + 2] = g;
         }
@@ -90,6 +100,28 @@ export class SliceView {
     }
     this.offCtx.putImageData(this.img, 0, 0);
     this.version++;
+  }
+
+  // 聚光灯：选中结构（及导览指定的结构 spotlightIds）在本层截面的包围盒外扩一圈（保留毗邻结构作为上下文），椭圆外逐渐压暗。
+  // 返回屏幕像素坐标下的椭圆；未开启、未选中或本层没有该结构时返回 null（整幅正常显示）
+  _spotlight(sel, base, su, sv) {
+    const extra = this.state.spotlightIds;
+    if (!this.state.spotlight || (!sel && !extra.size)) return null;
+    const { Nu, Nv } = this, labels = this.vol.labels;
+    let c0 = Nu, c1 = -1, r0 = Nv, r1 = -1;
+    for (let r = 0; r < Nv; r++) {
+      let idx = base + (Nv - 1 - r) * sv + (Nu - 1) * su;
+      for (let c = 0; c < Nu; c++, idx -= su) {
+        const L = labels[idx];
+        if (!L || (L !== sel && !extra.has(L))) continue;
+        if (c < c0) c0 = c; if (c > c1) c1 = c; if (r < r0) r0 = r; if (r > r1) r1 = r;
+      }
+    }
+    if (c1 < 0) return null;
+    // 椭圆外接包围盒（×√2），再加 20 mm 余量；羽化带宽为半径的 35%
+    const pad = (sz, mm) => (sz / 2) * Math.SQRT2 + SPOT_PAD_MM / mm;
+    const out = 1.35;
+    return { cx: (c0 + c1) / 2, cy: (r0 + r1) / 2, rx: pad(c1 - c0 + 1, this.su), ry: pad(r1 - r0 + 1, this.sv), out, out2: out * out };
   }
 
   _resize() {
