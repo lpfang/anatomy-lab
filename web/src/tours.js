@@ -13,6 +13,7 @@
 //                  没有共同层面时退回不带 with 的规则
 //                  without: [keys] 进一步排除这些结构有标签的层面（如分叉：主动脉标签已消失、两侧髂动脉都在）
 //                  pos: 'hilum' + toward: key 肾门层：肾截面朝 toward 结构方向开口最明显的轴位（见 hilumSlice），找不到时退回 best
+//                  at 也可以是数组：依次尝试，取第一个当前病例有该结构的定位
 //   complete       [keys] 这些结构被扫描上下缘截断时跳过本步
 //   slices         { 病例 ID: { axial / coronal / sagittal: 层号 } } 对照灰阶图像挑选的默认层（AI 辅助审阅提出、在浏览器中截图核对，未经医生确认），
 //                  在 select / at 之后应用，优先于自动定位（层号为从 0 开始的体素索引）
@@ -431,8 +432,9 @@ export const TOURS = [
       },
       {
         title: '盆腔：膀胱',
-        select: 'urinary_bladder', clip: 'none', view: 'front',
-        text: '<b>膀胱</b>位于耻骨联合后方。充盈的膀胱 CT 上呈水样密度；MRI T1 上为低信号，T2 上为高信号。男性在其下方可见前列腺。',
+        select: 'urinary_bladder', at: [{ key: 'prostate', axis: 'sagittal' }, { key: 'hip_left', axis: 'sagittal', pos: 'medial' }],
+        requires: ['urinary_bladder'], clip: 'none', view: 'front',
+        text: '<b>膀胱</b>位于耻骨联合后方，男性在其下方可见<b>前列腺</b>。这两组前后、上下关系在<b>近中线矢状位</b>上最直观，矢状位已移到中线附近。未混入造影剂的尿液 CT 上呈水样密度；增强延迟期或尿路造影时，排泄的造影剂比尿液重，常沉在膀胱后部形成<b>液–液分层</b>。MRI 上尿液 T1 低信号、T2 高信号。',
       },
     ],
   },
@@ -862,7 +864,7 @@ export class TourPlayer {
     return TOURS.filter((t) => !t.cases || t.cases.includes(caseId)).map((t) => {
       // complete：这些结构不能被扫描范围的上下缘截断（否则看不到完整解剖关系，跳过本步）
       const whole = (k) => { const [z0, z1] = this.api.vol.byKey.get(k).bboxVoxel[2]; return z0 > 0 && z1 < this.api.vol.nz - 1; };
-      const steps = t.steps.filter((s) => (s.requires || [s.select, s.at?.key].filter(Boolean)).every(has)
+      const steps = t.steps.filter((s) => (s.requires || [s.select, Array.isArray(s.at) ? null : s.at?.key].filter(Boolean)).every(has)
         && (s.complete || []).every((k) => has(k) && whole(k)));
       return { ...t, steps };
     }).filter((t) => t.steps.length >= 2);
@@ -937,33 +939,35 @@ export class TourPlayer {
     else if (this.i === 0) api.setVisible(null);
     if (s.wl) api.setPreset(s.wl);
     if (s.select) api.select(s.select);
-    if (s.at) {
-      const st = api.vol.byKey.get(s.at.key);
-      const axis = { axial: 2, coronal: 1, sagittal: 0 }[s.at.axis || 'axial'];
+    // at 可为数组：取第一个当前病例有该结构的定位（如男性按前列腺、女性按髋骨内缘）
+    const at = [].concat(s.at || []).find((a) => api.vol.byKey.has(a.key));
+    if (at) {
+      const st = api.vol.byKey.get(at.key);
+      const axis = { axial: 2, coronal: 1, sagittal: 0 }[at.axis || 'axial'];
       const [k0, k1] = st.bboxVoxel[axis];
-      let k = s.at.pos === 'top' ? k1 : s.at.pos === 'bottom' ? k0 : st.bestSlice[axis];
-      let common = s.at.with ? this.commonSlices([s.at.key, ...s.at.with], axis) : [];
-      if (s.at.without) {
-        const bad = new Set(s.at.without.flatMap((key) => this.commonSlices([key], axis).map((c) => c.k)));
+      let k = at.pos === 'top' ? k1 : at.pos === 'bottom' ? k0 : st.bestSlice[axis];
+      let common = at.with ? this.commonSlices([at.key, ...at.with], axis) : [];
+      if (at.without) {
+        const bad = new Set(at.without.flatMap((key) => this.commonSlices([key], axis).map((c) => c.k)));
         common = common.filter((c) => !bad.has(c.k));
       }
       if (common.length) {
         // top / bottom：只在各结构截面都不小于中位水平一半的层面中取极值，避免选到只擦边几个体素的层
         const med = [...common].sort((a, b) => a.min - b.min)[common.length >> 1].min;
         const solid = common.filter((c) => c.min >= med / 2);
-        k = s.at.pos === 'top' ? solid[solid.length - 1].k : s.at.pos === 'bottom' ? solid[0].k
-          : s.at.pos === 'largest' ? solid.reduce((a, b) => (b.n[0] > a.n[0] ? b : a)).k
+        k = at.pos === 'top' ? solid[solid.length - 1].k : at.pos === 'bottom' ? solid[0].k
+          : at.pos === 'largest' ? solid.reduce((a, b) => (b.n[0] > a.n[0] ? b : a)).k
           : common.reduce((a, b) => (b.min > a.min ? b : a)).k;
-      } else if (s.at.pos === 'hilum') {
-        k = this.hilumSlice(s.at.key, s.at.toward) ?? k;
-      } else if (s.at.pos === 'medial') {
+      } else if (at.pos === 'hilum') {
+        k = this.hilumSlice(at.key, at.toward) ?? k;
+      } else if (at.pos === 'medial') {
         // 中线参照：对侧同名结构的包围盒中心与本结构包围盒中心的中点；没有对侧结构时用体积中心
-        const twin = api.vol.byKey.get(s.at.key.replace(/_(left|right)$/, (m, d) => (d === 'left' ? '_right' : '_left')));
+        const twin = api.vol.byKey.get(at.key.replace(/_(left|right)$/, (m, d) => (d === 'left' ? '_right' : '_left')));
         const mid = (b) => (b.bboxVoxel[axis][0] + b.bboxVoxel[axis][1]) / 2;
         const ref = twin && twin !== st ? (mid(twin) + mid(st)) / 2 : [api.vol.nx, api.vol.ny, api.vol.nz][axis] / 2;
         k = Math.abs(k0 - ref) < Math.abs(k1 - ref) ? k0 : k1;
       }
-      api.axisTo(axis, k + (s.at.offset || 0));
+      api.axisTo(axis, k + (at.offset || 0));
     }
     const fixed = s.slices?.[api.vol.meta.caseId];
     if (fixed) for (const [ax, k] of Object.entries(fixed)) api.axisTo({ axial: 2, coronal: 1, sagittal: 0 }[ax], k);
