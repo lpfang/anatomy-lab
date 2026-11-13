@@ -462,6 +462,9 @@ export const TOURS = [
       {
         title: '左肾上腺',
         select: 'adrenal_gland_left', spotlight: ['kidney_left', 'aorta'], at: { key: 'adrenal_gland_left', with: ['kidney_left'], axis: 'coronal', pos: 'best' }, view: 'back',
+        // mr_s0646：自动规则取两者截面较小值最大的层（56），那里肾上腺最大但只擦到左肾下部前缘，看不到"骑在肾上极上方"；
+        // 52 层肾上腺紧贴肾上极上方、内侧可见腹主动脉（截图核对）
+        slices: { mr_s0646: { coronal: 52 } },
         requires: ['adrenal_gland_left', 'kidney_left'],
         text: '<b>左肾上腺</b>位于左肾上极前内侧、腹主动脉左侧，形态多呈倒 Y 形，位置比右侧略低。<br><br><b>冠状位</b>已移到同时穿过左肾上腺和左肾的层面；<b>横断位</b>停在肾上腺的代表层面，看它与腹主动脉的左右关系。',
       },
