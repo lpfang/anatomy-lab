@@ -8,7 +8,7 @@ export const PLANES = {
   sagittal: { n: 0, u: 1, v: 2, dirs: { l: 'A', r: 'P', t: 'S', b: 'I' } },
 };
 
-const SPOT_DIM = 0.3, SPOT_PAD_MM = 20, SPOT_NEAR_MM = 60;
+const SPOT_DIM = 0.3, SPOT_PAD_MM = 15, SPOT_NEAR_MM = 60, SPOT_SNUG_MM = 10, SPOT_MAIN_MM = 100, SPOT_FIT = 1.2;
 
 export class SliceView {
   constructor(el, plane, vol, state) {
@@ -129,15 +129,33 @@ export class SliceView {
       }
       return c1 < 0 ? null : { c0, c1, r0, r1 };
     };
-    let b = ids.has(main) ? box((L) => L === main) : null;
+    // 主结构只计入本步开始时光标位置（spotlightAnchor，导览已把光标放在目标处；之后学生点选不移动聚光灯）附近 SPOT_MAIN_MM 内的部分：长结构（主动脉等）在冠状 / 矢状位上
+    // 可能只在远处露出一段，不能把聚光灯带离目标
+    const anc = this.state.spotlightAnchor || this.state.cursor;
+    const cu = Nu - 1 - anc[this.p.u], cv = Nv - 1 - anc[this.p.v];
+    const mu = SPOT_MAIN_MM / this.su, mv = SPOT_MAIN_MM / this.sv;
+    const aw = { c0: cu - mu, c1: cu + mu, r0: cv - mv, r1: cv + mv };
+    let b = ids.has(main) ? box((L) => L === main, aw) : null;
     if (b) {
+      // 配角结构：先限定在主结构包围盒外 SPOT_NEAR_MM 内；再逐轴收紧——配角在某一轴上与主结构范围重叠时
+      // （如冠状位上腹主动脉与左肾上下并行），该轴只保留主结构范围外 SPOT_SNUG_MM，不让长结构沿该轴撑大
       const mc = SPOT_NEAR_MM / this.su, mr = SPOT_NEAR_MM / this.sv;
-      const near = box((L) => ids.has(L), { c0: b.c0 - mc, c1: b.c1 + mc, r0: b.r0 - mr, r1: b.r1 + mr });
-      if (near) b = near;
-    } else b = box((L) => ids.has(L));
+      const win = { c0: b.c0 - mc, c1: b.c1 + mc, r0: b.r0 - mr, r1: b.r1 + mr };
+      const sc = SPOT_SNUG_MM / this.su, sr = SPOT_SNUG_MM / this.sv;
+      const m = { ...b };
+      for (const id of ids) {
+        if (id === main) continue;
+        const near = box((L) => L === id, win);   // 每个配角结构单独收紧，互不影响
+        if (!near) continue;
+        if (near.c0 <= b.c1 && near.c1 >= b.c0) { near.c0 = Math.max(near.c0, b.c0 - sc); near.c1 = Math.min(near.c1, b.c1 + sc); }
+        if (near.r0 <= b.r1 && near.r1 >= b.r0) { near.r0 = Math.max(near.r0, b.r0 - sr); near.r1 = Math.min(near.r1, b.r1 + sr); }
+        m.c0 = Math.min(m.c0, near.c0); m.c1 = Math.max(m.c1, near.c1); m.r0 = Math.min(m.r0, near.r0); m.r1 = Math.max(m.r1, near.r1);
+      }
+      b = m;
+    } else b = box((L) => L !== main && ids.has(L), aw);   // 主结构不在附近时，配角结构同样只取目标附近的部分
     if (!b) return null;
-    // 椭圆外接包围盒（×√2），再加 SPOT_PAD_MM 余量；羽化带宽为半径的 35%
-    const pad = (sz, mm) => (sz / 2) * Math.SQRT2 + SPOT_PAD_MM / mm;
+    // 椭圆略大于包围盒（×SPOT_FIT，再加 SPOT_PAD_MM 余量，四角落在羽化带内侧）；羽化带宽为半径的 35%
+    const pad = (sz, mm) => (sz / 2) * SPOT_FIT + SPOT_PAD_MM / mm;
     const out = 1.35;
     return { cx: (b.c0 + b.c1) / 2, cy: (b.r0 + b.r1) / 2, rx: pad(b.c1 - b.c0 + 1, this.su), ry: pad(b.r1 - b.r0 + 1, this.sv), out, out2: out * out };
   }

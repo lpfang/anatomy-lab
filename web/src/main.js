@@ -60,6 +60,7 @@ async function main() {
     spotlight: false, // 导览中的聚光灯：压暗选中结构周围以外的区域
     spotlightIds: new Set(), // 聚光灯照亮的结构 id（导览本步所指结构）
     spotlightMain: 0,        // 其中的主结构（本步 select）
+    spotlightAnchor: null,   // 本步开始时的光标位置，主结构只计入其附近的部分
     showPlanes: { axial: true, coronal: false, sagittal: false },
     hiddenIds: new Set(),
     isolatedSliceLabel: 0,
@@ -475,6 +476,7 @@ async function main() {
       if (keys) {
         state.spotlightIds = new Set(keys.map((k) => vol.byKey.get(k)?.id).filter(Boolean));
         state.spotlightMain = vol.byKey.get(keys[0])?.id || 0;
+        state.spotlightAnchor = [...state.cursor];
       }
       state.spotlight = !!on; invalidateAll();
     },
